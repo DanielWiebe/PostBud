@@ -47,9 +47,17 @@ dependencies {
      implementation 'com.jakewharton:butterknife:10.2.3'
      annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.3'
 
-     //Firebase Implementation for data storage
+     // ----- FIREBASE / FIRESTORE -----
+     // BoM for the Firebase platform
+     // When using the BoM, you don't specify versions in Firebase library dependencies
+     implementation platform('com.google.firebase:firebase-bom:26.2.0')
+
+     // Firebase Implementation for data storage
      implementation 'com.google.firebase:firebase-firestore'
-     implementation 'com.firebaseui:firebase-ui-firestore:4.1.0'
+
+     // Firebase Authentication library for users management
+     implementation 'com.google.firebase:firebase-auth'
+     // --------------------------------
 
 
 }

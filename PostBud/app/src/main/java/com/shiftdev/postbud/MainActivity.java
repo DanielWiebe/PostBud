@@ -11,9 +11,13 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class MainActivity extends AppCompatActivity {
+
+     public static final String PARCELS = "parcels";
 
      @Override
      protected void onCreate(Bundle savedInstanceState) {
@@ -30,16 +34,15 @@ public class MainActivity extends AppCompatActivity {
           NavigationUI.setupWithNavController(navView, navController);
 
           // Testing Firestore
+          FirebaseAuth mAuth = FirebaseAuth.getInstance();
+
           FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-          Employee art = new Employee("art", "Artyom Kim", "12345678");
+          Account admin = new Administrator("art202042069@gmail.com","Art", "password", this);
 
-          db.collection("employees").add(art);
+          Parcel newParcel = new Parcel("Vancouver", "Toronto", "Winnipeg", "Colt", "Sport Wheels - R8", 1, "kjG4GHj5JNhb53");
 
+          db.collection(PARCELS).add(newParcel);
      }
 
-     public void goToAddParcelActivity(View view) {
-          Intent intent = new Intent(MainActivity.this, AddParcelActivity.class);
-          MainActivity.this.startActivity(intent);
-     }
 }

@@ -10,9 +10,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PostBud">
         <activity
-            android:name=".AddParcelActivity"
-            android:label="@string/title_activity_add_parcel" />
-        <activity
             android:name=".MainActivity"
             android:label="@string/app_name">
             <intent-filter>
