@@ -3,4 +3,11 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="parcel_status_in_transit">In Transit</string>
+    <string name="parcel_status_awaiting">In Transit</string>
+    <string name="parcel_status_under_review">In Transit</string>
+    <string name="parcel_status_">In Transit</string>
+    <string name="parcel_status_in_status">IN TRANSIT</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

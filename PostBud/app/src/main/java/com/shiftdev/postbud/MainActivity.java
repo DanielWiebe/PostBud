@@ -29,7 +29,10 @@ public class MainActivity extends AppCompatActivity {
 
           // Testing Firestore
           FirebaseFirestore db = FirebaseFirestore.getInstance();
-          
+
+          Employee art = new Employee("art", "Artyom Kim", "12345678");
+
+          db.collection("employees").add(art);
      }
 
 }
