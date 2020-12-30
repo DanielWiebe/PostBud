@@ -1,15 +1,17 @@
 package com.shiftdev.postbud;
 
+import android.content.Intent;
 import android.os.Bundle;
-
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.firestore.FirebaseFirestore;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,7 +31,11 @@ public class MainActivity extends AppCompatActivity {
 
           // Testing Firestore
           FirebaseFirestore db = FirebaseFirestore.getInstance();
-          
+
      }
 
+     public void goToAddParcelActivity(View view) {
+          Intent intent = new Intent(MainActivity.this, AddParcelActivity.class);
+          MainActivity.this.startActivity(intent);
+     }
 }

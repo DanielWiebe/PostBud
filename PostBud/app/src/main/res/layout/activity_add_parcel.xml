@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/et_description"
+        style="@style/styleAdd_Parcel_Margin_Format"
+        android:hint="@string/how_cool_is_the_package_describe_it"
+        android:importantForAutofill="no"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/et_ordered_by"
+        style="@style/styleAdd_Parcel_Margin_Format"
+        android:layout_width="match_parent"
+
+        android:layout_height="wrap_content"
+        android:hint="@string/ordered_by_jane_doe"
+        android:importantForAutofill="no"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/et_priority"
+        style="@style/styleAdd_Parcel_Margin_Format"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/priority_1_2_or_3"
+        android:importantForAutofill="no"
+        android:inputType="number" />
+
+    <EditText
+        android:id="@+id/et_status"
+        style="@style/styleAdd_Parcel_Margin_Format"
+        android:hint="@string/current_status"
+        android:importantForAutofill="no"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/et_destination"
+        style="@style/styleAdd_Parcel_Margin_Format"
+        android:hint="@string/where_is_it_going"
+        android:importantForAutofill="no"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/et_location"
+        style="@style/styleAdd_Parcel_Margin_Format"
+        android:hint="@string/where_is_it_now"
+        android:importantForAutofill="no"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/et_origin"
+        style="@style/styleAdd_Parcel_Margin_Format"
+        android:hint="@string/where_is_from"
+        android:importantForAutofill="no"
+        android:inputType="text" />
+
+
+    <Button
+        android:id="@+id/bt_save"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="saveNote"
+        android:text="Add Parcel" />
+
+
+</LinearLayout>
