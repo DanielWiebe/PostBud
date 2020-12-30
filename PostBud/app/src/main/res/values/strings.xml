@@ -3,6 +3,13 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="parcel_status_in_transit">In Transit</string>
+    <string name="parcel_status_awaiting">Awaiting Order</string>
+    <string name="parcel_status_under_review">Under Review</string>
+    <string name="parcel_status_">Status</string>
+    <string name="parcel_status_in_status">In Status</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
     <string name="how_cool_is_the_package_describe_it">Package Description</string>
     <string name="ordered_by_jane_doe">Ordered By</string>
     <string name="priority_1_2_or_3">Priority Index</string>
