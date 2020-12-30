@@ -30,26 +30,22 @@ public class AddParcelActivity extends AppCompatActivity {
      private static final String KEY_ORIGIN = "origin";
      private static final String KEY_PRIORITY = "priority";
      private static final String KEY_STATUS = "status";
-     @BindView
-             (R.id.et_description)
+     @BindView(R.id.et_description)
      EditText etDesc;
      @BindView(R.id.et_location)
      EditText etLocation;
-     @BindView
-             (R.id.et_ordered_by)
+     @BindView(R.id.et_ordered_by)
      EditText etOrderedBy;
-     @BindView
-             (R.id.et_priority)
+     @BindView(R.id.et_priority)
      EditText etPriority;
-     @BindView
-             (R.id.et_status)
+     @BindView(R.id.et_status)
      EditText etStatus;
-     @BindView
-             (R.id.et_destination)
+     @BindView(R.id.et_destination)
      EditText etDest;
-     @BindView
-             (R.id.et_origin)
+     @BindView(R.id.et_origin)
      EditText etOrigin;
+     @BindView(R.id.et_weight)
+     EditText etWeight;
      @BindView(R.id.bt_save)
      Button saveButton;
 
@@ -70,13 +66,15 @@ public class AddParcelActivity extends AppCompatActivity {
           String desc = etDesc.getText().toString().trim();
           String orderedBy = etOrderedBy.getText().toString().trim();
           String loc = etLocation.getText().toString().trim();
-          int priority = Integer.parseInt(String.valueOf(etPriority.getText()));
+          String priority = etPriority.getText().toString().trim();
           String status = etStatus.getText().toString().trim();
           String dest = etDest.getText().toString().trim();
           String orig = etOrigin.getText().toString().trim();
+          double weight = Double.parseDouble(String.valueOf(etWeight.getText()));
 
           //TODO THIS NEEDS TO BE HANDLED AND AUTO FILLED USING THE ID FROM FIREBASE AUTHENTICATION SOMEHOW
           String handled_by = "TODO";
+
           Map<String, Object> parcel = new HashMap<>();
           parcel.put(KEY_CURRENT_LOCATION, loc);
           parcel.put(KEY_DESCRIPTION, desc);

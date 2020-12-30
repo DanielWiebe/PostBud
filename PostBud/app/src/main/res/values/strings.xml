@@ -20,4 +20,5 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="where_is_it_now">Current Location</string>
     <string name="add_parcel">Add parcel</string>
+    <string name="weight_lbs">Weight (lbs)</string>
 </resources>
