@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
           FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-          Account admin = new Administrator("art202042069@gmail.com","Art", "password", this);
+          Account admin = new Administrator("art202042069@gmail.com","password", "Artyom", "Kim", this);
 
           Parcel newParcel = new Parcel("Vancouver", "Toronto", "Winnipeg", "Colt", "Sport Wheels - R8", 1, "kjG4GHj5JNhb53");
 

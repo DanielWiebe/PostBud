@@ -54,6 +54,8 @@ dependencies {
 
      // Firebase Implementation for data storage
      implementation 'com.google.firebase:firebase-firestore'
+     implementation 'com.google.firebase:firebase-database'
+     implementation 'com.google.firebase:firebase-storage'
 
      // Firebase Authentication library for users management
      implementation 'com.google.firebase:firebase-auth'

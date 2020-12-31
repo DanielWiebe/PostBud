@@ -12,10 +12,7 @@ public class Parcel {
     private String handledBy;
 
     // Constructors
-    public Parcel() {}
-
-
-    /** New Order - without status */
+    /** New Order made by an employee */
     public Parcel(String currentLocation, String origin, String destination, String orderedBy, String description, int priority, String accountId) {
         this.currentLocation = currentLocation;
         this.origin = origin;
@@ -74,7 +71,7 @@ public class Parcel {
 
     // Enums
 
-    /** A list for Parcel to set from the status of the parcel/delivery. */
+    /** A list for Parcel to set from for the status of the parcel/delivery. */
     enum Status {
         PENDING(String.valueOf(R.string.parcel_status_pending)),
         IN_TRANSIT(String.valueOf(R.string.parcel_status_in_transit)),
