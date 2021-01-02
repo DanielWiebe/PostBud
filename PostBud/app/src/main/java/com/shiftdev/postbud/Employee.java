@@ -1,12 +1,14 @@
 package com.shiftdev.postbud;
 
-public class Employee extends Account{
+public class Employee extends Account {
     // Variables
     private String employeeId;
 
-    // Constructor
-    public Employee(String employeeId, String userName, String password) {
-        super(userName, password);
+    // Constructors
+    public Employee() {super();}
+
+    public Employee(String email, String password, String employeeId, String firstName, String lastName) {
+        super(email, password, firstName, lastName);
         this.employeeId = employeeId;
     }
 

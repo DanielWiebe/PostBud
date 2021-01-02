@@ -3,11 +3,6 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
-    <string name="parcel_status_in_transit">In Transit</string>
-    <string name="parcel_status_awaiting">Awaiting Order</string>
-    <string name="parcel_status_under_review">Under Review</string>
-    <string name="parcel_status_">Status</string>
-    <string name="parcel_status_in_status">In Status</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string name="how_cool_is_the_package_describe_it">Package Description</string>
@@ -27,5 +22,16 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="where_is_it_now">Current Location</string>
     <string name="add_parcel">Add parcel</string>
+
+    <!-- Strings used for parcel/delivery statuses-->
+    <string name="parcel_status_pending">Pending</string>
+    <string name="parcel_status_awaiting_pickup">Awaiting pickup</string>
+    <string name="parcel_status_awaiting_payment">Awaiting payment</string>
+    <string name="parcel_status_in_transit">In transit</string>
+    <string name="parcel_status_shipped">Shipped</string>
+    <string name="parcel_status_in_canceled">Canceled</string>
+
+    <!-- Extra database parameters -->
     <string name="weight_lbs">Weight (lbs)</string>
+    
 </resources>
