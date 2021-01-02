@@ -30,4 +30,8 @@
     <string name="parcel_status_in_transit">In transit</string>
     <string name="parcel_status_shipped">Shipped</string>
     <string name="parcel_status_in_canceled">Canceled</string>
+
+    <!-- Extra database parameters -->
+    <string name="weight_lbs">Weight (lbs)</string>
+    
 </resources>
