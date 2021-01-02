@@ -12,9 +12,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.io.Serializable;
 import java.util.concurrent.Executor;
 
-public abstract class Account implements Comparable<Account> {
+public abstract class Account implements Comparable<Account>, Serializable {
     final static String TAG = "Account";
     // Variables
     private String uid;     // user ID created by Firebase
@@ -78,6 +79,16 @@ public abstract class Account implements Comparable<Account> {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    // Public methods
+    public Parcel newParcel(String currentLocation, String origin, String destination, String orderedBy, String description, int priority){
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        Parcel parcel = null;
+        if (mAuth.getCurrentUser() != null) {
+            parcel = new Parcel(currentLocation, origin, destination, orderedBy, description, priority, CurrentUserSingleton.getInstance().getCurrentUser().getUid());
+        }
+        return parcel;
     }
 }
 

@@ -17,16 +17,22 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Administrator extends Account {
+    // Constants
     final static String TAG = "Administrator";
     final static String ADMINISTRATORS = "administrators";
+    final static String DOCUMENT_ID = "documentId";
 
+    // Variables
     private String documentId;
 
     // Constructor
+    public Administrator() {};
+
     public Administrator(String email, String password, String firstName, String lastName, Activity context) {
         super(email, password, firstName, lastName);
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
@@ -34,14 +40,20 @@ public class Administrator extends Account {
                 .addOnCompleteListener(context, task -> {
                     if (task.isSuccessful()){
                         FirebaseUser user = mAuth.getCurrentUser();
-                        super.setUid(user.getUid());
+                        if (user != null) {
+                            super.setUid(user.getUid());
+                        } else {
+                            mAuth.signOut();
+                            Log.e(TAG, "User is NULL");
+                            return;
+                        }
                         Log.i(TAG, "Account successfully created with email: " + email + ", and password: " + password);
                         FirebaseFirestore db = FirebaseFirestore.getInstance();
                         db.collection(ADMINISTRATORS).add(this)
                             .addOnSuccessListener(documentReference -> {
                                 Log.d(TAG, documentReference.getId());
                                 setDocumentId(documentReference.getId());
-                                db.collection(ADMINISTRATORS).document(getDocumentId()).update("documentId", getDocumentId());
+                                db.collection(ADMINISTRATORS).document(getDocumentId()).update(DOCUMENT_ID, getDocumentId());
                             });
                     }
                 })
@@ -73,4 +85,6 @@ public class Administrator extends Account {
 //        // TODO: Add new employee to the DB.
 //        return newEmployee;
 //    }
+
+
 }
