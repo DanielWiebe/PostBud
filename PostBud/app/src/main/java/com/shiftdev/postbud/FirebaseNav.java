@@ -2,7 +2,7 @@ package com.shiftdev.postbud;
 
 import android.app.Activity;
 
-/** Firebase navigation through  */
+/** Firebase navigation through */
 public enum FirebaseNav {
     ADMINISTRATORS(R.string.firebase_navigation_administrators),
     PARCELS(R.string.firebase_navigation_parcels),

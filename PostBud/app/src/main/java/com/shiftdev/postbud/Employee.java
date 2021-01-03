@@ -1,6 +1,9 @@
 package com.shiftdev.postbud;
 
 public class Employee extends Account {
+    // Constants
+    private final String TAG = "Employee";
+
     // Variables
     private String employeeId;
 

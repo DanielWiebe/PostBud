@@ -10,7 +10,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class Administrator extends Account {
     // Constant
-    final static String TAG = "Administrator";
+    private final static String TAG = "Administrator";
 
     // Variables
     private String documentId;
@@ -53,7 +53,6 @@ public class Administrator extends Account {
 
     public Administrator(String uid) {
         FirebaseDatabase db = FirebaseDatabase.getInstance();
-
     }
 
     // Getters & Setters

@@ -1,14 +1,15 @@
 package com.shiftdev.postbud;
 
-import android.app.Activity;
-
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.Serializable;
 
 public abstract class Account implements Comparable<Account>, Serializable {
+    // Constants
     final static String TAG = "Account";
+
     // Variables
     private String uid;     // user ID created by Firebase
     private String email;
@@ -18,8 +19,6 @@ public abstract class Account implements Comparable<Account>, Serializable {
 
     // Constructors
     public Account() {}
-
-    ;
 
     public Account(String email, String password, String firstName, String lastName) {
         this.email = email;
@@ -76,13 +75,12 @@ public abstract class Account implements Comparable<Account>, Serializable {
     }
 
     // Public methods
-    public Parcel newParcel(String currentLocation, String origin, String destination, String orderedBy, String description, Parcel.Priority priority, Activity context) {
+    public Parcel newParcel(String currentLocation, String origin, String destination, String orderedBy, String description, double weight, Timestamp date, Parcel.Priority priority, Parcel.Status status) {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         Parcel parcel = null;
         if (mAuth.getCurrentUser() != null) {
-            parcel = new Parcel(currentLocation, origin, destination, orderedBy, description, priority, CurrentUserSingleton.getInstance().getCurrentUser().getUid(), context);
+            parcel = new Parcel(currentLocation, origin, destination, orderedBy, description, weight, date, priority, status, CurrentUserSingleton.getInstance().getCurrentUser().getUid());
             FirebaseDatabase db = FirebaseDatabase.getInstance();
-
         }
         return parcel;
     }

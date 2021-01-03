@@ -2,16 +2,14 @@ package com.shiftdev.postbud;
 
 import android.app.Activity;
 
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.firestore.CollectionReference;
 
 import java.util.Objects;
 
 public class Parcel {
+    // Constants
+    private final String TAG = "Parcel";
 
     // Variables
     private String currentLocation;
@@ -22,34 +20,37 @@ public class Parcel {
     private Status status;
     private Priority priority;
     private String handledBy;
-    private double weight;
+    private double weight;  // Kilograms
     private Timestamp date;
 
     // Constructors
 
-    /** New Order made by an employee */
-    public Parcel(String currentLocation, String origin, String destination, String orderedBy, String description, Priority priority, String accountId, Activity context) {
+    /** Parcel made by an Administrator */
+    public Parcel(String currentLocation, String origin, String destination, String orderedBy, String description, double weight, Timestamp date, Priority priority, Parcel.Status status, String accountId) {
         this.currentLocation = currentLocation;
         this.origin = origin;
         this.destination = destination;
         this.orderedBy = orderedBy;
         this.description = description;
-        this.status = Status.PENDING;
+        this.weight = weight;
+        this.date = date;
+        this.status = status;
         this.priority = priority;
         this.handledBy = accountId;
     }
 
-    /** New/existing order with a custom status */
-    public Parcel(String currentLocation, String origin, String destination, String orderedBy, String description, Status status, Priority priority) {
+    /** Parcel made by an Employee */
+    public Parcel(String currentLocation, String origin, String destination, String orderedBy, String description, double weight, Timestamp date, Priority priority, Parcel.Status status) {
         this.currentLocation = currentLocation;
         this.origin = origin;
         this.destination = destination;
         this.orderedBy = orderedBy;
         this.description = description;
+        this.weight = weight;
+        this.date = date;
         this.status = status;
         this.priority = priority;
         this.handledBy = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();  // Getting the current user's UID to know who handled it.
-
     }
 
     // Getters & Setters
@@ -94,6 +95,7 @@ public class Parcel {
     public void setDate(Timestamp date) { this.date = date; }
 
     // Enums
+
     /** A list for Parcel to set from for the status of the parcel/delivery. */
     enum Status {
         PENDING(R.string.parcel_status_pending),
