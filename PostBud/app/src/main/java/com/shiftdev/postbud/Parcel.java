@@ -1,6 +1,18 @@
 package com.shiftdev.postbud;
 
+import android.app.Activity;
+
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.Timestamp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.CollectionReference;
+
+import java.util.Objects;
+
 public class Parcel {
+
     // Variables
     private String currentLocation;
     private String origin;
@@ -8,12 +20,15 @@ public class Parcel {
     private String orderedBy;
     private String description;
     private Status status;
-    private int priority;
+    private Priority priority;
     private String handledBy;
+    private double weight;
+    private Timestamp date;
 
     // Constructors
+
     /** New Order made by an employee */
-    public Parcel(String currentLocation, String origin, String destination, String orderedBy, String description, int priority, String accountId) {
+    public Parcel(String currentLocation, String origin, String destination, String orderedBy, String description, Priority priority, String accountId, Activity context) {
         this.currentLocation = currentLocation;
         this.origin = origin;
         this.destination = destination;
@@ -21,11 +36,11 @@ public class Parcel {
         this.description = description;
         this.status = Status.PENDING;
         this.priority = priority;
-        this.handledBy = accountId; // TODO: Singleton account  + get current employee / set employee
+        this.handledBy = accountId;
     }
 
     /** New/existing order with a custom status */
-    public Parcel(String currentLocation, String origin, String destination, String orderedBy, String description, Status status, int priority, String accountId) {
+    public Parcel(String currentLocation, String origin, String destination, String orderedBy, String description, Status status, Priority priority) {
         this.currentLocation = currentLocation;
         this.origin = origin;
         this.destination = destination;
@@ -33,7 +48,8 @@ public class Parcel {
         this.description = description;
         this.status = status;
         this.priority = priority;
-        this.handledBy = accountId; // TODO: Singleton account + get current user / set employee
+        this.handledBy = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();  // Getting the current user's UID to know who handled it.
+
     }
 
     // Getters & Setters
@@ -61,29 +77,66 @@ public class Parcel {
 
     public void setStatus(Status status) { this.status = status; }
 
-    public int getPriority() { return priority; }
+    public Priority getPriority() { return priority; }
 
-    public void setPriority(int priority) { this.priority = priority; }
+    public void setPriority(Priority priority) { this.priority = priority; }
 
     public String getHandledBy() { return handledBy; }
 
-    public void setHandledBy(String handledBy) { this.handledBy = handledBy; } // TODO: Get the referenced account
+    public void setHandledBy(String handledBy) { this.handledBy = handledBy; }
+
+    public double getWeight() { return weight; }
+
+    public void setWeight(double weight) { this.weight = weight; }
+
+    public Timestamp getDate() { return date; }
+
+    public void setDate(Timestamp date) { this.date = date; }
 
     // Enums
-
     /** A list for Parcel to set from for the status of the parcel/delivery. */
     enum Status {
-        PENDING(String.valueOf(R.string.parcel_status_pending)),
-        IN_TRANSIT(String.valueOf(R.string.parcel_status_in_transit)),
-        AWATING_PICKUP(String.valueOf(R.string.parcel_status_awaiting_pickup)),
-        SHIPPED(String.valueOf(R.string.parcel_status_shipped)),
-        AWAITING_PAYMENT(String.valueOf(R.string.parcel_status_awaiting_payment)),
-        CANCELED(String.valueOf(R.string.parcel_status_in_canceled));
+        PENDING(R.string.parcel_status_pending),
+        IN_TRANSIT(R.string.parcel_status_in_transit),
+        AWATING_PICKUP(R.string.parcel_status_awaiting_pickup),
+        SHIPPED(R.string.parcel_status_shipped),
+        AWAITING_PAYMENT(R.string.parcel_status_awaiting_payment),
+        CANCELED(R.string.parcel_status_in_canceled);
 
-        private final String statusString;
+        private final int statusValue;
 
-        Status(String statusString) { this.statusString = statusString; }
+        Status(int statusValue) { this.statusValue = statusValue; }
 
-        public String getStatusString() { return statusString; }
+        public String getValue(Activity context) {
+            return context.getResources().getString(statusValue);
+        }
+    }
+
+    /** Priority strings and values for parcel/delivery. */
+    enum Priority {
+        //        URGENT("URGENT"),
+        HIGH(R.string.parcel_priority_high),
+        MEDIUM(R.string.parcel_priority_medium),
+        LOW(R.string.parcel_priority_low);
+
+        private final int priorityString;
+        private final int priorityValue;
+
+        Priority(int priorityString) {
+            this.priorityString = priorityString;
+            if (priorityString == R.string.parcel_priority_high) {
+                priorityValue = 1;
+            } else if (priorityString == R.string.parcel_priority_medium) {
+                priorityValue = 2;
+            } else {
+                priorityValue = 3;
+            }
+        }
+
+        public String getValue(Activity context) {
+            return context.getResources().getString(priorityString);
+        }
+
+        public int getNumericValue() { return priorityValue; }
     }
 }
