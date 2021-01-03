@@ -52,7 +52,7 @@ dependencies {
      // BoM for the Firebase platform
      // When using the BoM, you don't specify versions in Firebase library dependencies
      implementation platform('com.google.firebase:firebase-bom:26.2.0')
-
+     implementation 'com.firebaseui:firebase-ui-firestore:6.2.1'
      // Firebase Implementation for data storage
      implementation 'com.google.firebase:firebase-firestore'
      implementation 'com.google.firebase:firebase-database'

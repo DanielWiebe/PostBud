@@ -11,6 +11,7 @@ public class Parcel {
     private int priority;
     private String handledBy;
 
+
     // Constructors
     /** New Order made by an employee */
     public Parcel(String currentLocation, String origin, String destination, String orderedBy, String description, int priority, String accountId) {

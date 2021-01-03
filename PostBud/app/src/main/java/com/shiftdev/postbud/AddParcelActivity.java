@@ -57,9 +57,8 @@ public class AddParcelActivity extends AppCompatActivity {
      protected void onCreate(Bundle savedInstanceState) {
           super.onCreate(savedInstanceState);
           setContentView(R.layout.activity_add_parcel);
+          //layout view binding for resources
           ButterKnife.bind(this);
-
-
      }
 
      public void saveNote(View view) {

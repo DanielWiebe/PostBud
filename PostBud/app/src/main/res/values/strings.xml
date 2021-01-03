@@ -33,5 +33,14 @@
 
     <!-- Extra database parameters -->
     <string name="weight_lbs">Weight (lbs)</string>
-    
+    <string name="right_arrow">right_arrow</string>
+    <string name="destination">Destination</string>
+    <string name="wpg">WPG</string>
+    <string name="in_transit">In Transit</string>
+    <string name="status">Status</string>
+    <string name="cgy">CGY</string>
+    <string name="from">From</string>
+    <string name="lorem_ipsum">I\'ll have to stay for longer at work. So if I miss the meeting, FYI, I\'m going to start doing those parcel use cases that Daniel assigned to me and then start trying to implement that mockup in that I made, in XML.</string>
+    <string name="high">High</string>
+
 </resources>
