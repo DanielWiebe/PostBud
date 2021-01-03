@@ -23,15 +23,39 @@
     <string name="where_is_it_now">Current Location</string>
     <string name="add_parcel">Add parcel</string>
 
-    <!-- Strings used for parcel/delivery statuses-->
+    <!-- Strings used for parcel/delivery statuses and priorities -->
     <string name="parcel_status_pending">Pending</string>
     <string name="parcel_status_awaiting_pickup">Awaiting pickup</string>
     <string name="parcel_status_awaiting_payment">Awaiting payment</string>
     <string name="parcel_status_in_transit">In transit</string>
     <string name="parcel_status_shipped">Shipped</string>
     <string name="parcel_status_in_canceled">Canceled</string>
+    <string name="parcel_priority_high">High</string>
+    <string name="parcel_priority_medium">Medium</string>
+    <string name="parcel_priority_low">Low</string>
+
+    <!-- Strings for Firebase fields -->
+<!--    <string name="firebase_"></string>-->
+<!--    <string name="firebase_"></string>-->
+<!--    <string name="firebase_"></string>-->
+<!--    <string name="firebase_"></string>-->
 
     <!-- Extra database parameters -->
     <string name="weight_lbs">Weight (lbs)</string>
-    
+    <string name="firebase_navigation_administrators">administrators</string>
+    <string name="firebase_navigation_document_id">documentId</string>
+    <string name="firebase_navigation_current_location">currentLocation</string>
+    <string name="firebase_navigation_origin">origin</string>
+    <string name="firebase_navigation_destination">destination</string>
+    <string name="firebase_navigation_ordered_by">orderedBy</string>
+    <string name="firebase_navigation_description">description</string>
+    <string name="firebase_navigation_status">status</string>
+    <string name="firebase_navigation_priority">priority</string>
+    <string name="firebase_navigation_handled_by">handledBy</string>
+    <string name="firebase_navigation_weight">weight</string>
+    <string name="firebase_navigation_date">date</string>
+    <string name="firebase_navigation_parcels">parcels</string>
+    <string name="firebase_navigation_employees">employees</string>
+    <string name="firebase_navigation_uid">uid</string>
+
 </resources>

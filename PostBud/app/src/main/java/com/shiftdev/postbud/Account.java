@@ -1,19 +1,11 @@
 package com.shiftdev.postbud;
 
 import android.app.Activity;
-import android.util.Log;
 
-import androidx.annotation.NonNull;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.Serializable;
-import java.util.concurrent.Executor;
 
 public abstract class Account implements Comparable<Account>, Serializable {
     final static String TAG = "Account";
@@ -25,7 +17,9 @@ public abstract class Account implements Comparable<Account>, Serializable {
     private String lastName;
 
     // Constructors
-    public Account() {};
+    public Account() {}
+
+    ;
 
     public Account(String email, String password, String firstName, String lastName) {
         this.email = email;
@@ -82,11 +76,13 @@ public abstract class Account implements Comparable<Account>, Serializable {
     }
 
     // Public methods
-    public Parcel newParcel(String currentLocation, String origin, String destination, String orderedBy, String description, int priority){
+    public Parcel newParcel(String currentLocation, String origin, String destination, String orderedBy, String description, Parcel.Priority priority, Activity context) {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         Parcel parcel = null;
         if (mAuth.getCurrentUser() != null) {
-            parcel = new Parcel(currentLocation, origin, destination, orderedBy, description, priority, CurrentUserSingleton.getInstance().getCurrentUser().getUid());
+            parcel = new Parcel(currentLocation, origin, destination, orderedBy, description, priority, CurrentUserSingleton.getInstance().getCurrentUser().getUid(), context);
+            FirebaseDatabase db = FirebaseDatabase.getInstance();
+
         }
         return parcel;
     }
