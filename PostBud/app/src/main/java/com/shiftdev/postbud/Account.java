@@ -16,6 +16,8 @@ public abstract class Account implements Comparable<Account>, Serializable {
     private String password;
     private String firstName;
     private String lastName;
+    private String documentId;
+    private Timestamp dateCreated;
 
     // Constructors
     public Account() {}
@@ -25,6 +27,7 @@ public abstract class Account implements Comparable<Account>, Serializable {
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
+        dateCreated = Timestamp.now();
     }
 
     // Comparable implementation
@@ -72,6 +75,22 @@ public abstract class Account implements Comparable<Account>, Serializable {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getDocumentId() {
+        return documentId;
+    }
+
+    public void setDocumentId(String documentId) {
+        this.documentId = documentId;
+    }
+
+    public Timestamp getDateCreated() {
+        return dateCreated;
+    }
+
+    public void setDateCreated(Timestamp dateCreated) {
+        this.dateCreated = dateCreated;
     }
 
     // Public methods

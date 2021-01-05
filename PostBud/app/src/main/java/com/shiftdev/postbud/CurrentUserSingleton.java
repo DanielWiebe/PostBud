@@ -6,7 +6,7 @@ public class CurrentUserSingleton {
     // Variables
     Account currentUser;
 
-    public CurrentUserSingleton() {}
+    public CurrentUserSingleton() { }
 
     public static CurrentUserSingleton getInstance() {
         if (INSTANCE == null) {
