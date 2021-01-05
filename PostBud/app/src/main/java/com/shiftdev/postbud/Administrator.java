@@ -5,65 +5,60 @@ import android.util.Log;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class Administrator extends Account {
     // Constant
-    final static String TAG = "Administrator";
-
-    // Variables
-    private String documentId;
+    private final static String TAG = "Administrator";
 
     // Constructor
     public Administrator() {}
 
-    public Administrator(String email, String password, String firstName, String lastName, Activity context) {
+    public Administrator(String email, String password, String firstName, String lastName) {
         super(email, password, firstName, lastName);
+        createAdministratorInFirebaseAuth(this);
+    }
+
+    public Administrator(String uid) {
+
+    }
+
+    /**
+     * Registering an administrator use in FirebaseAuth as a user, and adding the user information into the Firebase database for future reference and data storage.
+     *
+     * @param administrator the registering Administrator user.
+     */
+    public void createAdministratorInFirebaseAuth(Administrator administrator) {
+        Activity context = PostBudAppContext.getActivity();
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        mAuth.createUserWithEmailAndPassword(email.toLowerCase(), password)
+        mAuth.createUserWithEmailAndPassword(administrator.getEmail().toLowerCase(), administrator.getPassword())
                 .addOnCompleteListener(context, task -> {
                     if (task.isSuccessful()) {
-                        FirebaseUser user = mAuth.getCurrentUser();
+                        FirebaseUser user = task.getResult().getUser();
                         if (user != null) {
-                            super.setUid(user.getUid());
+                            administrator.setUid(user.getUid());
                         } else {
                             mAuth.signOut();
                             //TODO Handle with Toast on the UI
                             Log.e(TAG, "User is NULL");
                             return;
                         }
-                        Log.i(TAG, "Account successfully created with email: " + email + ", and password: " + password);
                         FirebaseFirestore db = FirebaseFirestore.getInstance();
+
                         /** Uploading the administrator account to the database. */
-                        db.collection(FirebaseNav.ADMINISTRATORS.getValue(context)).add(this)
+                        db.collection(FirebaseNav.ADMINISTRATORS.getValue()).add(administrator)
                                 .addOnSuccessListener(documentReference -> {
-                                    Log.d(TAG, documentReference.getId());
-                                    setDocumentId(documentReference.getId());
+                                    administrator.setDocumentId(documentReference.getId());
 
                                     /** After the database creates the document ID, updating the document's field
                                      * "documentId" for future reference of the document from the application. */
-                                    db.collection(FirebaseNav.ADMINISTRATORS.getValue(context))
-                                            .document(getDocumentId())
-                                            .update(FirebaseNav.DOCUMENT_ID.getValue(context), getDocumentId());
+                                    db.collection(FirebaseNav.ADMINISTRATORS.getValue())
+                                            .document(administrator.getDocumentId())
+                                            .update(FirebaseNav.DOCUMENT_ID.getValue(), administrator.getDocumentId());
                                 });
                     }
                 })
                 .addOnFailureListener(e -> Log.e(TAG, e.getLocalizedMessage()));
-    }
-
-    public Administrator(String uid) {
-        FirebaseDatabase db = FirebaseDatabase.getInstance();
-
-    }
-
-    // Getters & Setters
-    public String getDocumentId() {
-        return documentId;
-    }
-
-    public void setDocumentId(String documentId) {
-        this.documentId = documentId;
     }
 
     // Public Methods

@@ -30,6 +30,9 @@ public class AddParcelActivity extends AppCompatActivity {
     private static final String KEY_ORIGIN = "origin";
     private static final String KEY_PRIORITY = "priority";
     private static final String KEY_STATUS = "status";
+    //Firestore reference to the database
+    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private final DocumentReference parcelReference = db.document("parcels/My First Parcel");
     @BindView(R.id.et_description)
     EditText etDesc;
     @BindView(R.id.et_location)
@@ -48,10 +51,6 @@ public class AddParcelActivity extends AppCompatActivity {
     EditText etWeight;
     @BindView(R.id.bt_save)
     Button saveButton;
-
-    //Firestore reference to the database
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private DocumentReference parcelReference = db.document("parcels/My First Parcel");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
