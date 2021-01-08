@@ -4,18 +4,20 @@ import java.util.Comparator;
 
 public class PriorityComparator implements Comparator<Parcel> {
 
+    /**
+     * Comparing 2 parcel's priorities. Lowest number get the highest priority.
+     *
+     * @param parcel main parcel.
+     * @param other  comparing parcel.
+     * @return the parcels priority
+     */
     @Override
     public int compare(Parcel parcel, Parcel other) {
-        if (parcel.getPriority().equals(other.getPriority())) {
+        // 2-level comparison to compare same-priority levels parcels.
+        if (parcel.getPriority() == other.getPriority()) {
             return parcel.getDate().compareTo(other.getDate());
-        }
-        if (parcel == null) {
-            return -1;
-        }
-        if (other == null) {
-            return 1;
         } else {
-            return parcel.compareTo(other);
+            return -(parcel.getPriority().getNumericValue() - other.getPriority().getNumericValue());
         }
     }
 }

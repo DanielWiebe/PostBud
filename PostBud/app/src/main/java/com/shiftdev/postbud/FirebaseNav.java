@@ -1,8 +1,6 @@
 package com.shiftdev.postbud;
 
-import android.app.Activity;
-
-/** Firebase navigation through  */
+/** Firebase navigation through */
 public enum FirebaseNav {
     ADMINISTRATORS(R.string.firebase_navigation_administrators),
     PARCELS(R.string.firebase_navigation_parcels),
@@ -18,13 +16,14 @@ public enum FirebaseNav {
     HANDLED_BY(R.string.firebase_navigation_handled_by),
     WEIGHT(R.string.firebase_navigation_weight),
     DATE(R.string.firebase_navigation_date),
-    UID(R.string.firebase_navigation_uid);
+    UID(R.string.firebase_navigation_uid),
+    EMAIL(R.string.firebase_navigation_email);
 
     private final int directory;
 
     FirebaseNav(int directory) { this.directory = directory; }
 
-    public String getValue(Activity context) {
-        return context.getResources().getString(directory);
+    public String getValue() {
+        return PostBudAppContext.getActivity().getResources().getString(directory);
     }
 }

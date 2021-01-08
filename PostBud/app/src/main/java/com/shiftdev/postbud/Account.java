@@ -1,31 +1,44 @@
 package com.shiftdev.postbud;
 
-import android.app.Activity;
-
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.Serializable;
 
 public abstract class Account implements Comparable<Account>, Serializable {
+    // Constants
     final static String TAG = "Account";
+
     // Variables
     private String uid;     // user ID created by Firebase
     private String email;
     private String password;
     private String firstName;
     private String lastName;
+    private String documentId;
+    private Timestamp dateCreated;
 
     // Constructors
     public Account() {}
-
-    ;
 
     public Account(String email, String password, String firstName, String lastName) {
         this.email = email;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
+        dateCreated = Timestamp.now();
+    }
+
+    // Public methods
+    public Parcel newParcel(String currentLocation, String origin, String destination, String orderedBy, String description, double weight, Timestamp date, Parcel.Priority priority, Parcel.Status status) {
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        Parcel parcel = null;
+        if (mAuth.getCurrentUser() != null) {
+            parcel = new Parcel(currentLocation, origin, destination, orderedBy, description, weight, date, priority, status, CurrentUserSingleton.getInstance().getCurrentUser().getUid());
+            FirebaseDatabase db = FirebaseDatabase.getInstance();
+        }
+        return parcel;
     }
 
     // Comparable implementation
@@ -75,16 +88,33 @@ public abstract class Account implements Comparable<Account>, Serializable {
         this.lastName = lastName;
     }
 
-    // Public methods
-    public Parcel newParcel(String currentLocation, String origin, String destination, String orderedBy, String description, String priority, double weight, Activity context) {
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        Parcel parcel = null;
-        if (mAuth.getCurrentUser() != null) {
-            parcel = new Parcel(currentLocation, origin, destination, orderedBy, description, priority, weight, CurrentUserSingleton.getInstance().getCurrentUser().getUid(), context);
-            FirebaseDatabase db = FirebaseDatabase.getInstance();
+    public String getDocumentId() {
+        return documentId;
+    }
 
-        }
-        return parcel;
+    public void setDocumentId(String documentId) {
+        this.documentId = documentId;
+    }
+
+    public Timestamp getDateCreated() {
+        return dateCreated;
+    }
+
+    public void setDateCreated(Timestamp dateCreated) {
+        this.dateCreated = dateCreated;
+    }
+
+    @Override
+    public String toString() {
+        return "Account{" +
+                "uid='" + uid + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", documentId='" + documentId + '\'' +
+                ", dateCreated=" + dateCreated +
+                '}';
     }
 }
 
