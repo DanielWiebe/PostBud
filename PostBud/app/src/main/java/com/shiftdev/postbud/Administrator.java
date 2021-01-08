@@ -3,9 +3,12 @@ package com.shiftdev.postbud;
 import android.app.Activity;
 import android.util.Log;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 public class Administrator extends Account {
     // Constant
@@ -19,16 +22,13 @@ public class Administrator extends Account {
         createAdministratorInFirebaseAuth(this);
     }
 
-    public Administrator(String uid) {
-
-    }
-
+    // Private methods
     /**
      * Registering an administrator use in FirebaseAuth as a user, and adding the user information into the Firebase database for future reference and data storage.
      *
      * @param administrator the registering Administrator user.
      */
-    public void createAdministratorInFirebaseAuth(Administrator administrator) {
+    private void createAdministratorInFirebaseAuth(Administrator administrator) {
         Activity context = PostBudAppContext.getActivity();
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         mAuth.createUserWithEmailAndPassword(administrator.getEmail().toLowerCase(), administrator.getPassword())
@@ -61,20 +61,36 @@ public class Administrator extends Account {
     }
 
     // Public Methods
+    // TODO Read from Firestore into a new Administrator object.
+//    public Administrator readFromDatabase() {
+//        return null;
+//    }
+//
+//    public Administrator(String uid) {
+//        FirebaseFirestore db = FirebaseFirestore.getInstance();
+//        db.collection(FirebaseNav.ADMINISTRATORS.getValue()).whereEqualTo(FirebaseNav.UID.getValue(), uid)
+//                .get().addOnSuccessListener(queryDocumentSnapshots -> {
+//                    for (QueryDocumentSnapshot snapshot : queryDocumentSnapshots) {
+//                        System.out.println(snapshot);
+//                    }
+//        });
+//
+//    }
 
     /**
-     * Create a new employee, add him/her to the database, and return its details.
+     * Create a new employee, add him/her to the database, and return an Employee object.
      *
-     * @param employeeId Employee's ID.
-     * @param userName   Employee's user name.
-     * @param password   Employee's password.
-     * @return return the new created employee.
+     * @param email the email of the employee.
+     * @param password the password of the employee.
+     * @param employeeId employeeId for the employee.
+     * @param firstName employee's first name.
+     * @param lastName employee's lastName.
+     * @return the Employee object.
      */
-//    public Employee newEmployee(String employeeId, String userName, String password) {
-//        Employee newEmployee = newEmployee(employeeId, userName, password);
-//        // TODO: Add new employee to the DB.
-//        return newEmployee;
-//    }
+    public Employee newEmployee(String email, String password, String employeeId, String firstName, String lastName) {
+        Employee newEmployee = new Employee(email, password, employeeId, firstName, lastName);
+        return newEmployee;
+    }
 
 
 }
