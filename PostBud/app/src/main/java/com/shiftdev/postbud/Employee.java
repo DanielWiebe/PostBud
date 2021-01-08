@@ -27,12 +27,23 @@ public class Employee extends Account {
 
     }
 
+    // Public methods
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "TAG='" + TAG + '\'' +
+                ", employeeId='" + employeeId + '\'' +
+                '}';
+    }
+
+    // Private Methods
     /**
      * Registering an employee use in FirebaseAuth as a user, and adding the user information into the Firebase database for future reference and data storage.
      *
      * @param employee the registering Employee user.
      */
-    public void createEmployeeUser(Employee employee) {
+    private void createEmployeeUser(Employee employee) {
         Activity context = PostBudAppContext.getActivity();
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         mAuth.createUserWithEmailAndPassword(employee.getEmail().toLowerCase(), employee.getPassword())
@@ -71,7 +82,4 @@ public class Employee extends Account {
     public void setEmployeeId(String employeeId) {
         this.employeeId = employeeId;
     }
-
-    // Public methods
-
 }

@@ -30,6 +30,17 @@ public abstract class Account implements Comparable<Account>, Serializable {
         dateCreated = Timestamp.now();
     }
 
+    // Public methods
+    public Parcel newParcel(String currentLocation, String origin, String destination, String orderedBy, String description, double weight, Timestamp date, Parcel.Priority priority, Parcel.Status status) {
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        Parcel parcel = null;
+        if (mAuth.getCurrentUser() != null) {
+            parcel = new Parcel(currentLocation, origin, destination, orderedBy, description, weight, date, priority, status, CurrentUserSingleton.getInstance().getCurrentUser().getUid());
+            FirebaseDatabase db = FirebaseDatabase.getInstance();
+        }
+        return parcel;
+    }
+
     // Comparable implementation
     @Override
     public int compareTo(Account account) {
@@ -93,15 +104,17 @@ public abstract class Account implements Comparable<Account>, Serializable {
         this.dateCreated = dateCreated;
     }
 
-    // Public methods
-    public Parcel newParcel(String currentLocation, String origin, String destination, String orderedBy, String description, double weight, Timestamp date, Parcel.Priority priority, Parcel.Status status) {
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        Parcel parcel = null;
-        if (mAuth.getCurrentUser() != null) {
-            parcel = new Parcel(currentLocation, origin, destination, orderedBy, description, weight, date, priority, status, CurrentUserSingleton.getInstance().getCurrentUser().getUid());
-            FirebaseDatabase db = FirebaseDatabase.getInstance();
-        }
-        return parcel;
+    @Override
+    public String toString() {
+        return "Account{" +
+                "uid='" + uid + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", documentId='" + documentId + '\'' +
+                ", dateCreated=" + dateCreated +
+                '}';
     }
 }
 

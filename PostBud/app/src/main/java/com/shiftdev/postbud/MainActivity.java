@@ -1,6 +1,7 @@
 package com.shiftdev.postbud;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -8,10 +9,16 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 public class MainActivity extends AppCompatActivity {
     // TAG
@@ -45,7 +52,17 @@ public class MainActivity extends AppCompatActivity {
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-        Parcel testParcel = new Parcel("Toronto2", "Seou2l", "Winnipeg2", "Artyom", "BTS Merch", 5.58, Timestamp.now(), Parcel.Priority.MEDIUM, Parcel.Status.PENDING);
+//        Parcel testParcel = new Parcel("Toronto2", "Seou2l", "Winnipeg2", "Artyom", "BTS Merch", 5.58, Timestamp.now(), Parcel.Priority.MEDIUM, Parcel.Status.PENDING);
+
+        CollectionReference administratorsRef = db.collection(FirebaseNav.EMPLOYEES.getValue());
+        Query query = administratorsRef.whereEqualTo(FirebaseNav.EMAIL.getValue(), email);
+        query.get().addOnSuccessListener(queryDocumentSnapshots -> {
+            for (QueryDocumentSnapshot snapshot : queryDocumentSnapshots){
+                Employee emp = snapshot.toObject(Employee.class);
+                Log.e(TAG, emp.getEmail());
+                Log.e(TAG, emp.toString());
+            }
+        });
 
         // Testing
 //        Account admin = new Administrator("art1234@gmail.com","123456", "Art", "K", this);

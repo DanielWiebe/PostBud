@@ -67,5 +67,6 @@
     <string name="firebase_navigation_parcels">parcels</string>
     <string name="firebase_navigation_employees">employees</string>
     <string name="firebase_navigation_uid">uid</string>
+    <string name="firebase_navigation_email">email</string>
 
 </resources>

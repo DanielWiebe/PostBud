@@ -16,7 +16,8 @@ public enum FirebaseNav {
     HANDLED_BY(R.string.firebase_navigation_handled_by),
     WEIGHT(R.string.firebase_navigation_weight),
     DATE(R.string.firebase_navigation_date),
-    UID(R.string.firebase_navigation_uid);
+    UID(R.string.firebase_navigation_uid),
+    EMAIL(R.string.firebase_navigation_email);
 
     private final int directory;
 
