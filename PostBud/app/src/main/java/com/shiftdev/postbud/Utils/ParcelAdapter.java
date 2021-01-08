@@ -3,10 +3,10 @@ package com.shiftdev.postbud.Utils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
@@ -27,13 +27,14 @@ public class ParcelAdapter extends FirestoreRecyclerAdapter<Parcel, ParcelAdapte
 
      @Override
      protected void onBindViewHolder(@NonNull ParcelHolder holder, int position, @NonNull Parcel model) {
-          holder.priorityTV.setText(model.getPriority());
+          holder.priorityTV.setText(String.valueOf(model.getPriority()));
           holder.orderedbyTV.setText(String.valueOf(model.getOrderedBy()));
           holder.handledbyTV.setText(String.valueOf(model.getHandledBy()));
           holder.descTV.setText(String.valueOf(model.getDescription()));
           holder.fromTV.setText(String.valueOf(model.getOrigin()));
           holder.statusTV.setText(String.valueOf(model.getStatus()));
           holder.destTV.setText(String.valueOf(model.getDestination()));
+          holder.weightTV.setText(String.valueOf(model.getWeight()));
      }
 
      @NonNull
@@ -72,10 +73,13 @@ public class ParcelAdapter extends FirestoreRecyclerAdapter<Parcel, ParcelAdapte
           TextView statusTV;
           @BindView(R.id.tv_dest)
           TextView destTV;
-          @BindView(R.id.cv_container)
-          RelativeLayout container;
+          @BindView(R.id.tv_weight)
+          TextView weightTV;
 
-          ParcelHolder(View itemView) {
+          @BindView(R.id.cv_container)
+          CardView container;
+
+          public ParcelHolder(View itemView) {
                super(itemView);
                ButterKnife.bind(this, itemView);
                container.setOnClickListener((View.OnClickListener) view -> {

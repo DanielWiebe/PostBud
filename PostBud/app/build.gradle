@@ -38,6 +38,7 @@ dependencies {
      implementation 'androidx.navigation:navigation-ui:2.3.2'
      implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0'
      implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
+     implementation 'androidx.wear:wear:1.0.0'
 
      testImplementation 'junit:junit:4.13.1'
      implementation 'androidx.cardview:cardview:1.0.0'
@@ -47,6 +48,9 @@ dependencies {
      //Butterknife View Binding library
      implementation 'com.jakewharton:butterknife:10.2.3'
      annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.3'
+
+     implementation 'com.shawnlin:number-picker:2.4.11'
+
 
      // ----- FIREBASE / FIRESTORE -----
      // BoM for the Firebase platform
@@ -60,6 +64,7 @@ dependencies {
 
      // Firebase Authentication library for users management
      implementation 'com.google.firebase:firebase-auth'
+     compileOnly 'com.google.android.wearable:wearable:2.6.0'
      // --------------------------------
 
 }

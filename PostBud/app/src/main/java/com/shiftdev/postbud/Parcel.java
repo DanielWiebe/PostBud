@@ -1,143 +1,209 @@
 package com.shiftdev.postbud;
 
 import android.app.Activity;
+import android.util.Log;
 
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.firestore.CollectionReference;
 
+import java.util.Date;
 import java.util.Objects;
 
-public class Parcel {
+public class Parcel implements Comparable<Parcel> {
 
-    // Variables
-    private String currentLocation;
-    private String origin;
-    private String destination;
-    private String orderedBy;
-    private String description;
-    private Status status;
-    private Priority priority;
-    private String handledBy;
-    private double weight;
-    private Timestamp date;
+     // Variables
+     private String currentLocation;
+     private String origin;
+     private String destination;
+     private String orderedBy;
+     private String description;
+     private String status;
+     private String priority;
+     private String handledBy;
+     private double weight;
+     private Date date;
 
 
-    // Constructors
+     // Constructors
 
-    /** New Order made by an employee */
-    public Parcel(String currentLocation, String origin, String destination, String orderedBy, String description, Priority priority, String accountId, Activity context) {
-        this.currentLocation = currentLocation;
-        this.origin = origin;
-        this.destination = destination;
-        this.orderedBy = orderedBy;
-        this.description = description;
-        this.status = Status.PENDING;
-        this.priority = priority;
-        this.handledBy = accountId;
-    }
+     /**
+      * New Order made by an employee
+      */
+     public Parcel(String currentLocation, String origin, String destination, String orderedBy, String description, String priority, double weight, String accountId, Activity context) {
+          this.currentLocation = currentLocation;
+          this.origin = origin;
+          this.destination = destination;
+          this.orderedBy = orderedBy;
+          this.description = description;
+          this.status = String.valueOf(Status.PENDING);
+          this.weight = weight;
+          this.priority = priority;
+          this.handledBy = accountId;
+     }
 
-    /** New/existing order with a custom status */
-    public Parcel(String currentLocation, String origin, String destination, String orderedBy, String description, Status status, Priority priority) {
-        this.currentLocation = currentLocation;
-        this.origin = origin;
-        this.destination = destination;
-        this.orderedBy = orderedBy;
-        this.description = description;
-        this.status = status;
-        this.priority = priority;
-        this.handledBy = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();  // Getting the current user's UID to know who handled it.
+     public Parcel() {
+     }
 
-    }
+     /**
+      * New/existing order with a custom status
+      */
+     public Parcel(String currentLocation, String origin, String destination, String orderedBy, String description, String status, String priority, double weight) {
+          this.currentLocation = currentLocation;
+          this.origin = origin;
+          this.destination = destination;
+          this.orderedBy = orderedBy;
+          this.description = description;
+          this.status = status;
+          this.weight = weight;
+          this.priority = priority;
+          this.handledBy = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();  // Getting the current user's UID to know who handled it.
 
-    // Getters & Setters
-    public String getCurrentLocation() { return currentLocation; }
+     }
 
-    public void setCurrentLocation(String currentLocation) { this.currentLocation = currentLocation; }
+     // Getters & Setters
+     public String getCurrentLocation() {
+          return currentLocation;
+     }
 
-    public String getOrigin() { return origin; }
+     public void setCurrentLocation(String currentLocation) {
+          this.currentLocation = currentLocation;
+     }
 
-    public void setOrigin(String origin) { this.origin = origin; }
+     public String getOrigin() {
+          return origin;
+     }
 
-    public String getDestination() { return destination; }
+     public void setOrigin(String origin) {
+          this.origin = origin;
+     }
 
-    public void setDestination(String destination) { this.destination = destination; }
+     public String getDestination() {
+          return destination;
+     }
 
-    public String getOrderedBy() { return orderedBy; }
+     public void setDestination(String destination) {
+          this.destination = destination;
+     }
 
-    public void setOrderedBy(String orderedBy) { this.orderedBy = orderedBy; }
+     public String getOrderedBy() {
+          return orderedBy;
+     }
 
-    public String getDescription() { return description; }
+     public void setOrderedBy(String orderedBy) {
+          this.orderedBy = orderedBy;
+     }
 
-    public void setDescription(String description) { this.description = description; }
+     public String getDescription() {
+          return description;
+     }
 
-    public Status getStatus() { return status; }
+     public void setDescription(String description) {
+          this.description = description;
+     }
 
-    public void setStatus(Status status) { this.status = status; }
+     public String getStatus() {
+          return status;
+     }
 
-    public Priority getPriority() { return priority; }
+     public void setStatus(String status) {
+          this.status = status;
+     }
 
-    public void setPriority(Priority priority) { this.priority = priority; }
+     public String getPriority() {
+          return priority;
+     }
 
-    public String getHandledBy() { return handledBy; }
+     public void setPriority(String priority) {
+          this.priority = priority;
+     }
 
-    public void setHandledBy(String handledBy) { this.handledBy = handledBy; }
+     public String getHandledBy() {
+          return handledBy;
+     }
 
-    public double getWeight() { return weight; }
+     public void setHandledBy(String handledBy) {
+          this.handledBy = handledBy;
+     }
 
-    public void setWeight(double weight) { this.weight = weight; }
+     public double getWeight() {
+          return weight;
+     }
 
-    public Timestamp getDate() { return date; }
+     public void setWeight(double weight) {
+          this.weight = weight;
+     }
 
-    public void setDate(Timestamp date) { this.date = date; }
+     public Date getDate() {
+          return date;
+     }
 
-    // Enums
-    /** A list for Parcel to set from for the status of the parcel/delivery. */
-    enum Status {
-        PENDING(R.string.parcel_status_pending),
-        IN_TRANSIT(R.string.parcel_status_in_transit),
-        AWATING_PICKUP(R.string.parcel_status_awaiting_pickup),
-        SHIPPED(R.string.parcel_status_shipped),
-        AWAITING_PAYMENT(R.string.parcel_status_awaiting_payment),
-        CANCELED(R.string.parcel_status_in_canceled);
+     public void setDate(Date date) {
+          this.date = date;
+     }
 
-        private final int statusValue;
+     @Override
+     public int compareTo(Parcel parcel) {
+          Log.e("ParcelJava", "compareTo called and we don't know what this does.");
+          return 0;
+     }
 
-        Status(int statusValue) { this.statusValue = statusValue; }
 
-        public String getValue(Activity context) {
-            return context.getResources().getString(statusValue);
-        }
-    }
+     // Enums
 
-    /** Priority strings and values for parcel/delivery. */
-    enum Priority {
-        //        URGENT("URGENT"),
-        HIGH(R.string.parcel_priority_high),
-        MEDIUM(R.string.parcel_priority_medium),
-        LOW(R.string.parcel_priority_low);
+     /**
+      * A list for Parcel to set from for the status of the parcel/delivery.
+      */
+     enum Status {
+          AWAITING_PAYMENT(R.string.parcel_status_awaiting_payment),
+          AWATING_PICKUP(R.string.parcel_status_awaiting_pickup),
+          CANCELED(R.string.parcel_status_canceled),
+          IN_TRANSIT(R.string.parcel_status_in_transit),
+          PENDING(R.string.parcel_status_pending),
+          SHIPPED(R.string.parcel_status_shipped);
 
-        private final int priorityString;
-        private final int priorityValue;
+          private final int statusValue;
 
-        Priority(int priorityString) {
-            this.priorityString = priorityString;
-            if (priorityString == R.string.parcel_priority_high) {
-                priorityValue = 1;
-            } else if (priorityString == R.string.parcel_priority_medium) {
-                priorityValue = 2;
-            } else {
-                priorityValue = 3;
-            }
-        }
+          Status(int statusValue) {
+               this.statusValue = statusValue;
+          }
 
-        public String getValue(Activity context) {
-            return context.getResources().getString(priorityString);
-        }
+          public String getValue(Activity context) {
+               return context.getResources().getString(statusValue);
+          }
+     }
 
-        public int getNumericValue() { return priorityValue; }
-    }
+     public enum code {
+          HIGH, MEDIUM, LOW
+     }
+
+     /**
+      * Priority strings and values for parcel/delivery.
+      */
+     enum Priority {
+          //        URGENT("URGENT"),
+          HIGH(R.string.parcel_priority_high),
+          MEDIUM(R.string.parcel_priority_medium),
+          LOW(R.string.parcel_priority_low);
+
+          private final int priorityString;
+          private final int priorityValue;
+
+          Priority(int priorityString) {
+               this.priorityString = priorityString;
+               if (priorityString == R.string.parcel_priority_high) {
+                    priorityValue = 1;
+               } else if (priorityString == R.string.parcel_priority_medium) {
+                    priorityValue = 2;
+               } else {
+                    priorityValue = 3;
+               }
+          }
+
+          public String getValue(Activity context) {
+               return context.getResources().getString(priorityString);
+          }
+
+          public int getNumericValue() {
+               return priorityValue;
+          }
+     }
 }

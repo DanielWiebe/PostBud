@@ -6,10 +6,16 @@ public class PriorityComparator implements Comparator<Parcel> {
 
     @Override
     public int compare(Parcel parcel, Parcel other) {
-        if (parcel.getPriority() == other.getPriority()) {
+        if (parcel.getPriority().equals(other.getPriority())) {
             return parcel.getDate().compareTo(other.getDate());
+        }
+        if (parcel == null) {
+            return -1;
+        }
+        if (other == null) {
+            return 1;
         } else {
-            return -(parcel.getPriority().getNumericValue() - other.getPriority().getNumericValue());
+            return parcel.compareTo(other);
         }
     }
 }
