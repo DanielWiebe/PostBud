@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -55,7 +56,6 @@ public class AddParcelActivity extends AppCompatActivity {
           super.onCreate(savedInstanceState);
           setContentView(R.layout.activity_add_parcel);
           ButterKnife.bind(this);
-
      }
 
 
@@ -65,12 +65,11 @@ public class AddParcelActivity extends AppCompatActivity {
                   etDest.getText().toString().trim(),
                   etOrderedBy.getText().toString().trim(),
                   etDesc.getText().toString().trim(),
-                  etStatus.getText().toString().trim(),
-                  etPriority.getText().toString().trim(),
-                  Double.parseDouble(String.valueOf(etWeight.getText())));
-
+                  Double.parseDouble(String.valueOf(etWeight.getText())),
+                  Timestamp.now(),
+                  Parcel.Priority.valueOf(etPriority.getText().toString().trim()),
+                  Parcel.Status.valueOf(etStatus.getText().toString().trim()));
           //TODO THIS NEEDS TO BE HANDLED AND AUTO FILLED USING THE ID FROM FIREBASE AUTHENTICATION SOMEHOW
-          String handled_by = "TODO";
 
           Map<String, Object> parcel = new HashMap<>();
           parcel.put(KEY_CURRENT_LOCATION, parcelToGo.getCurrentLocation());
