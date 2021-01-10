@@ -35,10 +35,10 @@
     <string name="parcel_priority_low">Low</string>
 
     <!-- Strings for Firebase fields -->
-<!--    <string name="firebase_"></string>-->
-<!--    <string name="firebase_"></string>-->
-<!--    <string name="firebase_"></string>-->
-<!--    <string name="firebase_"></string>-->
+    <!--    <string name="firebase_"></string>-->
+    <!--    <string name="firebase_"></string>-->
+    <!--    <string name="firebase_"></string>-->
+    <!--    <string name="firebase_"></string>-->
 
     <!-- Extra database parameters -->
     <string name="weight_lbs">Weight (lbs)</string>
@@ -68,5 +68,6 @@
     <string name="firebase_navigation_employees">employees</string>
     <string name="firebase_navigation_uid">uid</string>
     <string name="firebase_navigation_email">email</string>
+    <string name="title_activity_edit_parcel">EditParcelActivity</string>
 
 </resources>

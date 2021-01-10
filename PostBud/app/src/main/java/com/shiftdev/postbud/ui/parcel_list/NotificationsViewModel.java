@@ -1,4 +1,4 @@
-package com.shiftdev.postbud.ui.notifications;
+package com.shiftdev.postbud.ui.parcel_list;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

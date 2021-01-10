@@ -49,7 +49,7 @@ dependencies {
      implementation 'com.jakewharton:butterknife:10.2.3'
      annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.3'
 
-     implementation 'com.shawnlin:number-picker:2.4.11'
+     implementation 'com.jakewharton.timber:timber:4.7.1'
 
 
      // ----- FIREBASE / FIRESTORE -----

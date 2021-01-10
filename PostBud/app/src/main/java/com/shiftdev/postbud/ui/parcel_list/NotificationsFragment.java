@@ -1,4 +1,4 @@
-package com.shiftdev.postbud.ui.notifications;
+package com.shiftdev.postbud.ui.parcel_list;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

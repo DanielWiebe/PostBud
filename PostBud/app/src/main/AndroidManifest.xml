@@ -11,14 +11,16 @@
         android:theme="@style/Theme.PostBud"
         tools:ignore="AllowBackup">
         <activity
+            android:name=".ui.EditParcelActivity"
+            android:label="@string/title_activity_edit_parcel"
+            android:theme="@style/Theme.PostBud.NoActionBar"></activity>
+        <activity
             android:name=".ParcelListActivity"
             android:label="Parcel List" />
-
         <!--
                Set to true if your app is Standalone, that is, it does not require the handheld
                app to run.
         -->
-
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name">
