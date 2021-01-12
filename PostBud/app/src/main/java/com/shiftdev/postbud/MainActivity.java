@@ -11,7 +11,6 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -22,6 +21,7 @@ import com.shiftdev.postbud.Utils.Employee;
 import com.shiftdev.postbud.Utils.FirebaseNav;
 import com.shiftdev.postbud.Utils.Parcel;
 import com.shiftdev.postbud.Utils.PostBudFirestoreUtils;
+import timber.log.Timber;
 
 public class MainActivity extends AppCompatActivity {
     // TAG
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
-
+        Timber.plant();
         // Testing Firestore
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
 

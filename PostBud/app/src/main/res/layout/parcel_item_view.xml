@@ -109,10 +109,10 @@
             android:layout_below="@id/divider"
             android:layout_marginStart="4dp"
             android:layout_marginEnd="4dp"
-            android:textColor="@color/black"
             android:ellipsize="end"
             android:maxLines="2"
-            android:text="@string/lorem_ipsum" />
+            android:text="@string/lorem_ipsum"
+            android:textColor="@color/black" />
 
         <View
             android:id="@+id/divider2"
@@ -140,19 +140,19 @@
 
                 <TextView
                     android:id="@+id/tv_from_title"
-                    android:textAlignment="textStart"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/from"
+                    android:textAlignment="textStart"
                     android:textColor="@color/black" />
 
                 <TextView
-                    android:textColor="@color/black"
                     android:id="@+id/tv_from"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:text="@string/cgy"
-                    android:textAlignment="textStart" />
+                    android:textAlignment="textStart"
+                    android:textColor="@color/black" />
             </LinearLayout>
 
             <ImageView
@@ -183,10 +183,10 @@
                 <TextView
                     android:id="@+id/tv_status"
                     android:layout_width="match_parent"
-                    android:textColor="@color/black"
                     android:layout_height="wrap_content"
                     android:text="@string/in_transit"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:textColor="@color/black" />
             </LinearLayout>
 
             <ImageView
@@ -209,17 +209,17 @@
                     android:id="@+id/tv_dest_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textAlignment="textEnd"
                     android:text="@string/destination"
+                    android:textAlignment="textEnd"
                     android:textColor="@color/black" />
 
                 <TextView
                     android:id="@+id/tv_dest"
                     android:layout_width="match_parent"
-                    android:textColor="@color/black"
                     android:layout_height="wrap_content"
                     android:text="@string/wpg"
-                    android:textAlignment="textEnd" />
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/black" />
             </LinearLayout>
         </LinearLayout>
     </RelativeLayout>

@@ -52,13 +52,12 @@ public class AddParcelActivity extends AppCompatActivity {
     @BindView(R.id.bt_save)
     Button saveButton;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_parcel);
-        ButterKnife.bind(this);
-
-    }
+     @Override
+     protected void onCreate(Bundle savedInstanceState) {
+          super.onCreate(savedInstanceState);
+          setContentView(R.layout.activity_add_parcel);
+          ButterKnife.bind(this);
+     }
 
     public void saveParcel(View view) {
         Parcel parcelToGo = new Parcel("Some Parcel ID",
@@ -72,25 +71,17 @@ public class AddParcelActivity extends AppCompatActivity {
                 Parcel.Priority.valueOf(etPriority.getText().toString().trim()),
                 Parcel.Status.valueOf(etStatus.getText().toString().trim()));
 
-        //TODO THIS NEEDS TO BE HANDLED AND AUTO FILLED USING THE ID FROM FIREBASE AUTHENTICATION SOMEHOW
-        String handled_by = "TODO";
-
-        Map<String, Object> parcel = new HashMap<>();
-        parcel.put(KEY_CURRENT_LOCATION, parcelToGo.getCurrentLocation());
-        parcel.put(KEY_DESCRIPTION, parcelToGo.getDescription());
-        parcel.put(KEY_DESTINATION, parcelToGo.getDestination());
-        parcel.put(KEY_HANDLED_BY, parcelToGo.getHandledBy());
-        parcel.put(KEY_ORDERED_BY, parcelToGo.getOrderedBy());
-        parcel.put(KEY_ORIGIN, parcelToGo.getOrigin());
-        parcel.put(KEY_PRIORITY, parcelToGo.getPriority());
-        parcel.put(KEY_STATUS, parcelToGo.getStatus());
-        parcel.put(KEY_WEIGHT, parcelToGo.getWeight());
-        parcelReference.set(parcel)
-                .addOnSuccessListener(aVoid -> Toast.makeText(AddParcelActivity.this, "Parcel saved to Firebase", Toast.LENGTH_SHORT).show())
-                .addOnFailureListener(e -> {
-                    Toast.makeText(AddParcelActivity.this, "Error!", Toast.LENGTH_SHORT).show();
-                    Log.d("AddParcelActivity", e.toString());
-                });
+     public void saveParcel(View view) {
+          Parcel parcelToGo = new Parcel(etLocation.getText().toString().trim(),
+                  etOrigin.getText().toString().trim(),
+                  etDest.getText().toString().trim(),
+                  etOrderedBy.getText().toString().trim(),
+                  etDesc.getText().toString().trim(),
+                  Double.parseDouble(String.valueOf(etWeight.getText())),
+                  Timestamp.now(),
+                  Parcel.Priority.valueOf(etPriority.getText().toString().trim()),
+                  Parcel.Status.valueOf(etStatus.getText().toString().trim()));
+          //TODO THIS NEEDS TO BE HANDLED AND AUTO FILLED USING THE ID FROM FIREBASE AUTHENTICATION SOMEHOW
 
 
     }

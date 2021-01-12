@@ -48,6 +48,11 @@ dependencies {
      implementation 'com.jakewharton:butterknife:10.2.3'
      annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.3'
 
+     implementation 'com.jakewharton.timber:timber:4.7.1'
+
+
+
+
      // ----- FIREBASE / FIRESTORE -----
      // BoM for the Firebase platform
      /** When using the BoM, you don't specify versions in Firebase library dependencies */
