@@ -10,6 +10,7 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.shiftdev.postbud.Utils.Parcel;
 import com.shiftdev.postbud.Utils.ParcelAdapter;
 
 import butterknife.BindView;
@@ -17,12 +18,12 @@ import butterknife.ButterKnife;
 
 public class ParcelListActivity extends AppCompatActivity {
 
+     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
+     private final CollectionReference parcelRef = db.collection("parcels");
      @BindView(R.id.rv_parcel)
      RecyclerView recyclerView;
-
-     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-     private CollectionReference parcelRef = db.collection("parcels");
      private ParcelAdapter adapter;
+     private Query query;
 
      @Override
      protected void onCreate(Bundle savedInstanceState) {

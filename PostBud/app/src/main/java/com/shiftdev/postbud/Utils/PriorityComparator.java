@@ -1,4 +1,4 @@
-package com.shiftdev.postbud;
+package com.shiftdev.postbud.Utils;
 
 import java.util.Comparator;
 

@@ -14,7 +14,7 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
-import com.shiftdev.postbud.Parcel;
+import com.shiftdev.postbud.Utils.Parcel;
 import com.shiftdev.postbud.R;
 import com.shiftdev.postbud.Utils.ParcelAdapter;
 

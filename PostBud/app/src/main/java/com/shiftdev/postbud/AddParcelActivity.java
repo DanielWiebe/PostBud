@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.shiftdev.postbud.Utils.Parcel;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -69,8 +70,6 @@ public class AddParcelActivity extends AppCompatActivity {
      public void saveParcel() {
           //Timestamp.now(),
           //TODO THIS NEEDS TO BE HANDLED AND AUTO FILLED USING THE ID FROM FIREBASE AUTHENTICATION SOMEHOW
-          // Parcel testParcel = new Parcel("Toronto", "Seoul", "Winnipeg2", "TEST", "A very seriously overweight weight", 5093.58, Timestamp.now(), 2, Parcel.Status.PENDING);
-
 
           Map<String, Object> parcel = new HashMap<>();
           parcel.put(KEY_CURRENT_LOCATION, etLocation.getText().toString().trim());

@@ -1,5 +1,6 @@
 package com.shiftdev.postbud;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -18,92 +19,87 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-
+import com.shiftdev.postbud.Utils.Administrator;
+import com.shiftdev.postbud.Utils.Employee;
+import com.shiftdev.postbud.Utils.FirebaseNav;
+import com.shiftdev.postbud.Utils.Parcel;
+import com.shiftdev.postbud.Utils.PostBudFirestoreUtils;
 import timber.log.Timber;
 
 public class MainActivity extends AppCompatActivity {
-    // TAG
-    private static final String TAG = "MAIN";
+     // TAG
+     private static final String TAG = "MAIN";
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        BottomNavigationView navView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications)
-                .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-        NavigationUI.setupWithNavController(navView, navController);
-        Timber.plant();
-        // Testing Firestore
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
-
-        PostBudAppContext.setContext(this);
-
-        // Testing accounts
-        CurrentUserSingleton.getInstance();
-        String email = "art4321@gmail.com";
-        String password = "123456";
-
-        mAuth.signInWithEmailAndPassword(email, password);
-
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-//        Parcel testParcel = new Parcel("Toronto2", "Seou2l", "Winnipeg2", "Artyom", "BTS Merch", 5.58, Timestamp.now(), Parcel.Priority.MEDIUM, Parcel.Status.PENDING);
-
-        CollectionReference administratorsRef = db.collection(FirebaseNav.EMPLOYEES.getValue());
-        Query query = administratorsRef.whereEqualTo(FirebaseNav.EMAIL.getValue(), email);
-        query.get().addOnSuccessListener(queryDocumentSnapshots -> {
-            for (QueryDocumentSnapshot snapshot : queryDocumentSnapshots) {
-                Employee emp = snapshot.toObject(Employee.class);
-                Log.e(TAG, emp.getEmail());
-                Log.e(TAG, emp.toString());
-            }
-        });
-
-        // Testing
-//      Account admin = new Administrator("art1234@gmail.com","123456", "Art", "K", this);
-//
-//      Account employee = new Employee("art4321@gmail.com","123456", "RussianKoreanIsraeliCanadianSpy", "Art", "K");
-//
-//      mAuth.signInWithEmailAndPassword(artEmail, artPassword).addOnSuccessListener(authResult -> {
-//          // Testing reading accounts into CurrentUserSingleton
-//
-//
-//         Testing placing new parcels
-//          Query query = db.collection(FirebaseNav.ADMINISTRATORS.getValue(this))
-//                  .whereEqualTo(FirebaseNav.UID.getValue(this), Objects.requireNonNull(authResult.getUser()).getUid());
-//
-//          query.get().addOnCompleteListener(task -> {
-//              if (task.isSuccessful()) {
-//                  for (QueryDocumentSnapshot document : task.getResult()) {
-//                      Administrator result = document.toObject(Administrator.class);
-//                      CurrentUserSingleton.getInstance().setCurrentUser(result);
-//                      Log.e(TAG, CurrentUserSingleton.getInstance().getCurrentUser().getEmail());
-//                  }
-//                  CurrentUserSingleton.getInstance().getCurrentUser();
-//                               .newParcel("Winnipeg", "Las Vegas","BC", "Andrey", "Ryzen 9 5900X", 1);
-//              }
-//          });
-//      });
-
-//        Account admin = CurrentUserSingleton.getInstance().getCurrentUser();
-
+    public static void testUploadParcel(Activity context) {
+        PostBudFirestoreUtils.uploadParcel(context, new Parcel("PB0123456789", "Baghdad", "Minsk", "Winnipeg",
+                "Daniel Wiebe", "BTS Merch", 5.58, Timestamp.now(), Parcel.Priority.HIGH, Parcel.Status.PENDING));
+        PostBudFirestoreUtils.uploadParcel(context, new Parcel("PB0000000001", "Ireland", "Germany", "Egypt",
+                "Lil'Machty", "BMW 750li", 4000, Timestamp.now(), Parcel.Priority.HIGH, Parcel.Status.IN_TRANSIT));
+        PostBudFirestoreUtils.uploadParcel(context, new Parcel("PB0000000002", "Serbia", "China", "Nebraska",
+                "Andrey Tokarski", "Fidget Spinner", 0.3, Timestamp.now(), Parcel.Priority.HIGH, Parcel.Status.SHIPPED));
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+     @Override
+     protected void onCreate(Bundle savedInstanceState) {
+          super.onCreate(savedInstanceState);
+          setContentView(R.layout.activity_main);
+          BottomNavigationView navView = findViewById(R.id.nav_view);
+          // Passing each menu ID as a set of Ids because each
+          // menu should be considered as top level destinations.
+          AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
+                  R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications)
+                  .build();
+          NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+          NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+          NavigationUI.setupWithNavController(navView, navController);
+          Timber.plant();
+          // Testing Firestore
+          FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
-        return super.onCreateOptionsMenu(menu);
-    }
+          // Testing accounts
+          String adminEmail = "artAdmin@gmail.com";
+          String adminPassword = "password1";
+          String adminId = "admin1";
+          String adminFirstName = "Art";
+          String adminLastName = "Kim";
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+          String employeeEmail = "artEmployee@gmail.com";
+          String employeePassword = "password2";
+          String employeeId = "employee1";
+          String employeeFirstName = "Art";
+          String employeeLastName = "Park";
 
-        return super.onOptionsItemSelected(item);
-    }
+//        PostBudFirestoreUtils.createAccountAndUploadToFirestore(this, new Administrator(adminEmail, adminPassword, adminId, adminFirstName, adminLastName));
+//        PostBudFirestoreUtils.createAccountAndUploadToFirestore(this, new Employee(employeeEmail, employeePassword, employeeId, employeeFirstName, employeeLastName));
+
+          mAuth.signInWithEmailAndPassword(employeeEmail, employeePassword);
+
+          FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+          testUploadParcel(this);
+
+          CollectionReference administratorsRef = db.collection(FirebaseNav.ADMINISTRATORS.getValue(this));
+          Query query = administratorsRef.whereEqualTo(FirebaseNav.EMAIL.getValue(this), adminEmail);
+          query.get().addOnSuccessListener(queryDocumentSnapshots -> {
+               for (QueryDocumentSnapshot snapshot : queryDocumentSnapshots) {
+                    Employee emp = snapshot.toObject(Employee.class);
+//                Log.e(TAG, emp.getEmail());
+//                Log.e(TAG, emp.toString());
+               }
+          });
+     }
+
+}
+
+     @Override
+     public boolean onCreateOptionsMenu(Menu menu) {
+
+          return super.onCreateOptionsMenu(menu);
+     }
+
+     @Override
+     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+          return super.onOptionsItemSelected(item);
+     }
 }
