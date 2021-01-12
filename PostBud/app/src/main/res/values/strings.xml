@@ -67,6 +67,22 @@
     <string name="firebase_navigation_parcels">parcels</string>
     <string name="firebase_navigation_employees">employees</string>
     <string name="firebase_navigation_uid">uid</string>
-    <string name="firebase_navigation_email">email</string>
+<!--    Andrey's part Strings-->
+    <string name="track">Track</string>
+    <string name="enter_your_tacking_number_here">Enter your tacking number here:</string>
+    <string name="employee_login">Employee Login</string>
+    <string name="sign_in">Sign in</string>
+    <string name="stay_signed_in">Stay signed in</string>
+    <string name="password">Password</string>
+    <string name="employee_id">Employee ID</string>
+    <string name="new_parcel">New Parcel</string>
+    <string name="parcel_management">Parcel Management</string>
+    <string name="log_out">Log out</string>
+    <string name="status_employee">Status: employee</string>
+    <string name="main_menu">Main Menu</string>
+    <string name="recent_numbers">recent numbers</string>
+    <string name="an_employee">An employee?</string>
+    <string name="enter_your_tracking_number_here">Enter your tracking number here</string>
+    <string name="your_recent_tracking_numbers">Your recent tracking numbers</string>
 
 </resources>
