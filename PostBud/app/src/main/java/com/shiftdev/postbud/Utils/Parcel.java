@@ -1,18 +1,22 @@
-package com.shiftdev.postbud;
+package com.shiftdev.postbud.Utils;
 
 import android.app.Activity;
 
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.shiftdev.postbud.R;
 
 import java.util.Objects;
 
 public class Parcel {
     // Constants
     private final String TAG = "Parcel";
+    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     // Variables
+    private String documentId;
+    private String parcelId;
     private String currentLocation;
     private String origin;
     private String destination;
@@ -24,10 +28,12 @@ public class Parcel {
     private double weight;  // Kilograms
     private Timestamp date;
 
-
     // Constructors
-    /* Parcel made by an Administrator */
-    public Parcel(String currentLocation, String origin, String destination, String orderedBy, String description, double weight, Timestamp date, Priority priority, Parcel.Status status, String accountId) {
+    public Parcel() {}
+
+    /* Parcel made with a custom uid. Made for Administrator use. */
+    public Parcel(String parcelId, String currentLocation, String origin, String destination, String orderedBy, String description, double weight, Timestamp date, Priority priority, Parcel.Status status, String accountUid) {
+        this.parcelId = parcelId;
         this.currentLocation = currentLocation;
         this.origin = origin;
         this.destination = destination;
@@ -37,12 +43,12 @@ public class Parcel {
         this.date = date;
         this.status = status;
         this.priority = priority;
-        this.handledBy = accountId;
-        uploadToFirestore(this);
+        this.handledBy = accountUid;
     }
 
-    /* Parcel made by an Employee */
-    public Parcel(String currentLocation, String origin, String destination, String orderedBy, String description, double weight, Timestamp date, Priority priority, Parcel.Status status) {
+    /* Parcel made by the current user with his/her uid. */
+    public Parcel(String parcelId, String currentLocation, String origin, String destination, String orderedBy, String description, double weight, Timestamp date, Priority priority, Parcel.Status status) {
+        this.parcelId = parcelId;
         this.currentLocation = currentLocation;
         this.origin = origin;
         this.destination = destination;
@@ -53,59 +59,108 @@ public class Parcel {
         this.status = status;
         this.priority = priority;
         this.handledBy = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();  // Getting the current user's UID to know who handled it.
-        uploadToFirestore(this);
-    }
-
-    // Private Methods
-    private void uploadToFirestore(Parcel parcel) {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection(FirebaseNav.PARCELS.getValue()).add(parcel);
     }
 
     // Getters & Setters
-    public String getCurrentLocation() { return currentLocation; }
+    public String getParcelId() {
+        return parcelId;
+    }
 
-    public void setCurrentLocation(String currentLocation) { this.currentLocation = currentLocation; }
+    public void setParcelId(String parcelId) {
+        this.parcelId = parcelId;
+    }
 
-    public String getOrigin() { return origin; }
+    public String getDocumentId() {
+        return documentId;
+    }
 
-    public void setOrigin(String origin) { this.origin = origin; }
+    public void setDocumentId(String documentId) {
+        this.documentId = documentId;
+    }
 
-    public String getDestination() { return destination; }
+    public String getCurrentLocation() {
+        return currentLocation;
+    }
 
-    public void setDestination(String destination) { this.destination = destination; }
+    public void setCurrentLocation(String currentLocation) {
+        this.currentLocation = currentLocation;
+    }
 
-    public String getOrderedBy() { return orderedBy; }
+    public String getOrigin() {
+        return origin;
+    }
 
-    public void setOrderedBy(String orderedBy) { this.orderedBy = orderedBy; }
+    public void setOrigin(String origin) {
+        this.origin = origin;
+    }
 
-    public String getDescription() { return description; }
+    public String getDestination() {
+        return destination;
+    }
 
-    public void setDescription(String description) { this.description = description; }
+    public void setDestination(String destination) {
+        this.destination = destination;
+    }
 
-    public Status getStatus() { return status; }
+    public String getOrderedBy() {
+        return orderedBy;
+    }
 
-    public void setStatus(Status status) { this.status = status; }
+    public void setOrderedBy(String orderedBy) {
+        this.orderedBy = orderedBy;
+    }
 
-    public Priority getPriority() { return priority; }
+    public String getDescription() {
+        return description;
+    }
 
-    public void setPriority(Priority priority) { this.priority = priority; }
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-    public String getHandledBy() { return handledBy; }
+    public Status getStatus() {
+        return status;
+    }
 
-    public void setHandledBy(String handledBy) { this.handledBy = handledBy; }
+    public void setStatus(Status status) {
+        this.status = status;
+    }
 
-    public double getWeight() { return weight; }
+    public Priority getPriority() {
+        return priority;
+    }
 
-    public void setWeight(double weight) { this.weight = weight; }
+    public void setPriority(Priority priority) {
+        this.priority = priority;
+    }
 
-    public Timestamp getDate() { return date; }
+    public String getHandledBy() {
+        return handledBy;
+    }
 
-    public void setDate(Timestamp date) { this.date = date; }
+    public void setHandledBy(String handledBy) {
+        this.handledBy = handledBy;
+    }
+
+    public double getWeight() {
+        return weight;
+    }
+
+    public void setWeight(double weight) {
+        this.weight = weight;
+    }
+
+    public Timestamp getDate() {
+        return date;
+    }
+
+    public void setDate(Timestamp date) {
+        this.date = date;
+    }
 
     // Enums
     /* A list for Parcel to set from for the status of the parcel/delivery. */
-    enum Status {
+    public enum Status {
         PENDING(R.string.parcel_status_pending),
         IN_TRANSIT(R.string.parcel_status_in_transit),
         AWATING_PICKUP(R.string.parcel_status_awaiting_pickup),
@@ -126,7 +181,7 @@ public class Parcel {
     }
 
     /* Priority strings and values for parcel/delivery. */
-    enum Priority {
+    public enum Priority {
         HIGH(R.string.parcel_priority_high),
         MEDIUM(R.string.parcel_priority_medium),
         LOW(R.string.parcel_priority_low);
