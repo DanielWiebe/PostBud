@@ -10,6 +10,7 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.shiftdev.postbud.Utils.Parcel;
 import com.shiftdev.postbud.Utils.ParcelAdapter;
 
 import butterknife.BindView;
@@ -17,44 +18,45 @@ import butterknife.ButterKnife;
 
 public class ParcelListActivity extends AppCompatActivity {
 
-     @BindView(R.id.rv_parcel)
-     RecyclerView recyclerView;
+    @BindView(R.id.rv_parcel)
+    RecyclerView recyclerView;
 
-     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-     private CollectionReference parcelRef = db.collection("parcels");
-     private ParcelAdapter adapter;
+    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private final CollectionReference parcelRef = db.collection("parcels");
+    private ParcelAdapter adapter;
+    private Query query;
 
-     @Override
-     protected void onCreate(Bundle savedInstanceState) {
-          super.onCreate(savedInstanceState);
-          setContentView(R.layout.activity_parcel_list);
-          ButterKnife.bind(this);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_parcel_list);
+        ButterKnife.bind(this);
 
-          setUpRecyclerView();
-     }
+        setUpRecyclerView();
+    }
 
-     private void setUpRecyclerView() {
-          Query query = parcelRef.orderBy("weight", Query.Direction.DESCENDING);
-          FirestoreRecyclerOptions<Parcel> options = new FirestoreRecyclerOptions.Builder<Parcel>()
-                  .setQuery(query, Parcel.class)
-                  .build();
+    private void setUpRecyclerView() {
+        query = parcelRef.orderBy("weight", Query.Direction.DESCENDING);
+        FirestoreRecyclerOptions<Parcel> options = new FirestoreRecyclerOptions.Builder<Parcel>()
+                .setQuery(query, Parcel.class)
+                .build();
 
-          adapter = new ParcelAdapter(options);
-          recyclerView.setHasFixedSize(true);
-          recyclerView.setLayoutManager(new LinearLayoutManager(this));
-          recyclerView.setAdapter(adapter);
-     }
+        adapter = new ParcelAdapter(options);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(adapter);
+    }
 
 
-     @Override
-     public void onStart() {
-          super.onStart();
-          adapter.startListening();
-     }
+    @Override
+    public void onStart() {
+        super.onStart();
+        adapter.startListening();
+    }
 
-     @Override
-     public void onStop() {
-          super.onStop();
-          adapter.stopListening();
-     }
+    @Override
+    public void onStop() {
+        super.onStop();
+        adapter.stopListening();
+    }
 }

@@ -34,12 +34,6 @@
     <string name="parcel_priority_medium">Medium</string>
     <string name="parcel_priority_low">Low</string>
 
-    <!-- Strings for Firebase fields -->
-<!--    <string name="firebase_"></string>-->
-<!--    <string name="firebase_"></string>-->
-<!--    <string name="firebase_"></string>-->
-<!--    <string name="firebase_"></string>-->
-
     <!-- Extra database parameters -->
     <string name="weight_lbs">Weight (lbs)</string>
     <string name="right_arrow">right_arrow</string>
@@ -52,6 +46,7 @@
     <string name="lorem_ipsum">I\'ll have to stay for longer at work. So if I miss the meeting, FYI, I\'m going to start doing those parcel use cases that Daniel assigned to me and then start trying to implement that mockup in that I made, in XML.</string>
     <string name="high">High</string>
 
+    <!-- Strings for Firebase fields -->
     <string name="firebase_navigation_administrators">administrators</string>
     <string name="firebase_navigation_document_id">documentId</string>
     <string name="firebase_navigation_current_location">currentLocation</string>
@@ -68,5 +63,6 @@
     <string name="firebase_navigation_employees">employees</string>
     <string name="firebase_navigation_uid">uid</string>
     <string name="firebase_navigation_email">email</string>
+    <string name="firebase_navigation_parcel_id">parcelId</string>
 
 </resources>
