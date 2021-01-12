@@ -34,7 +34,7 @@ public class ParcelListActivity extends AppCompatActivity {
      }
 
      private void setUpRecyclerView() {
-          Query query = parcelRef.orderBy("weight", Query.Direction.DESCENDING);
+          Query query = parcelRef.orderBy("priority", Query.Direction.DESCENDING);
           FirestoreRecyclerOptions<Parcel> options = new FirestoreRecyclerOptions.Builder<Parcel>()
                   .setQuery(query, Parcel.class)
                   .build();

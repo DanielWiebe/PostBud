@@ -1,16 +1,19 @@
 package com.shiftdev.postbud;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.firebase.Timestamp;
-import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
@@ -18,6 +21,7 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import timber.log.Timber;
 
 public class AddParcelActivity extends AppCompatActivity {
      private static final String KEY_CURRENT_LOCATION = "current_location";
@@ -31,7 +35,7 @@ public class AddParcelActivity extends AppCompatActivity {
      private static final String KEY_WEIGHT = "weight";
      //Firestore reference to the database
      private final FirebaseFirestore db = FirebaseFirestore.getInstance();
-     private final DocumentReference parcelReference = db.document("parcels/My First Parcel");
+     private final CollectionReference parcelReference = db.collection("parcels");
      @BindView(R.id.et_description)
      EditText etDesc;
      @BindView(R.id.et_location)
@@ -40,54 +44,73 @@ public class AddParcelActivity extends AppCompatActivity {
      EditText etOrderedBy;
      @BindView(R.id.et_priority)
      EditText etPriority;
-     @BindView(R.id.et_status)
-     EditText etStatus;
+     @BindView(R.id.sp_status)
+     Spinner spStatus;
      @BindView(R.id.et_destination)
      EditText etDest;
      @BindView(R.id.et_origin)
      EditText etOrigin;
      @BindView(R.id.et_weight)
      EditText etWeight;
-     @BindView(R.id.bt_save)
-     Button saveButton;
+
 
      @Override
      protected void onCreate(Bundle savedInstanceState) {
           super.onCreate(savedInstanceState);
           setContentView(R.layout.activity_add_parcel);
           ButterKnife.bind(this);
+
+          ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.status_array, android.R.layout.simple_spinner_item);
+          adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+          spStatus.setAdapter(adapter);
      }
 
 
-     public void saveParcel(View view) {
-          Parcel parcelToGo = new Parcel(etLocation.getText().toString().trim(),
-                  etOrigin.getText().toString().trim(),
-                  etDest.getText().toString().trim(),
-                  etOrderedBy.getText().toString().trim(),
-                  etDesc.getText().toString().trim(),
-                  Double.parseDouble(String.valueOf(etWeight.getText())),
-                  Timestamp.now(),
-                  Parcel.Priority.valueOf(etPriority.getText().toString().trim()),
-                  Parcel.Status.valueOf(etStatus.getText().toString().trim()));
+     public void saveParcel() {
+          //Timestamp.now(),
           //TODO THIS NEEDS TO BE HANDLED AND AUTO FILLED USING THE ID FROM FIREBASE AUTHENTICATION SOMEHOW
+          // Parcel testParcel = new Parcel("Toronto", "Seoul", "Winnipeg2", "TEST", "A very seriously overweight weight", 5093.58, Timestamp.now(), 2, Parcel.Status.PENDING);
+
 
           Map<String, Object> parcel = new HashMap<>();
-          parcel.put(KEY_CURRENT_LOCATION, parcelToGo.getCurrentLocation());
-          parcel.put(KEY_DESCRIPTION, parcelToGo.getDescription());
-          parcel.put(KEY_DESTINATION, parcelToGo.getDestination());
-          parcel.put(KEY_HANDLED_BY, parcelToGo.getHandledBy());
-          parcel.put(KEY_ORDERED_BY, parcelToGo.getOrderedBy());
-          parcel.put(KEY_ORIGIN, parcelToGo.getOrigin());
-          parcel.put(KEY_PRIORITY, parcelToGo.getPriority());
-          parcel.put(KEY_STATUS, parcelToGo.getStatus());
-          parcel.put(KEY_WEIGHT, parcelToGo.getWeight());
-          parcelReference.set(parcel)
-                  .addOnSuccessListener(aVoid -> Toast.makeText(AddParcelActivity.this, "Parcel saved to Firebase", Toast.LENGTH_SHORT).show())
+          parcel.put(KEY_CURRENT_LOCATION, etLocation.getText().toString().trim());
+          parcel.put(KEY_DESCRIPTION, etDesc.getText().toString().trim());
+          parcel.put(KEY_DESTINATION, etDest.getText().toString().trim());
+          parcel.put(KEY_HANDLED_BY, CurrentUserSingleton.getInstance().getCurrentUser());
+          parcel.put(KEY_ORDERED_BY, etOrderedBy.getText().toString().trim());
+          parcel.put(KEY_ORIGIN, etOrigin.getText().toString().trim());
+          parcel.put(KEY_PRIORITY, Integer.parseInt(etPriority.getText().toString()));
+          parcel.put(KEY_STATUS, spStatus.getSelectedItem().toString().trim());
+          parcel.put(KEY_WEIGHT, Double.parseDouble(String.valueOf(etWeight.getText())));
+          parcelReference.add(parcel)
+                  .addOnSuccessListener(aVoid -> {
+                       Toast.makeText(AddParcelActivity.this, "Parcel saved to Firebase", Toast.LENGTH_SHORT).show();
+                       Intent intent = getParentActivityIntent();
+                       startActivity(intent);
+                  })
                   .addOnFailureListener(e -> {
                        Toast.makeText(AddParcelActivity.this, "Error!", Toast.LENGTH_SHORT).show();
-                       Log.d("AddParcelActivity", e.toString());
+                       Timber.e("AddParcelActivity");
                   });
+     }
 
+     @Override
+     public boolean onCreateOptionsMenu(Menu menu) {
+          MenuInflater menuInflater = getMenuInflater();
+          menuInflater.inflate(R.menu.save_parcel_menu_item, menu);
+          return super.onCreateOptionsMenu(menu);
+     }
 
+     @Override
+     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+          switch (item.getItemId()) {
+               case R.id.saveParcel:
+                    saveParcel();
+
+                    Toast.makeText(this, "Saving Parcel", Toast.LENGTH_SHORT).show();
+                    return true;
+               default:
+                    return super.onOptionsItemSelected(item);
+          }
      }
 }

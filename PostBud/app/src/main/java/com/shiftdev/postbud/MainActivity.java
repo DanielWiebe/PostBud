@@ -2,7 +2,10 @@ package com.shiftdev.postbud;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -55,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         CollectionReference administratorsRef = db.collection(FirebaseNav.EMPLOYEES.getValue());
         Query query = administratorsRef.whereEqualTo(FirebaseNav.EMAIL.getValue(), email);
         query.get().addOnSuccessListener(queryDocumentSnapshots -> {
-            for (QueryDocumentSnapshot snapshot : queryDocumentSnapshots){
+            for (QueryDocumentSnapshot snapshot : queryDocumentSnapshots) {
                 Employee emp = snapshot.toObject(Employee.class);
                 Log.e(TAG, emp.getEmail());
                 Log.e(TAG, emp.toString());
@@ -63,33 +66,44 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // Testing
-//        Account admin = new Administrator("art1234@gmail.com","123456", "Art", "K", this);
-
-//        Account employee = new Employee("art4321@gmail.com","123456", "RussianKoreanIsraeliCanadianSpy", "Art", "K");
-
-//        mAuth.signInWithEmailAndPassword(artEmail, artPassword).addOnSuccessListener(authResult -> {
-//            // Testing reading accounts into CurrentUserSingleton
+//      Account admin = new Administrator("art1234@gmail.com","123456", "Art", "K", this);
+//
+//      Account employee = new Employee("art4321@gmail.com","123456", "RussianKoreanIsraeliCanadianSpy", "Art", "K");
+//
+//      mAuth.signInWithEmailAndPassword(artEmail, artPassword).addOnSuccessListener(authResult -> {
+//          // Testing reading accounts into CurrentUserSingleton
 //
 //
-//            // Testing placing new parcels
-//            Query query = db.collection(FirebaseNav.ADMINISTRATORS.getValue(this))
-//                    .whereEqualTo(FirebaseNav.UID.getValue(this), Objects.requireNonNull(authResult.getUser()).getUid());
+//         Testing placing new parcels
+//          Query query = db.collection(FirebaseNav.ADMINISTRATORS.getValue(this))
+//                  .whereEqualTo(FirebaseNav.UID.getValue(this), Objects.requireNonNull(authResult.getUser()).getUid());
 //
-//            query.get().addOnCompleteListener(task -> {
-//                if (task.isSuccessful()) {
-//                    for (QueryDocumentSnapshot document : task.getResult()) {
-//                        Administrator result = document.toObject(Administrator.class);
-//                        CurrentUserSingleton.getInstance().setCurrentUser(result);
-//                        Log.e(TAG, CurrentUserSingleton.getInstance().getCurrentUser().getEmail());
-//                    }
-//                    CurrentUserSingleton.getInstance().getCurrentUser();
-//                                 .newParcel("Winnipeg", "Las Vegas","BC", "Andrey", "Ryzen 9 5900X", 1);
-//                }
-//            });
-//        });
+//          query.get().addOnCompleteListener(task -> {
+//              if (task.isSuccessful()) {
+//                  for (QueryDocumentSnapshot document : task.getResult()) {
+//                      Administrator result = document.toObject(Administrator.class);
+//                      CurrentUserSingleton.getInstance().setCurrentUser(result);
+//                      Log.e(TAG, CurrentUserSingleton.getInstance().getCurrentUser().getEmail());
+//                  }
+//                  CurrentUserSingleton.getInstance().getCurrentUser();
+//                               .newParcel("Winnipeg", "Las Vegas","BC", "Andrey", "Ryzen 9 5900X", 1);
+//              }
+//          });
+//      });
 
 //        Account admin = CurrentUserSingleton.getInstance().getCurrentUser();
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        return super.onOptionsItemSelected(item);
+    }
 }

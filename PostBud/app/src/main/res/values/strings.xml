@@ -24,23 +24,26 @@
     <string name="add_parcel">Add parcel</string>
 
     <!-- Strings used for parcel/delivery statuses and priorities -->
-    <string name="parcel_status_pending">Pending</string>
-    <string name="parcel_status_awaiting_pickup">Awaiting pickup</string>
-    <string name="parcel_status_awaiting_payment">Awaiting payment</string>
-    <string name="parcel_status_in_transit">In transit</string>
-    <string name="parcel_status_shipped">Shipped</string>
-    <string name="parcel_status_in_canceled">Canceled</string>
-    <string name="parcel_priority_high">High</string>
-    <string name="parcel_priority_medium">Medium</string>
-    <string name="parcel_priority_low">Low</string>
+    <string-array name="status_array">
+        <item name="parcel_status_pending">PENDING</item>
+        <item name="parcel_status_awaiting_pickup">AWAITING PICKUP</item>
+        <item name="parcel_status_awaiting_payment">AWAITING PAYMENT</item>
+        <item name="parcel_status_in_transit">IN TRANSIT</item>
+        <item name="parcel_status_shipped">SHIPPED</item>
+        <item name="parcel_status_in_canceled">CANCELLED</item>
+    </string-array>
+
+    <string name="parcel_priority_high">HIGH</string>
+    <string name="parcel_priority_medium">MEDIUM</string>
+    <string name="parcel_priority_low">LOW</string>
 
     <!-- Strings for Firebase fields -->
-<!--    <string name="firebase_"></string>-->
-<!--    <string name="firebase_"></string>-->
-<!--    <string name="firebase_"></string>-->
-<!--    <string name="firebase_"></string>-->
+    <!--    <string name="firebase_"></string>-->
+    <!--    <string name="firebase_"></string>-->
+    <!--    <string name="firebase_"></string>-->
+    <!--    <string name="firebase_"></string>-->
 
-    <!-- Extra database parameters -->
+    <!-- Test database parameters -->
     <string name="weight_lbs">Weight (lbs)</string>
     <string name="right_arrow">right_arrow</string>
     <string name="destination">Destination</string>
@@ -67,7 +70,7 @@
     <string name="firebase_navigation_parcels">parcels</string>
     <string name="firebase_navigation_employees">employees</string>
     <string name="firebase_navigation_uid">uid</string>
-<!--    Andrey's part Strings-->
+    <!--    Andrey's part Strings-->
     <string name="track">Track</string>
     <string name="enter_your_tacking_number_here">Enter your tacking number here:</string>
     <string name="employee_login">Employee Login</string>
@@ -84,5 +87,6 @@
     <string name="an_employee">An employee?</string>
     <string name="enter_your_tracking_number_here">Enter your tracking number here</string>
     <string name="your_recent_tracking_numbers">Your recent tracking numbers</string>
+    <string name="firebase_navigation_email">email</string>
 
 </resources>

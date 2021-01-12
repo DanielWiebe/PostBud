@@ -9,6 +9,8 @@
         android:id="@+id/et_description"
         style="@style/styleAdd_Parcel_Margin_Format"
         android:hint="@string/how_cool_is_the_package_describe_it"
+        android:text="test desc"
+
         android:importantForAutofill="no"
         android:inputType="text" />
 
@@ -18,6 +20,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/ordered_by_jane_doe"
+        android:text="test ordered"
+
         android:importantForAutofill="no"
         android:inputType="text" />
 
@@ -27,20 +31,27 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/priority_1_2_or_3"
+        android:text="2"
+
         android:importantForAutofill="no"
         android:inputType="number" />
 
-    <EditText
-        android:id="@+id/et_status"
-        style="@style/styleAdd_Parcel_Margin_Format"
-        android:hint="@string/current_status"
-        android:importantForAutofill="no"
-        android:inputType="text" />
+
+    <!--    <EditText-->
+    <!--        android:id="@+id/et_status"-->
+    <!--        style="@style/styleAdd_Parcel_Margin_Format"-->
+    <!--        android:hint="@string/current_status"-->
+    <!--        android:text="IN TRANSIT"-->
+
+    <!--        android:importantForAutofill="no"-->
+    <!--        android:inputType="text" />-->
 
     <EditText
         android:id="@+id/et_destination"
         style="@style/styleAdd_Parcel_Margin_Format"
         android:hint="@string/where_is_it_going"
+        android:text="test dest"
+
         android:importantForAutofill="no"
         android:inputType="text" />
 
@@ -48,6 +59,8 @@
         android:id="@+id/et_location"
         style="@style/styleAdd_Parcel_Margin_Format"
         android:hint="@string/where_is_it_now"
+        android:text="test loc"
+
         android:importantForAutofill="no"
         android:inputType="text" />
 
@@ -56,22 +69,31 @@
         style="@style/styleAdd_Parcel_Margin_Format"
         android:hint="@string/where_is_from"
         android:importantForAutofill="no"
+        android:text="test origin"
         android:inputType="text" />
 
     <EditText
         android:id="@+id/et_weight"
         style="@style/styleAdd_Parcel_Margin_Format"
         android:hint="@string/weight_lbs"
+        android:text="200"
+
         android:importantForAutofill="no"
         android:inputType="numberDecimal" />
 
+    <TextView
+        android:id="@+id/tv_status_title"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_width="match_parent"
+        android:text="Set Parcel Status" />
 
-    <Button
-        android:id="@+id/bt_save"
+    <Spinner
+        android:id="@+id/sp_status"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="saveNote"
-        android:text="Add Parcel" />
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="16dp" />
 
 
 </LinearLayout>

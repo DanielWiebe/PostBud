@@ -31,7 +31,7 @@ public abstract class Account implements Comparable<Account>, Serializable {
     }
 
     // Public methods
-    public Parcel newParcel(String currentLocation, String origin, String destination, String orderedBy, String description, double weight, Timestamp date, Parcel.Priority priority, Parcel.Status status) {
+    public Parcel newParcel(String currentLocation, String origin, String destination, String orderedBy, String description, double weight, Timestamp date, int priority, String status) {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         Parcel parcel = null;
         if (mAuth.getCurrentUser() != null) {

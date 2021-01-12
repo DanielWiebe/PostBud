@@ -12,13 +12,12 @@
         tools:ignore="AllowBackup">
         <activity
             android:name=".ParcelListActivity"
-            android:label="Parcel List" />
-
-        <!--
-               Set to true if your app is Standalone, that is, it does not require the handheld
-               app to run.
-        -->
-
+            android:label="Parcel List"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".AddParcelActivity"
+            android:label="Add New Parcel"
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name">
