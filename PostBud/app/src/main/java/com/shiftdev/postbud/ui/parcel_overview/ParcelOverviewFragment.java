@@ -14,8 +14,8 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
-import com.shiftdev.postbud.Utils.Parcel;
 import com.shiftdev.postbud.R;
+import com.shiftdev.postbud.Utils.Parcel;
 import com.shiftdev.postbud.Utils.ParcelAdapter;
 
 import butterknife.BindView;
@@ -37,22 +37,11 @@ public class ParcelOverviewFragment extends Fragment {
      public View onCreateView(@NonNull LayoutInflater inflater,
                               ViewGroup container, Bundle savedInstanceState) {
 
-          //boilerplate code for making the overview layout and working with the ParcelOverviewViewModel architecture
-          //    ParcelOverviewViewModel parcelOverviewViewModel = new ViewModelProvider(this).get(ParcelOverviewViewModel.class);
           View root = inflater.inflate(R.layout.fragment_parcel_overview, container, false);
-//          final TextView textView = root.findViewById(R.id.text_dashboard);
           //tying the annotated Butterknife references to this fragment layout
           ButterKnife.bind(this, root);
-//          parcelOverviewViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-//               @Override
-//               public void onChanged(@Nullable String s) {
-//                    textView.setText(s);
-//               }
-//          });
-
 
           //calling recyclerview build method
-
           initViews();
           setUpRecyclerView();
           return root;
