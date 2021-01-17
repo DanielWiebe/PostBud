@@ -2,13 +2,19 @@ package com.shiftdev.postbud;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
@@ -20,6 +26,7 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import timber.log.Timber;
+
 
 public class MainActivity extends AppCompatActivity {
     // TAG
@@ -93,6 +100,11 @@ public class MainActivity extends AppCompatActivity {
 
 //        Account admin = CurrentUserSingleton.getInstance().getCurrentUser();
 
+//        //The Autofill suggestion for a user's previously entered numbers
+//        AutoCompleteTextView recentNumbersAutoComplete =  (AutoCompleteTextView) findViewById(R.id.autocomplete_tracking_Numbers);
+//        String[] recentNumbersArray = getResources().getStringArray(R.array.number_history);
+//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, recentNumbersArray);
+//        recentNumbersAutoComplete.setAdapter(adapter);
     }
 
     @Override

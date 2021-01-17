@@ -1,19 +1,23 @@
 package com.shiftdev.postbud.ui.home;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-
+import androidx.navigation.fragment.NavHostFragment;
+import android.widget.AutoCompleteTextView;
 import com.shiftdev.postbud.AddParcelActivity;
 import com.shiftdev.postbud.ParcelListActivity;
 import com.shiftdev.postbud.R;
+import com.shiftdev.postbud.ui.activities.LoginActivity;
+import com.shiftdev.postbud.ui.activities.parcelStatusActivity;
+import com.shiftdev.postbud.ui.activities.recentNumbersActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -21,11 +25,14 @@ import butterknife.ButterKnife;
 public class HomeFragment extends Fragment {
 
 
-     @BindView(R.id.bt_go_to_add)
-     Button showParcelListBT;
+     @BindView(R.id.trackButton)
+     Button trackButton;
 
      @BindView(R.id.recentNumberButton)
-     Button addParcelScreenBT;
+     Button recentNumberButton;
+
+     @BindView(R.id.signInButton)
+     Button signInButton;
 
      private HomeViewModel homeViewModel;
 
@@ -36,25 +43,64 @@ public class HomeFragment extends Fragment {
           View root = inflater.inflate(R.layout.fragment_home, container, false);
           ButterKnife.bind(this, root);
 
-          showParcelListBT.setOnClickListener(new View.OnClickListener() {
+          trackButton.setOnClickListener(new View.OnClickListener() {
 
                @Override
                public void onClick(View arg0) {
-                    Intent intent = new Intent(getActivity(), ParcelListActivity.class);
+                    Intent intent = new Intent(getActivity(), parcelStatusActivity.class);
                     requireActivity().startActivity(intent);
                }
           });
-          addParcelScreenBT.setOnClickListener(new View.OnClickListener() {
+          recentNumberButton.setOnClickListener(new View.OnClickListener() {
 
                @Override
                public void onClick(View arg0) {
-                    Intent intent = new Intent(getActivity(), AddParcelActivity.class);
+                    Intent intent = new Intent(getActivity(), recentNumbersActivity.class);
                     requireActivity().startActivity(intent);
                }
-          });
 
+
+          });
+          signInButton.setOnClickListener(new View.OnClickListener() {
+
+               @Override
+               public void onClick(View arg0) {
+                    Intent intent = new Intent(getActivity(), LoginActivity.class);
+                    requireActivity().startActivity(intent);
+               }
+
+
+          });
           return root;
      }
+
+
+
+//     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+//          super.onViewCreated(view, savedInstanceState);
+//
+//          view.findViewById(R.id.bt_go_to_add).setOnClickListener(new View.OnClickListener() {
+//               @Override
+//               public void onClick(View view) {
+//                    NavHostFragment.findNavController(HomeFragment.this)
+//                            .navigate(R.id.action_navigation_home_to_parcelListActivity2);
+//               }
+//          });
+//          view.findViewById(R.id.bt_go_to_add).setOnClickListener(new View.OnClickListener() {
+//               @Override
+//               public void onClick(View view2) {
+//                    NavHostFragment.findNavController(HomeFragment.this)
+//                            .navigate(R.id.action_navigation_home_to_parcelListActivity2);
+//               }
+//          });
+//          view.findViewById(R.id.signInButton).setOnClickListener(new View.OnClickListener() {
+//               @Override
+//               public void onClick(View view3) {
+//                    NavHostFragment.findNavController(HomeFragment.this)
+//                            .navigate(R.id.action_navigation_home_to_loginFragment);
+//               }
+//          });
+//     }
 
 
 }

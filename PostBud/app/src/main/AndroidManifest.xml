@@ -13,14 +13,43 @@
         <activity
             android:name=".ParcelListActivity"
             android:label="Parcel List"
-            android:parentActivityName=".MainActivity" />
+         />
         <activity
             android:name=".AddParcelActivity"
+            android:label="Add New Parcel" />
+        <activity
+            android:name=".ui.activities.administratorMenuActivity"
             android:label="Add New Parcel"
             android:parentActivityName=".MainActivity" />
         <activity
+            android:name=".ui.activities.recentNumbersActivity"
+            android:label="recent numbers"
+            android:parentActivityName=".MainActivity"/>
+        <activity
+            android:name=".ui.activities.LoginActivity"
+            android:label="login page"
+            android:parentActivityName=".MainActivity"/>
+        <activity
+            android:name=".ui.activities.employeeMenuActivity"
+            android:label="employee activity"
+            android:parentActivityName=".ui.activities.LoginActivity"/>
+        <activity
+            android:name=".ui.activities.addEmployeeActivity"
+            android:label="Add Employee Activity "
+            android:parentActivityName=".ui.activities.administratorMenuActivity"/>
+        <activity
+            android:name=".ui.activities.parcelManagementActivity"
+            android:label="Parcel Management Activity"
+            android:parentActivityName=".ui.activities.administratorMenuActivity"/>
+        <activity
+            android:name=".ui.activities.parcelStatusActivity"
+            android:label="Parcel Status Activity"
+            android:parentActivityName=".MainActivity"/>
+        <activity
             android:name=".MainActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:parentActivityName=".MainActivity"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
