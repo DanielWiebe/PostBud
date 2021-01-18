@@ -1,14 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.shiftdev.postbud">
 
     <application
-        android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.PostBud">
+        android:theme="@style/Theme.PostBud"
+        tools:ignore="AllowBackup">
+        <activity
+            android:name=".ParcelDetailActivity"
+            android:label="@string/title_activity_parcel_detail"
+            android:theme="@style/Theme.PostBud.NoActionBar"></activity>
+        <activity
+            android:name=".ParcelListActivity"
+            android:label="Parcel List"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".AddParcelActivity"
+            android:label="Add New Parcel"
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name">
