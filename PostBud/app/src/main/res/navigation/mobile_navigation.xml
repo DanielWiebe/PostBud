@@ -9,7 +9,14 @@
         android:id="@+id/navigation_home"
         android:name="com.shiftdev.postbud.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_navigation_home_to_addParcelActivity"
+            app:destination="@id/addParcelActivity" />
+        <action
+            android:id="@+id/action_navigation_home_to_parcelListActivity2"
+            app:destination="@id/parcelListActivity2" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_list"
@@ -22,4 +29,12 @@
         android:name="com.shiftdev.postbud.ui.account.AccountFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
+    <activity
+        android:id="@+id/addParcelActivity"
+        android:name="com.shiftdev.postbud.AddParcelActivity"
+        android:label="AddParcelActivity" />
+    <activity
+        android:id="@+id/parcelListActivity2"
+        android:name="com.shiftdev.postbud.ParcelListActivity"
+        android:label="ParcelListActivity" />
 </navigation>

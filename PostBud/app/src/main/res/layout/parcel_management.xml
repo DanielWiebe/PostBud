@@ -8,24 +8,27 @@
         android:id="@+id/parcelManagementText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="261dp"
         android:text="Parcel Management"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/editParcelButton"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.066" />
 
     <Button
         android:id="@+id/editParcelButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
         android:text="Edit a parcel"
-        app:layout_constraintBottom_toTopOf="@id/viewParcelsButton"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.507"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/parcelManagementText" />
+        app:layout_constraintTop_toBottomOf="@+id/parcelManagementText"
+        app:layout_constraintVertical_bias="0.098" />
 
     <Button
         android:id="@+id/viewParcelsButton"
@@ -34,16 +37,9 @@
         android:text="view parcels"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editParcelButton" />
+        app:layout_constraintTop_toBottomOf="@+id/editParcelButton"
+        app:layout_constraintVertical_bias="0.392" />
 
-    <Button
-        android:id="@+id/backButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="back"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/viewParcelsButton" />
 </androidx.constraintlayout.widget.ConstraintLayout>
