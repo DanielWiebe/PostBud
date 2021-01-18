@@ -18,7 +18,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ParcelAdapter extends FirestoreRecyclerAdapter<Parcel, ParcelAdapter.ParcelHolder> {
-     private onParcelClickListener listener;
+     private OnItemClickListener listener;
 
      public ParcelAdapter(@NonNull FirestoreRecyclerOptions<Parcel> options) {
           super(options);
@@ -44,16 +44,20 @@ public class ParcelAdapter extends FirestoreRecyclerAdapter<Parcel, ParcelAdapte
           return new ParcelHolder(v);
      }
 
-
-     void deleteItem(int position) {
-          getSnapshots().getSnapshot(position).getReference().delete();
+     public void onDataChanged() {
+          super.onDataChanged();
      }
 
-     void setOnItemClickListener(onParcelClickListener listener) {
+     public void deleteItem(int position) {
+          getSnapshots().getSnapshot(position).getReference().delete();
+
+     }
+
+     public void setOnItemClickListener(OnItemClickListener listener) {
           this.listener = listener;
      }
 
-     public interface onParcelClickListener {
+     public interface OnItemClickListener {
           void onParcelClick(DocumentSnapshot documentSnapshot, int position);
      }
 
@@ -81,10 +85,10 @@ public class ParcelAdapter extends FirestoreRecyclerAdapter<Parcel, ParcelAdapte
           public ParcelHolder(View itemView) {
                super(itemView);
                ButterKnife.bind(this, itemView);
-               container.setOnClickListener((View.OnClickListener) view -> {
-                    int pos = getAdapterPosition();
-                    if (pos != RecyclerView.NO_POSITION && listener != null) {
-                         listener.onParcelClick(getSnapshots().getSnapshot(pos), pos);
+               itemView.setOnClickListener(v -> {
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION && listener != null) {
+                         listener.onParcelClick(getSnapshots().getSnapshot(position), position);
                     }
                });
           }

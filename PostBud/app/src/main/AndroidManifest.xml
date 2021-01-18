@@ -11,6 +11,10 @@
         android:theme="@style/Theme.PostBud"
         tools:ignore="AllowBackup">
         <activity
+            android:name=".ParcelDetailActivity"
+            android:label="@string/title_activity_parcel_detail"
+            android:theme="@style/Theme.PostBud.NoActionBar"></activity>
+        <activity
             android:name=".ParcelListActivity"
             android:label="Parcel List"
             android:parentActivityName=".MainActivity" />
@@ -23,6 +27,7 @@
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

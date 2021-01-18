@@ -39,8 +39,7 @@ public class PostBudFirestoreUtils {
      * @return the reference to the document that is being uploaded.
      */
     public static void uploadParcel(Activity context, Parcel parcel) {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        CollectionReference ref = db.collection(FirebaseNav.PARCELS.getValue(context));
+        CollectionReference ref = FirebaseFirestore.getInstance().collection(FirebaseNav.PARCELS.getValue(context));
         ref.whereEqualTo(FirebaseNav.PARCEL_ID.getValue(context), parcel.getParcelId())
                 .get()
                 .addOnCompleteListener(task -> {

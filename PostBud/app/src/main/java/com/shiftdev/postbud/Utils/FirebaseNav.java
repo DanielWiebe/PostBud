@@ -13,7 +13,7 @@ public enum FirebaseNav {
      PARCELS(R.string.firebase_navigation_parcels),
      EMPLOYEES(R.string.firebase_navigation_employees),
 
-     // Parcel feilds
+     // Parcel fields
      DOCUMENT_ID(R.string.firebase_navigation_document_id),
      PARCEL_ID(R.string.firebase_navigation_parcel_id),
      CURRENT_LOCATION(R.string.firebase_navigation_current_location),

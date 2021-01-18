@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
           NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
           NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
           NavigationUI.setupWithNavController(navView, navController);
-          Timber.plant();
+          Timber.plant(new Timber.DebugTree());
           // Testing Firestore
           FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
 
           FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-          // testUploadParcel(this);
+          testUploadParcel(this);
 
           CollectionReference administratorsRef = db.collection(FirebaseNav.ADMINISTRATORS.getValue(this));
           Query query = administratorsRef.whereEqualTo(FirebaseNav.EMAIL.getValue(this), adminEmail);

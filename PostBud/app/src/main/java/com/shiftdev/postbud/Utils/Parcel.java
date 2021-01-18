@@ -154,8 +154,23 @@ public class Parcel {
           this.date = date;
      }
 
-     // Getters & Setters
-
+     @Override
+     public String toString() {
+          return "Parcel{" +
+                  "documentId='" + documentId + '\'' +
+                  ", parcelId='" + parcelId + '\'' +
+                  ", currentLocation='" + currentLocation + '\'' +
+                  ", origin='" + origin + '\'' +
+                  ", destination='" + destination + '\'' +
+                  ", orderedBy='" + orderedBy + '\'' +
+                  ", description='" + description + '\'' +
+                  ", status='" + status + '\'' +
+                  ", priority=" + priority +
+                  ", handledBy='" + handledBy + '\'' +
+                  ", weight=" + weight +
+                  ", date=" + date +
+                  '}';
+     }
 
      // Enums
      /* A list for Parcel to set from for the status of the parcel/delivery. */
