@@ -3,4 +3,132 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="how_cool_is_the_package_describe_it">Package Description</string>
+    <string name="ordered_by_jane_doe">Ordered By</string>
+    <string name="priority_1_2_or_3">Priority Index</string>
+    <string name="current_status">Shipment Status</string>
+    <string name="where_is_it_going">Destination</string>
+    <string name="where_is_from">Origin</string>
+    <string name="title_activity_add_parcel">New Parcel</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="where_is_it_now">Current Location</string>
+    <string name="add_parcel">Add parcel</string>
+
+    <!-- Strings used for parcel/delivery statuses and priorities -->
+    <string-array name="status_array">
+        <item name="parcel_status_pending">PENDING</item>
+        <item name="parcel_status_awaiting_pickup">AWAITING PICKUP</item>
+        <item name="parcel_status_awaiting_payment">AWAITING PAYMENT</item>
+        <item name="parcel_status_in_transit">IN TRANSIT</item>
+        <item name="parcel_status_shipped">SHIPPED</item>
+        <item name="parcel_status_in_canceled">CANCELLED</item>
+    </string-array>
+
+    <string name="parcel_priority_high">HIGH</string>
+    <string name="parcel_priority_medium">MEDIUM</string>
+    <string name="parcel_priority_low">LOW</string>
+
+    <!-- Extra database parameters -->
+    <string name="weight_lbs">Weight (lbs)</string>
+    <string name="right_arrow">right_arrow</string>
+    <string name="destination">Destination</string>
+    <string name="wpg">WPG</string>
+    <string name="in_transit">In Transit</string>
+    <string name="status">Status</string>
+    <string name="cgy">CGY</string>
+    <string name="from">From</string>
+    <string name="lorem_ipsum"> XML.</string>
+    <string name="high">High</string>
+
+    <!-- Strings for Firebase fields -->
+    <string name="firebase_navigation_administrators">administrators</string>
+    <string name="firebase_navigation_document_id">documentId</string>
+    <string name="firebase_navigation_current_location">currentLocation</string>
+    <string name="firebase_navigation_origin">origin</string>
+    <string name="firebase_navigation_destination">destination</string>
+    <string name="firebase_navigation_ordered_by">orderedBy</string>
+    <string name="firebase_navigation_description">description</string>
+    <string name="firebase_navigation_status">status</string>
+    <string name="firebase_navigation_priority">priority</string>
+    <string name="firebase_navigation_handled_by">handledBy</string>
+    <string name="firebase_navigation_weight">weight</string>
+    <string name="firebase_navigation_date">date</string>
+    <string name="firebase_navigation_parcels">parcels</string>
+    <string name="firebase_navigation_employees">employees</string>
+    <string name="firebase_navigation_uid">uid</string>
+    <string name="firebase_navigation_email">email</string>
+    <string name="firebase_navigation_parcel_id">parcelId</string>
+
+
+    <!--    Andrey's part Strings-->
+    <string name="enter_your_tacking_number_here">Enter your tacking number here:</string>
+    <string name="employee_login">Employee Login</string>
+    <string name="stay_signed_in">Stay signed in</string>
+    <string name="password">Password</string>
+    <string name="employee_id">Employee ID</string>
+    <string name="new_parcel">New Parcel</string>
+    <string name="parcel_management">Parcel Management</string>
+    <string name="log_out">Log out</string>
+    <string name="status_employee">Status: employee</string>
+    <string name="main_menu">Main Menu</string>
+    <string name="recent_numbers">recent numbers</string>
+    <string name="an_employee">An employee?</string>
+    <string name="enter_your_tracking_number_here">Enter your tracking number here</string>
+    <string name="your_recent_tracking_numbers">Your recent tracking numbers:</string>
+    <string name="firebase_navigation_email">email</string>
+    <string name="PostBud">PostBud</string>
+    <string name="all_fields_are_required">All fields are required</string>
+    <string name="address">Address</string>
+    <string name="add">Add</string>
+    <string name="sign_in">Sign in</string>
+    <string name="log_in">Log in</string>
+    <string name="track">Track</string>
+    <string name="employees">employees</string>
+    <string name="status_administrator">Status: administrator</string>
+    <string name="add_an_employee">add an employee</string>
+
+    <!--    &lt;!&ndash;Autocomplete view for previously entered tracking numbers for the main screen.&ndash;&gt;-->
+    <!--    <string-array name="number_history">-->
+    <!--        &lt;!&ndash;The numbers should be added here through a java class depending on the numbers that a user has entered&ndash;&gt;-->
+    <!--    </string-array>-->
+
+<!--    &lt;!&ndash; Strings related to login &ndash;&gt;-->
+<!--    <string name="prompt_email">Email</string>-->
+<!--    <string name="prompt_password">Password</string>-->
+<!--    <string name="action_sign_in">Sign in or register</string>-->
+<!--    <string name="action_sign_in_short">Sign in</string>-->
+<!--    <string name="welcome">"Welcome!"</string>-->
+<!--    <string name="invalid_username">Not a valid username</string>-->
+<!--    <string name="invalid_password">Password must be >5 characters</string>-->
+<!--    <string name="login_failed">"Login failed"</string>-->
+<!--    <string name="track">Track</string>-->
+<!--    <string name="sign_in">Sign in</string>-->
+<!--    <string name="status_administrator">Status: administrator</string>-->
+<!--    <string name="add_an_employee">Add an employee</string>-->
+<!--    <string name="employees">Employees</string>-->
+<!--    <string name="log_in">Log in</string>-->
+<!--    <string name="password">Password</string>-->
+<!--    <string name="stay_signed_in">Stay signed in</string>-->
+
+        "Components with responsive elevations may encounter other components as they move between "
+        "their resting elevations and dynamic elevation offsets. Because material cannot pass "
+        "through other material, components avoid interfering with one another any number of ways, "
+        "whether on a per component basis or using the entire app layout.\n"
+        "On a component level, components can move or be removed before they cause interference. "
+        "For example, a floating action button (FAB) can disappear or move off screen before a "
+        "user picks up a card, or it can move if a snackbar appears.\n"
+        "On the layout level, design your app layout to minimize opportunities for interference. "
+        "For example, position the FAB to one side of stream of a cards so the FAB won’t interfere "
+        "when a user tries to pick up one of cards.\n\n"
+    </string>
+    <string name="action_settings">Settings</string>
 </resources>
