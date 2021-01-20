@@ -37,15 +37,6 @@
         android:inputType="number" />
 
 
-    <!--    <EditText-->
-    <!--        android:id="@+id/et_status"-->
-    <!--        style="@style/styleAdd_Parcel_Margin_Format"-->
-    <!--        android:hint="@string/current_status"-->
-    <!--        android:text="IN TRANSIT"-->
-
-    <!--        android:importantForAutofill="no"-->
-    <!--        android:inputType="text" />-->
-
     <EditText
         android:id="@+id/et_destination"
         style="@style/styleAdd_Parcel_Margin_Format"

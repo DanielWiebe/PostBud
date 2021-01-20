@@ -1,5 +1,6 @@
 package com.shiftdev.postbud.Utils;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,14 +27,39 @@ public class ParcelAdapter extends FirestoreRecyclerAdapter<Parcel, ParcelAdapte
 
      @Override
      protected void onBindViewHolder(@NonNull ParcelHolder holder, int position, @NonNull Parcel model) {
-          holder.priorityTV.setText(String.valueOf(model.getPriority()));
+//          holder.priorityTV.setText(String.valueOf(model.  getPriority()));
+//          holder.orderedbyTV.setText(String.valueOf(model  getOrderedBy()));
+//          holder.handledbyTV.setText(String.valueOf(model. getHandledBy()));
+//          holder.descTV.setText(String.valueOf(model.      getDescription()));
+//          holder.origTV.setText(String.valueOf(model.      getOrigin()));
+//          holder.statusTV.setText(String.valueOf(model.    getStatus()));
+//          holder.destTV.setText(String.valueOf(model.      getDestination()));
+//          holder.weightTV.setText(String.valueOf(model.    getWeight()));
+          holder.descTV.setText(String.valueOf(model.getWeight()));
+          int priority = (int) model.getPriority();
+          if (priority == 0) {
+               holder.priorityTV.setText("Lowest");
+          } else if (priority == 1) {
+               holder.priorityTV.setText("Low");
+               holder.priorityTV.setTextColor(Color.BLUE);
+          } else if (priority == 2) {
+               holder.priorityTV.setText("Medium");
+               holder.priorityTV.setTextColor(Color.MAGENTA);
+          } else if (priority == 3) {
+               holder.priorityTV.setText("High");
+               holder.priorityTV.setTextColor(Color.RED);
+          } else if (priority == 4 || priority > 4) {
+               holder.priorityTV.setText("Deliver NOW");
+               holder.priorityTV.setTextColor(Color.GREEN);
+               holder.priorityTV.setBackgroundColor(Color.GRAY);
+          }
           holder.orderedbyTV.setText(String.valueOf(model.getOrderedBy()));
           holder.handledbyTV.setText(String.valueOf(model.getHandledBy()));
-          holder.descTV.setText(String.valueOf(model.getDescription()));
-          holder.fromTV.setText(String.valueOf(model.getOrigin()));
+          holder.origTV.setText(String.valueOf(model.getOrigin()));
           holder.statusTV.setText(String.valueOf(model.getStatus()));
-          holder.destTV.setText(String.valueOf(model.getDestination()));
           holder.weightTV.setText(String.valueOf(model.getWeight()));
+          holder.weightTV.append(" Lbs");
+          holder.destTV.setText(String.valueOf(model.getDestination()));
      }
 
      @NonNull
@@ -70,8 +96,8 @@ public class ParcelAdapter extends FirestoreRecyclerAdapter<Parcel, ParcelAdapte
           TextView handledbyTV;
           @BindView(R.id.tv_description)
           TextView descTV;
-          @BindView(R.id.tv_from)
-          TextView fromTV;
+          @BindView(R.id.tv_origin)
+          TextView origTV;
           @BindView(R.id.tv_status)
           TextView statusTV;
           @BindView(R.id.tv_dest)

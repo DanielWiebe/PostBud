@@ -8,10 +8,218 @@
     tools:context=".ParcelDetailActivity"
     tools:showIn="@layout/activity_parcel_detail">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
-        android:text="@string/large_text" />
+    <RelativeLayout
+        android:id="@+id/rl_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="8dp"
+        android:paddingTop="16dp">
+
+        <TableLayout
+            android:id="@+id/tl_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="4dp">
+
+            <TableRow
+                android:id="@+id/row_of_titles"
+                android:layout_margin="4dp"
+                android:weightSum="3">
+
+                <TextView
+                    android:id="@+id/tv_priority"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/high"
+                    android:textAlignment="center"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/tv_ordered_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Ordered by:"
+                    android:textAlignment="center"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/tv_handled_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Handled by:"
+                    android:textAlignment="center"
+                    android:textColor="@color/black" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/row_of_text"
+                android:layout_margin="4dp"
+                android:weightSum="3">
+
+                <TextView
+                    android:id="@+id/tv_weight"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="12"
+                    android:textAlignment="center"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/tv_ordered_by"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Jason B."
+                    android:textAlignment="center"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/tv_handled_by"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="Terry"
+                    android:textAlignment="center"
+                    android:textColor="@color/black" />
+            </TableRow>
+        </TableLayout>
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/tl_header"
+            android:layout_margin="4dp"
+            android:background="#BDBDBD" />
+
+        <TextView
+            android:id="@+id/tv_description"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/divider"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="@string/lorem_ipsum"
+            android:textColor="@color/black" />
+
+        <View
+            android:id="@+id/divider2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/tv_description"
+            android:layout_margin="4dp"
+            android:background="#BDBDBD" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/divider2"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginBottom="4dp"
+            android:orientation="horizontal"
+            android:weightSum="7">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_from_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/from"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/tv_origin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/cgy"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/black" />
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:contentDescription="@string/right_arrow"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:scaleX="0.7"
+                android:src="@drawable/ic_movement_right" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_status_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/status"
+                    android:textAlignment="center"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/tv_status"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/in_transit"
+                    android:textAlignment="center"
+                    android:textColor="@color/black" />
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:contentDescription="@string/right_arrow"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:scaleX="0.7"
+                android:src="@drawable/ic_movement_right" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_dest_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/destination"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/tv_dest"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/wpg"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/black" />
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
 
 </androidx.core.widget.NestedScrollView>
