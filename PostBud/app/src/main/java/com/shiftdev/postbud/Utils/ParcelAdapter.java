@@ -35,7 +35,7 @@ public class ParcelAdapter extends FirestoreRecyclerAdapter<Parcel, ParcelAdapte
 //          holder.statusTV.setText(String.valueOf(model.    getStatus()));
 //          holder.destTV.setText(String.valueOf(model.      getDestination()));
 //          holder.weightTV.setText(String.valueOf(model.    getWeight()));
-          holder.descTV.setText(String.valueOf(model.getWeight()));
+          holder.descTV.setText(String.valueOf(model.getDescription()));
           int priority = (int) model.getPriority();
           if (priority == 0) {
                holder.priorityTV.setText("Lowest");
