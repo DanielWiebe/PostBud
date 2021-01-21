@@ -33,10 +33,11 @@ public class employeeMenuActivity extends AppCompatActivity {
             setContentView(R.layout.employee_menu);
             // Retrieve employee information from database
             FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-            PostBudFirestoreUtils.getEmployee(this, currentUser.getUid()).addOnCompleteListener(employeeQuery -> {
-                employee = employeeQuery.getResult().toObject(Employee.class);          // Will crush if logged in as Administrator or Employee doesn't exists in the database.
-                Map<String, Object> parcelMap = employeeQuery.getResult().getData();    // TODO: Delete credentials after testing.
-                Timber.e(parcelMap.toString());
+            PostBudFirestoreUtils.getEmployee(this, currentUser.getUid())
+                    .addOnCompleteListener(employeeQuery -> {
+                        employee = employeeQuery.getResult().toObject(Employee.class);          // Will crush if logged in as Administrator or Employee doesn't exists in the database.
+                        Map<String, Object> parcelMap = employeeQuery.getResult().getData();    // TODO: Delete credentials after testing.
+                        Timber.e(parcelMap.toString());
             });
 
             //The parcel management button

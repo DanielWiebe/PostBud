@@ -33,6 +33,7 @@ public class LoginActivity extends AppCompatActivity {
     private TextView loginErrorTextView;
     private EditText loginUserName;
     private EditText loginPassword;
+    private Intent intent;
     // Testing purpose
     /* Employee */
     String emailEmployee = "artEmployee@gmail.com";
@@ -61,8 +62,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private Task<DocumentSnapshot> checkIsUserAdministrator(FirebaseFirestore db) {
         return db.collection(FirebaseNav.ADMINISTRATORS.getValue(context))
-                    .document(uid)
-                    .get();
+                .document(uid)
+                .get();
     }
 
     public void onCreate(Bundle savedInstanceState) {
@@ -82,8 +83,8 @@ public class LoginActivity extends AppCompatActivity {
             userName = loginUserName.getText().toString().trim().toLowerCase();
             userPassword = loginPassword.getText().toString();
             context = this;
-            TestLoginEmployee();
-//            TestLoginAdmin();
+//            TestLoginEmployee();
+            TestLoginAdmin();
             firebaseAuth.signInWithEmailAndPassword(userName, userPassword)
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
@@ -92,27 +93,24 @@ public class LoginActivity extends AppCompatActivity {
                             FirebaseFirestore db = FirebaseFirestore.getInstance();
                             checkIsUserEmployee(db).addOnCompleteListener(employeeQuery -> {
                                 if (employeeQuery.getResult().exists()) {
-                                        Timber.e("Successfully loggedin as Employee");
-                                    } else {
-                                        checkIsUserAdministrator(db).addOnCompleteListener(administratorQuery -> {
-                                            if (administratorQuery.getResult().exists()) {
-                                                Timber.e("Successfully loggedin as Administrator");
-                                                isAdministrator = true;
-                                            } else {
-                                                isUserNotInDatabase = true;
-                                                Timber.e("User NOT FOUND");
-                                            }
-                                        });
-                                    }
-                                });
-                            if (isUserNotInDatabase) {
-                                Toast.makeText(context, "Your problem is NOT our problem, get some real credentials, mate. (NO USER IN DB)", Toast.LENGTH_LONG);
-                            } else if (!isAdministrator){
-                                Intent intent = new Intent(LoginActivity.this, employeeMenuActivity.class);
-                                startActivity(intent);
-                            } else {
-                                // TODO: Intent to administratorMenuActivity.
-                            }
+                                    Timber.e("Successfully loggedin as Employee");
+                                    intent = new Intent(LoginActivity.this, employeeMenuActivity.class);
+                                    startActivity(intent);
+                                } else {
+                                    checkIsUserAdministrator(db).addOnCompleteListener(administratorQuery -> {
+                                        if (administratorQuery.getResult().exists()) {
+                                            Timber.e("Successfully loggedin as Administrator");
+                                            isAdministrator = true;
+                                            intent = new Intent(LoginActivity.this, administratorMenuActivity.class);
+                                            startActivity(intent);
+                                        } else {
+                                            isUserNotInDatabase = true;
+                                            Timber.e("User NOT FOUND");
+                                            Toast.makeText(context, "Your problem is NOT our problem, get some real credentials, mate. (NO USER IN DB)", Toast.LENGTH_LONG);
+                                        }
+                                    });
+                                }
+                            });
                         } else {
                             Toast.makeText(getBaseContext(), "Failed to login: wrong password/email", Toast.LENGTH_LONG).show();
                         }
