@@ -4,14 +4,22 @@ import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class Parcel {
+     protected class Checkpoint {
+          Timestamp dateArrived;
+          String checkpointLocation;
+          Checkpoint(Timestamp dateArrived, String checkpointLocation) {
+               this.dateArrived = dateArrived;
+               this.checkpointLocation = checkpointLocation;
+          }
+     }
+
      // Constants
      private final String TAG = "Parcel";
      private final FirebaseFirestore db = FirebaseFirestore.getInstance();
-     // Variables
-     private String documentId;
      private String parcelId;
      private String currentLocation;
      private String origin;
@@ -22,14 +30,17 @@ public class Parcel {
      private int priority;
      private String handledBy;
      private double weight;  // Kilograms
-     private Timestamp date;
+     private Timestamp dateCreated;
+     private Timestamp dateSent;
+     private Timestamp dateShipped;
+     private ArrayList<Checkpoint> checkpoints;
 
      // Constructors
      public Parcel() {
      }
 
      /* Parcel made with a custom uid. Made for Administrator use. */
-     public Parcel(String parcelId, String currentLocation, String origin, String destination, String orderedBy, String description, double weight, Timestamp date, int priority, String status, String accountUid) {
+     public Parcel(String parcelId, String currentLocation, String origin, String destination, String orderedBy, String description, double weight, Timestamp dateCreated, int priority, String status, String accountUid) {
           this.parcelId = parcelId;
           this.currentLocation = currentLocation;
           this.origin = origin;
@@ -37,14 +48,14 @@ public class Parcel {
           this.orderedBy = orderedBy;
           this.description = description;
           this.weight = weight;
-          this.date = date;
+          this.dateCreated = dateCreated;
           this.status = status;
           this.priority = priority;
           this.handledBy = accountUid;
      }
 
      /* Parcel made by the current user with his/her uid. */
-     public Parcel(String parcelId, String currentLocation, String origin, String destination, String orderedBy, String description, double weight, Timestamp date, int priority, String status) {
+     public Parcel(String parcelId, String currentLocation, String origin, String destination, String orderedBy, String description, double weight, Timestamp dateCreated, int priority, String status) {
           this.parcelId = parcelId;
           this.currentLocation = currentLocation;
           this.origin = origin;
@@ -52,19 +63,13 @@ public class Parcel {
           this.orderedBy = orderedBy;
           this.description = description;
           this.weight = weight;
-          this.date = date;
+          this.dateCreated = dateCreated;
           this.status = status;
           this.priority = priority;
           this.handledBy = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();  // Getting the current user's UID to know who handled it.
      }
 
-     public String getDocumentId() {
-          return documentId;
-     }
-
-     public void setDocumentId(String documentId) {
-          this.documentId = documentId;
-     }
+     // Getters & Setters
 
      public String getParcelId() {
           return parcelId;
@@ -146,18 +151,35 @@ public class Parcel {
           this.weight = weight;
      }
 
-     public Timestamp getDate() {
-          return date;
+     public Timestamp getDateCreated() {
+          return dateCreated;
      }
 
-     public void setDate(Timestamp date) {
-          this.date = date;
+     public void setDateCreated(Timestamp dateCreated) {
+          this.dateCreated = dateCreated;
      }
+
+     public Timestamp getDateSent() {
+          return dateSent;
+     }
+
+     public void setDateSent(Timestamp dateSent) {
+          this.dateSent = dateSent;
+     }
+
+     public Timestamp getDateShipped() {
+          return dateShipped;
+     }
+
+     public void setDateShipped(Timestamp dateShipped) {
+          this.dateShipped = dateShipped;
+     }
+
+     // Public Methods
 
      @Override
      public String toString() {
           return "Parcel{" +
-                  "documentId='" + documentId + '\'' +
                   ", parcelId='" + parcelId + '\'' +
                   ", currentLocation='" + currentLocation + '\'' +
                   ", origin='" + origin + '\'' +
@@ -168,8 +190,20 @@ public class Parcel {
                   ", priority=" + priority +
                   ", handledBy='" + handledBy + '\'' +
                   ", weight=" + weight +
-                  ", date=" + date +
+                  ", dateCreated=" + dateCreated +
+                  ", dateSent=" + dateSent +
+                  ", dateShipped=" + dateShipped +
                   '}';
+     }
+
+     public void shipParcel(Timestamp date) {
+          setDateSent(date);
+          // TODO update database
+     }
+
+     public void addCheckpoint(Timestamp date, String checkpointLocation) {
+          Checkpoint checkpoint = new Checkpoint(date, checkpointLocation);
+          // TODO upload checkpoint, and add reference ID to the parcel.
      }
 
      // Enums

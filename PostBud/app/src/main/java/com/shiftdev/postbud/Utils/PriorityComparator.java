@@ -15,7 +15,7 @@ public class PriorityComparator implements Comparator<Parcel> {
     public int compare(Parcel parcel, Parcel other) {
         // 2-level comparison to compare same-priority levels parcels.
         if (parcel.getPriority() == other.getPriority()) {
-            return parcel.getDate().compareTo(other.getDate());
+            return parcel.getDateCreated().compareTo(other.getDateCreated());
         } else {
             return 0;
 //            -(parcel.getPriority().getNumericValue() - other.getPriority().getNumericValue());

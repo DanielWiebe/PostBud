@@ -1,6 +1,7 @@
 package com.shiftdev.postbud.Utils;
 
 import android.app.Activity;
+import android.content.Context;
 
 import com.google.firebase.Timestamp;
 
@@ -34,14 +35,14 @@ public abstract class Account implements Comparable<Account>, Serializable {
      }
 
      // Public methods
-     public Parcel registerNewParcelByAdminis(Activity context, String parcelId, String currentLocation, String origin, String destination, String orderedBy,
+     public Parcel registerNewParcelByAdminis(Context context, String parcelId, String currentLocation, String origin, String destination, String orderedBy,
                                               String description, double weight, Timestamp date, int priority, String status) {
           Parcel parcel = new Parcel(parcelId, currentLocation, origin, destination, orderedBy, description, weight, date, priority, status);
           PostBudFirestoreUtils.uploadParcel(context, parcel);
           return parcel;
      }
 
-     public Parcel newParcel(Activity context, String parcelId, String currentLocation, String origin, String destination, String orderedBy,
+     public Parcel newParcel(Context context, String parcelId, String currentLocation, String origin, String destination, String orderedBy,
                              String description, double weight, Timestamp date, int priority, String status, String uid) {
           Parcel parcel = new Parcel(parcelId, currentLocation, origin, destination, orderedBy, description, weight, date, priority, status, uid);
           PostBudFirestoreUtils.uploadParcel(context, parcel);

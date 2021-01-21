@@ -1,6 +1,7 @@
 package com.shiftdev.postbud.Utils;
 
 import android.app.Activity;
+import android.content.Context;
 import android.util.Log;
 
 import com.google.android.gms.tasks.Task;
@@ -9,6 +10,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import timber.log.Timber;
 
 /**
  * Utility to upload data from PostBud to the connected Firestore database.
@@ -22,7 +25,7 @@ public class PostBudFirestoreUtils {
      * @param documentId
      * @return
      */
-    public static Task<DocumentSnapshot> getParcelByDocumentId(Activity context, String documentId) {
+    public static Task<DocumentSnapshot> getParcelByDocumentId(Context context, String documentId) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         return db.collection(FirebaseNav.PARCELS.getValue(context))
                 .document(documentId)
@@ -38,7 +41,7 @@ public class PostBudFirestoreUtils {
      * @param parcel  The Parcel object that is being uploaded to firebase.
      * @return the reference to the document that is being uploaded.
      */
-    public static void uploadParcel(Activity context, Parcel parcel) {
+    public static void uploadParcel(Context context, Parcel parcel) {
         CollectionReference ref = FirebaseFirestore.getInstance().collection(FirebaseNav.PARCELS.getValue(context));
         ref.whereEqualTo(FirebaseNav.PARCEL_ID.getValue(context), parcel.getParcelId())
                 .get()
@@ -47,7 +50,7 @@ public class PostBudFirestoreUtils {
                         if (task.getResult().isEmpty()) {
                             ref.add(parcel)
                                 .addOnSuccessListener(documentReference -> {
-                                    parcel.setDocumentId(documentReference.getId());
+                                    parcel.setParcelId(documentReference.getId());
                                     documentReference.update(FirebaseNav.DOCUMENT_ID.getValue(context), documentReference.getId());
                                 });
                         } else
@@ -58,7 +61,7 @@ public class PostBudFirestoreUtils {
                 });
     }
 
-    public static Task<AuthResult> createAccountAndUploadToFirestore(Activity context, Account account) {
+    public static Task<AuthResult> createAccountAndUploadToFirestore(Context context, Account account) {
         FirebaseAuth auth = FirebaseAuth.getInstance();
         return auth.createUserWithEmailAndPassword(account.getEmail(), account.getPassword())
                 .addOnSuccessListener(authResult -> {
@@ -71,7 +74,7 @@ public class PostBudFirestoreUtils {
                 .addOnFailureListener(e -> Log.e(context.getClass().getName(), e.getLocalizedMessage()));
     }
 
-    public static void uploadAccountToFirestore(Activity context, Account account, AuthResult result) {
+    public static void uploadAccountToFirestore(Context context, Account account, AuthResult result) {
         if (result.getUser() != null) {
             FirebaseFirestore db = FirebaseFirestore.getInstance();
             CollectionReference ref;
@@ -90,6 +93,16 @@ public class PostBudFirestoreUtils {
                         }
                     });
         }
+    }
+
+    public static Task<DocumentSnapshot> getEmployee(Context context, String uid) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        return db.collection(FirebaseNav.EMPLOYEES.getValue(context)).document(uid).get();
+    }
+
+    public static Task<DocumentSnapshot> getAdministrator(Context context, String uid) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        return db.collection(FirebaseNav.ADMINISTRATORS.getValue(context)).document(uid).get();
     }
 
 }

@@ -1,6 +1,7 @@
 package com.shiftdev.postbud.Utils;
 
 import android.app.Activity;
+import android.content.Context;
 
 import com.shiftdev.postbud.R;
 
@@ -37,7 +38,7 @@ public enum FirebaseNav {
           this.directory = directory;
      }
 
-     public String getValue(Activity context) {
+     public String getValue(Context context) {
           return context.getResources().getString(directory);
      }
 }
