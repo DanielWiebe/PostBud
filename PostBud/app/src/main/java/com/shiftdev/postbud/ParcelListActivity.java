@@ -54,8 +54,16 @@ public class ParcelListActivity extends AppCompatActivity {
      }
 
      @Override
+     public void onPause() {
+          super.onPause();
+          //save db instance snapshot here
+     }
+
+
+     @Override
      public void onStop() {
           super.onStop();
+
           adapter.stopListening();
      }
 }

@@ -1,19 +1,15 @@
 package com.shiftdev.postbud.ui.home;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.fragment.NavHostFragment;
-import android.widget.AutoCompleteTextView;
-import com.shiftdev.postbud.AddParcelActivity;
-import com.shiftdev.postbud.ParcelListActivity;
+
 import com.shiftdev.postbud.R;
 import com.shiftdev.postbud.ui.activities.LoginActivity;
 import com.shiftdev.postbud.ui.activities.parcelStatusActivity;
@@ -34,15 +30,12 @@ public class HomeFragment extends Fragment {
      @BindView(R.id.signInButton)
      Button signInButton;
 
-     private HomeViewModel homeViewModel;
-
      public View onCreateView(@NonNull LayoutInflater inflater,
                               ViewGroup container, Bundle savedInstanceState) {
-          homeViewModel =
-                  new ViewModelProvider(this).get(HomeViewModel.class);
-          View root = inflater.inflate(R.layout.fragment_home, container, false);
-          ButterKnife.bind(this, root);
+          View root;
 
+          root = inflater.inflate(R.layout.fragment_home, container, false);
+          ButterKnife.bind(this, root);
           trackButton.setOnClickListener(new View.OnClickListener() {
 
                @Override
@@ -71,6 +64,8 @@ public class HomeFragment extends Fragment {
 
 
           });
+
+
           return root;
      }
 

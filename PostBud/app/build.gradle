@@ -28,6 +28,7 @@ android {
           targetCompatibility JavaVersion.VERSION_1_8
      }
 }
+apply plugin: "androidx.navigation.safeargs"
 
 dependencies {
 
@@ -38,10 +39,10 @@ dependencies {
      implementation 'androidx.navigation:navigation-ui:2.3.2'
      implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0'
      implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
-    implementation 'androidx.annotation:annotation:1.1.0'
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+     implementation 'androidx.annotation:annotation:1.1.0'
+     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
-    testImplementation 'junit:junit:4.13.1'
+     testImplementation 'junit:junit:4.13.1'
      implementation 'androidx.cardview:cardview:1.0.0'
      androidTestImplementation 'androidx.test.ext:junit:1.1.2'
      androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
@@ -51,8 +52,6 @@ dependencies {
      annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.3'
 
      implementation 'com.jakewharton.timber:timber:4.7.1'
-
-
 
 
      // ----- FIREBASE / FIRESTORE -----
