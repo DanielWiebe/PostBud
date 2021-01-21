@@ -84,7 +84,7 @@ public class LoginActivity extends AppCompatActivity {
             userPassword = loginPassword.getText().toString();
             context = this;
 //            TestLoginEmployee();
-            TestLoginAdmin();
+            // TestLoginAdmin();
             firebaseAuth.signInWithEmailAndPassword(userName, userPassword)
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {

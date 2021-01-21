@@ -95,7 +95,7 @@ public class AddParcelActivity extends AppCompatActivity {
                   )
           ).addOnSuccessListener(aVoid -> {
                Toast.makeText(AddParcelActivity.this, "Parcel saved to Firebase", Toast.LENGTH_SHORT).show();
-               Intent intent = new Intent(this, ParcelListActivity.class);
+               Intent intent = new Intent(this, MainActivity.class);
                startActivity(intent);
           })
                   .addOnFailureListener(e -> {

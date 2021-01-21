@@ -6,10 +6,8 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,15 +21,16 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import timber.log.Timber;
 
 import static timber.log.Timber.e;
 
 
 public class MainActivity extends AppCompatActivity {
-     RelativeLayout relativeLayout;
 
-//     public static void testUploadParcel(Activity context) {
+     //     public static void testUploadParcel(Activity context) {
 //          PostBudFirestoreUtils.uploadParcel(context, new Parcel("PB0123456789", "Baghdad", "Minsk", "Winnipeg",
 //                  "Daniel Wiebe", "BTS Merch", 5.58, Timestamp.now(), 2, "IN TRANSIT"));
 //          PostBudFirestoreUtils.uploadParcel(context, new Parcel("PB0000000001", "Ireland", "Germany", "Egypt",
@@ -39,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
 //          PostBudFirestoreUtils.uploadParcel(context, new Parcel("PB0000000002", "Serbia", "China", "Nebraska",
 //                  "Andrey Tokarski", "Fidget Spinner", 0.3, Timestamp.now(), 3, "SHIPPED"));
 //     }
+     @BindView(R.id.nav_host_fragment)
+     View fragment;
 
      @Override
      protected void onCreate(Bundle savedInstanceState) {
@@ -54,11 +55,10 @@ public class MainActivity extends AppCompatActivity {
           NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
           NavigationUI.setupWithNavController(navView, navController);
           Timber.plant(new Timber.DebugTree());
+          ButterKnife.bind(this);
           e("Test Message");
           // Testing Firestore
-
-          relativeLayout = findViewById(R.id.container);
-          networkDisplayCheck(relativeLayout);
+          networkDisplayCheck(fragment);
 
           FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
@@ -73,19 +73,20 @@ public class MainActivity extends AppCompatActivity {
           // testUploadParcel(this);
      }
 
-     private void networkDisplayCheck(RelativeLayout relativeLayout) {
+     private void networkDisplayCheck(View fragment) {
           if (networkDisconnected()) {
                e("network disconnected");
-               Snackbar.make(relativeLayout, "connection lost", Snackbar.LENGTH_LONG)
+               Snackbar bar = Snackbar.make(fragment, "connection lost", Snackbar.LENGTH_INDEFINITE)
                        .setAction("Go To Settings", new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
                                  startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
                             }
-                       }).show();
+                       });
+               View snackView = bar.getView();
+               snackView.setTranslationY(-48);
           } else if (!networkDisconnected()) {
-               Snackbar.make(relativeLayout, "connected with Wi-Fi", Snackbar.LENGTH_SHORT).show();
-               //.setAction(startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS))){}
+               Snackbar.make(fragment, "connected with Wi-Fi", 1000).show();
           }
      }
 
@@ -120,16 +121,17 @@ public class MainActivity extends AppCompatActivity {
 
      @Override
      public boolean onCreateOptionsMenu(Menu menu) {
-          MenuInflater menuInflater = getMenuInflater();
-          menuInflater.inflate(R.menu.menu_main_activity, menu);
+          getMenuInflater().inflate(R.menu.menu_home_fragment_in_activity, menu);
           return super.onCreateOptionsMenu(menu);
      }
 
      @Override
      public boolean onOptionsItemSelected(@NonNull MenuItem item) {
           switch (item.getItemId()) {
-               case R.id.addParcel:
+               case R.id.action_add_parcel:
                     goToNewParcel();
+                    return true;
+               case R.id.action_search:
                     return true;
                default:
                     return super.onOptionsItemSelected(item);
@@ -139,14 +141,14 @@ public class MainActivity extends AppCompatActivity {
      @Override
      protected void onResume() {
           e("onresume");
-          networkDisplayCheck(relativeLayout);
+          networkDisplayCheck(fragment);
           super.onResume();
      }
 
      @Override
      protected void onStart() {
           e("onstart");
-          networkDisplayCheck(relativeLayout);
+          networkDisplayCheck(fragment);
           super.onStart();
      }
 }
