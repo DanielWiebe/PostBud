@@ -1,5 +1,7 @@
 package com.shiftdev.postbud.ui.parcel_overview;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -82,26 +84,39 @@ public class ParcelOverviewFragment extends Fragment {
 
                @Override
                public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
-                    adapter.deleteItem(viewHolder.getAdapterPosition());
-                    recyclerView.setAdapter(adapter);
+                    DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                         @Override
+                         public void onClick(DialogInterface dialog, int which) {
+                              switch (which) {
+                                   case DialogInterface.BUTTON_POSITIVE:
+                                        adapter.deleteItem(viewHolder.getAdapterPosition());
+                                        recyclerView.setAdapter(adapter);
+                                        break;
+
+                                   case DialogInterface.BUTTON_NEGATIVE:
+                                        recyclerView.setAdapter(adapter);
+                                        break;
+                              }
+                         }
+                    };
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                    builder.setMessage("Delete: Are you sure?").setPositiveButton("Yes", dialogClickListener)
+                            .setNegativeButton("No", dialogClickListener).show();
+
                }
           }).attachToRecyclerView(recyclerView);
 
           //TODO This is the method that handles what happens when the item gets clicked. we have
           // the object that gets
           adapter.setOnItemClickListener((documentSnapshot, position) -> {
-               //  Parcel parcel = documentSnapshot.toObject(Parcel.class);
-               //String path = documentSnapshot.getReference().getPath();
-//               assert parcel != null;
-//               w(parcel.toString());
                Timber.e("Adapter Item Selected " + position);
-//               Bundle bundle = new Bundle();
-//               bundle.putString("snapshot_ref", documentSnapshot.getId());
                Timber.e(documentSnapshot.getId());
                Intent intent = new Intent(getActivity(), ParcelDetailActivity.class);
                intent.putExtra("snapshot_ref", documentSnapshot.getId());
                startActivity(intent);
-//               ParcelOverviewFragmentDirections.ActionNavigationListToParcelDetailActivity action = ParcelOverviewFragmentDirections.actionNavigationListToParcelDetailActivity();
+
+
+               //               ParcelOverviewFragmentDirections.ActionNavigationListToParcelDetailActivity action = ParcelOverviewFragmentDirections.actionNavigationListToParcelDetailActivity();
 //               action.setParcelDocumentIdArgs(documentSnapshot.getId());
 //               Navigation.findNavController(getView()).navigate(action);
 

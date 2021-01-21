@@ -4,8 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/colorPrimary"
-
-    android:theme="@style/ThemeOverlay.PostBud.FullscreenContainer"
+    android:backgroundTint="@color/design_default_color_primary"
+    android:theme="@style/Theme.Design.NoActionBar"
     tools:context=".WelcomeActivity">
 
     <!-- The primary full-screen view. This can be replaced with whatever view
@@ -24,9 +24,5 @@
 
     <!-- This FrameLayout insets its children based on system windows using
          android:fitsSystemWindows. -->
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fitsSystemWindows="true"></FrameLayout>
 
 </FrameLayout>

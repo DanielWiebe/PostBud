@@ -1,6 +1,5 @@
 package com.shiftdev.postbud;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -21,11 +20,8 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.shiftdev.postbud.Utils.Parcel;
-import com.shiftdev.postbud.Utils.PostBudFirestoreUtils;
 
 import timber.log.Timber;
 
@@ -35,14 +31,14 @@ import static timber.log.Timber.e;
 public class MainActivity extends AppCompatActivity {
      RelativeLayout relativeLayout;
 
-     public static void testUploadParcel(Activity context) {
-          PostBudFirestoreUtils.uploadParcel(context, new Parcel("PB0123456789", "Baghdad", "Minsk", "Winnipeg",
-                  "Daniel Wiebe", "BTS Merch", 5.58, Timestamp.now(), 2, "IN TRANSIT"));
-          PostBudFirestoreUtils.uploadParcel(context, new Parcel("PB0000000001", "Ireland", "Germany", "Egypt",
-                  "Lil'Machty", "BMW 750li", 4000, Timestamp.now(), 1, "AWAITING PAYMENT"));
-          PostBudFirestoreUtils.uploadParcel(context, new Parcel("PB0000000002", "Serbia", "China", "Nebraska",
-                  "Andrey Tokarski", "Fidget Spinner", 0.3, Timestamp.now(), 3, "SHIPPED"));
-     }
+//     public static void testUploadParcel(Activity context) {
+//          PostBudFirestoreUtils.uploadParcel(context, new Parcel("PB0123456789", "Baghdad", "Minsk", "Winnipeg",
+//                  "Daniel Wiebe", "BTS Merch", 5.58, Timestamp.now(), 2, "IN TRANSIT"));
+//          PostBudFirestoreUtils.uploadParcel(context, new Parcel("PB0000000001", "Ireland", "Germany", "Egypt",
+//                  "Lil'Machty", "BMW 750li", 4000, Timestamp.now(), 1, "AWAITING PAYMENT"));
+//          PostBudFirestoreUtils.uploadParcel(context, new Parcel("PB0000000002", "Serbia", "China", "Nebraska",
+//                  "Andrey Tokarski", "Fidget Spinner", 0.3, Timestamp.now(), 3, "SHIPPED"));
+//     }
 
      @Override
      protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
 
           FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-          testUploadParcel(this);
+          // testUploadParcel(this);
      }
 
      private void networkDisplayCheck(RelativeLayout relativeLayout) {
