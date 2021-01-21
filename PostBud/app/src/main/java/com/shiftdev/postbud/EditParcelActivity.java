@@ -1,6 +1,8 @@
 package com.shiftdev.postbud;
 
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -31,6 +33,7 @@ import butterknife.ButterKnife;
 import timber.log.Timber;
 
 import static java.lang.Integer.parseInt;
+import static timber.log.Timber.e;
 
 public class EditParcelActivity extends AppCompatActivity {
      private static final String KEY_CURRENT_LOCATION = "current_location";
@@ -172,12 +175,41 @@ public class EditParcelActivity extends AppCompatActivity {
      public boolean onOptionsItemSelected(@NonNull MenuItem item) {
           switch (item.getItemId()) {
                case R.id.save_changes:
-                    // TODO this has a problem saving the object for some reason... coming back to it
-                    saveChanges();
-                    Toast.makeText(this, "Saving Parcel", Toast.LENGTH_SHORT).show();
-                    return true;
+                    if (!networkDisconnected()) {
+                         saveChanges();
+                         Toast.makeText(this, "Saving Parcel", Toast.LENGTH_SHORT).show();
+                         return true;
+                    } else if (networkDisconnected()) {
+                         Toast.makeText(EditParcelActivity.this, "Network Error: Can't Save Parcel Changes Offline.", Toast.LENGTH_SHORT).show();
+                         Intent intent = new Intent(this, ParcelDetailActivity.class);
+                         intent.putExtra("snapshot_ref", selectedDocumentID);
+                         startActivity(intent);
+                    }
                default:
                     return super.onOptionsItemSelected(item);
           }
+     }
+
+     public boolean networkDisconnected() {
+          e("started network check");
+          boolean hasConnection = true;
+          ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+          NetworkInfo[] networkInfo = connectivityManager.getAllNetworkInfo();
+          for (NetworkInfo info : networkInfo) {
+               e("checking each info");
+               if (info.getTypeName().equalsIgnoreCase("WIFI")) {
+                    if (info.isConnected()) {
+                         e("WIFI CONNECTED");
+                         hasConnection = false;
+                    }
+               }
+               if (info.getTypeName().equalsIgnoreCase("MOBILE")) {
+                    if (info.isConnected()) {
+                         Timber.e("DATA CONNECTED");
+                         hasConnection = false;
+                    }
+               }
+          }
+          return hasConnection;
      }
 }

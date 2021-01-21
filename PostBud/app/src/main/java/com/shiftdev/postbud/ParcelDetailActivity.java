@@ -2,16 +2,20 @@ package com.shiftdev.postbud;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -22,6 +26,8 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import timber.log.Timber;
+
+import static timber.log.Timber.e;
 
 
 public class ParcelDetailActivity extends AppCompatActivity {
@@ -41,6 +47,8 @@ public class ParcelDetailActivity extends AppCompatActivity {
      TextView destTV;
      @BindView(R.id.tv_weight)
      TextView weightTV;
+     @BindView(R.id.layoutContainer)
+     CoordinatorLayout container;
      DocumentSnapshot snapshot;
      Intent args;
      String selectedDocumentID;
@@ -58,15 +66,19 @@ public class ParcelDetailActivity extends AppCompatActivity {
           toolbar = (Toolbar) findViewById(R.id.toolbar);
           setSupportActionBar(toolbar);
           toolBarLayout = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
-
           FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
           fab.setOnClickListener(new View.OnClickListener() {
                @Override
                public void onClick(View view) {
-                    Intent intent = new Intent(view.getContext(), EditParcelActivity.class);
-                    Timber.e("Sending ID: " + selectedDocumentID);
-                    intent.putExtra("snapshot_ref", selectedDocumentID);
-                    startActivity(intent);
+                    if (!networkDisconnected()) {
+                         editDisplayCheck(container);
+                         Intent intent = new Intent(view.getContext(), EditParcelActivity.class);
+                         Timber.e("Sending ID: " + selectedDocumentID);
+                         intent.putExtra("snapshot_ref", selectedDocumentID);
+                         startActivity(intent);
+                    } else if (networkDisconnected()) {
+                         editDisplayCheck(container);
+                    }
                }
           });
 
@@ -118,5 +130,37 @@ public class ParcelDetailActivity extends AppCompatActivity {
           weightTV.setText(parcelMapFromSnapshotResult.get("weight").toString());
           weightTV.append(" Lbs");
           destTV.setText(parcelMapFromSnapshotResult.get("destination").toString());
+     }
+
+     public boolean networkDisconnected() {
+          e("started network check");
+          boolean hasConnection = true;
+          ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+          NetworkInfo[] networkInfo = connectivityManager.getAllNetworkInfo();
+          for (NetworkInfo info : networkInfo) {
+               e("checking each info");
+               if (info.getTypeName().equalsIgnoreCase("WIFI")) {
+                    if (info.isConnected()) {
+                         e("WIFI CONNECTED");
+                         hasConnection = false;
+                    }
+               }
+               if (info.getTypeName().equalsIgnoreCase("MOBILE")) {
+                    if (info.isConnected()) {
+                         Timber.e("DATA CONNECTED");
+                         hasConnection = false;
+                    }
+               }
+          }
+          return hasConnection;
+     }
+
+     private void editDisplayCheck(CoordinatorLayout container) {
+          if (networkDisconnected()) {
+               e("network disconnected");
+               Snackbar.make(container, "To Edit Parcel You Must Have Network Connection", Snackbar.LENGTH_SHORT).show();
+          } else if (!networkDisconnected()) {
+
+          }
      }
 }

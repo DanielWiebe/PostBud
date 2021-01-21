@@ -21,7 +21,7 @@ public class WelcomeActivity extends AppCompatActivity {
                public void run() {
                     try {
                          super.run();
-                         sleep(2000);
+                         sleep(500);
                     } catch (Exception e) {
 
                     } finally {

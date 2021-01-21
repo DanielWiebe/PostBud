@@ -70,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
 
           FirebaseFirestore db = FirebaseFirestore.getInstance();
 
+          //testUploadParcel(this);
           // testUploadParcel(this);
      }
 
