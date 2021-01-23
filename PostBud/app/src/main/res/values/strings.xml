@@ -95,28 +95,7 @@
     <string name="status_administrator">Status: administrator</string>
     <string name="add_an_employee">add an employee</string>
 
-    <!--    &lt;!&ndash;Autocomplete view for previously entered tracking numbers for the main screen.&ndash;&gt;-->
-    <!--    <string-array name="number_history">-->
-    <!--        &lt;!&ndash;The numbers should be added here through a java class depending on the numbers that a user has entered&ndash;&gt;-->
-    <!--    </string-array>-->
 
-    <!--    &lt;!&ndash; Strings related to login &ndash;&gt;-->
-    <!--    <string name="prompt_email">Email</string>-->
-    <!--    <string name="prompt_password">Password</string>-->
-    <!--    <string name="action_sign_in">Sign in or register</string>-->
-    <!--    <string name="action_sign_in_short">Sign in</string>-->
-    <!--    <string name="welcome">"Welcome!"</string>-->
-    <!--    <string name="invalid_username">Not a valid username</string>-->
-    <!--    <string name="invalid_password">Password must be >5 characters</string>-->
-    <!--    <string name="login_failed">"Login failed"</string>-->
-    <!--    <string name="track">Track</string>-->
-    <!--    <string name="sign_in">Sign in</string>-->
-    <!--    <string name="status_administrator">Status: administrator</string>-->
-    <!--    <string name="add_an_employee">Add an employee</string>-->
-    <!--    <string name="employees">Employees</string>-->
-    <!--    <string name="log_in">Log in</string>-->
-    <!--    <string name="password">Password</string>-->
-    <!--    <string name="stay_signed_in">Stay signed in</string>-->
 
 
     <string name="action_settings">Settings</string>

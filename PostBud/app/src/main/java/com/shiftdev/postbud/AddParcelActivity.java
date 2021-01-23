@@ -23,19 +23,6 @@ import butterknife.ButterKnife;
 import timber.log.Timber;
 
 public class AddParcelActivity extends AppCompatActivity {
-     private static final String KEY_CURRENT_LOCATION = "current_location";
-     private static final String KEY_DESCRIPTION = "description";
-     private static final String KEY_DESTINATION = "destination";
-     private static final String KEY_HANDLED_BY = "handled_by";
-     private static final String KEY_ORDERED_BY = "ordered_by";
-     private static final String KEY_ORIGIN = "origin";
-     private static final String KEY_PRIORITY = "priority";
-     private static final String KEY_STATUS = "status";
-     private static final String KEY_WEIGHT = "weight";
-     private static final String KEY_DATE = "date";
-     //Firestore reference to the database
-//     private final
-//     private final
      @BindView(R.id.et_description)
      EditText etDesc;
      @BindView(R.id.et_location)
@@ -67,20 +54,8 @@ public class AddParcelActivity extends AppCompatActivity {
 
 
      public void saveParcel() {
-          //Timestamp.now(),
-          //TODO THIS NEEDS TO BE HANDLED AND AUTO FILLED USING THE ID FROM FIREBASE AUTHENTICATION SOMEHOW
           CollectionReference parcelReference = FirebaseFirestore.getInstance().collection("parcels");
-//          Map<String, Object> parcelMap = new HashMap<>();
-//          parcelMap.put(KEY_CURRENT_LOCATION, etLocation.getText().toString().trim());
-//          parcelMap.put(KEY_DESCRIPTION, etDesc.getText().toString().trim());
-//          parcelMap.put(KEY_DESTINATION, etDest.getText().toString().trim());
-//          parcelMap.put(KEY_HANDLED_BY, FirebaseAuth.getInstance().getCurrentUser());
-//          parcelMap.put(KEY_ORDERED_BY, etOrderedBy.getText().toString().trim());
-//          parcelMap.put(KEY_ORIGIN, etOrigin.getText().toString().trim());
-//          parcelMap.put(KEY_PRIORITY, Integer.parseInt(etPriority.getText().toString()));
-//          parcelMap.put(KEY_STATUS, spStatus.getSelectedItem().toString().trim());
-//          parcelMap.put(KEY_WEIGHT, Double.parseDouble(String.valueOf(etWeight.getText())));
-//          parcelMap.put(KEY_DATE, Timestamp.now().toString());
+
           parcelReference.add(new Parcel(
                           "123",
                           etLocation.getText().toString().trim(),
