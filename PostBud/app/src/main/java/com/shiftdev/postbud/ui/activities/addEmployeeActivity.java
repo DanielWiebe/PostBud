@@ -1,6 +1,5 @@
 package com.shiftdev.postbud.ui.activities;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -8,7 +7,6 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.shiftdev.postbud.MainActivity;
 import com.shiftdev.postbud.R;
 
 public class addEmployeeActivity extends AppCompatActivity {
@@ -23,7 +21,7 @@ public class addEmployeeActivity extends AppCompatActivity {
     private String email;
     private String address;
 
-    public void onCreate(Bundle savedInstanceState){
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_employee);
         //linking up the buttons
@@ -31,11 +29,11 @@ public class addEmployeeActivity extends AppCompatActivity {
         lastNameField = findViewById(R.id.lastNameField);
         emailField = findViewById(R.id.emailField);
         addressField = findViewById(R.id.addressField);
-        addButton =  findViewById(R.id.addButton);
+        addButton = findViewById(R.id.addButton);
 
 
         //The button action
-        addButton.setOnClickListener(new View.OnClickListener(){
+        addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
                 firstName = firstNameField.getText().toString();

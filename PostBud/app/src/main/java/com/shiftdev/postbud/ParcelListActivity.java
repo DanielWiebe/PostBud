@@ -18,52 +18,52 @@ import butterknife.ButterKnife;
 
 public class ParcelListActivity extends AppCompatActivity {
 
-     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
-     private final CollectionReference parcelRef = db.collection("parcels");
-     @BindView(R.id.rv_parcel)
-     RecyclerView recyclerView;
-     private ParcelAdapter adapter;
-     private Query query;
+    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private final CollectionReference parcelRef = db.collection("parcels");
+    @BindView(R.id.rv_parcel)
+    RecyclerView recyclerView;
+    private ParcelAdapter adapter;
+    private Query query;
 
-     @Override
-     protected void onCreate(Bundle savedInstanceState) {
-          super.onCreate(savedInstanceState);
-          setContentView(R.layout.activity_parcel_list);
-          ButterKnife.bind(this);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_parcel_list);
+        ButterKnife.bind(this);
 
-          setUpRecyclerView();
-     }
+        setUpRecyclerView();
+    }
 
-     private void setUpRecyclerView() {
-          Query query = parcelRef.orderBy("priority", Query.Direction.DESCENDING);
-          FirestoreRecyclerOptions<Parcel> options = new FirestoreRecyclerOptions.Builder<Parcel>()
-                  .setQuery(query, Parcel.class)
-                  .build();
+    private void setUpRecyclerView() {
+        Query query = parcelRef.orderBy("priority", Query.Direction.DESCENDING);
+        FirestoreRecyclerOptions<Parcel> options = new FirestoreRecyclerOptions.Builder<Parcel>()
+                .setQuery(query, Parcel.class)
+                .build();
 
-          adapter = new ParcelAdapter(options);
-          recyclerView.setHasFixedSize(true);
-          recyclerView.setLayoutManager(new LinearLayoutManager(this));
-          recyclerView.setAdapter(adapter);
-     }
-
-
-     @Override
-     public void onStart() {
-          super.onStart();
-          adapter.startListening();
-     }
-
-     @Override
-     public void onPause() {
-          super.onPause();
-          //save db instance snapshot here
-     }
+        adapter = new ParcelAdapter(options);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(adapter);
+    }
 
 
-     @Override
-     public void onStop() {
-          super.onStop();
+    @Override
+    public void onStart() {
+        super.onStart();
+        adapter.startListening();
+    }
 
-          adapter.stopListening();
-     }
+    @Override
+    public void onPause() {
+        super.onPause();
+        //save db instance snapshot here
+    }
+
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        adapter.stopListening();
+    }
 }

@@ -13,6 +13,7 @@ import com.shiftdev.postbud.R;
 public class parcelManagementActivity extends AppCompatActivity {
     private Button editParcelButton;
     private Button viewParcelsButton;
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //set the user interface layout(.xml) for this activity
@@ -28,7 +29,7 @@ public class parcelManagementActivity extends AppCompatActivity {
         });
         //The view parcels button
         viewParcelsButton = findViewById(R.id.viewParcelsButton);
-        viewParcelsButton.setOnClickListener(new View.OnClickListener(){
+        viewParcelsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
                 Intent intent = new Intent(parcelManagementActivity.this, ParcelListActivity.class);

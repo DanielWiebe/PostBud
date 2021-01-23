@@ -21,54 +21,53 @@ import butterknife.ButterKnife;
 public class HomeFragment extends Fragment {
 
 
-     @BindView(R.id.trackButton)
-     Button trackButton;
+    @BindView(R.id.trackButton)
+    Button trackButton;
 
-     @BindView(R.id.recentNumberButton)
-     Button recentNumberButton;
+    @BindView(R.id.recentNumberButton)
+    Button recentNumberButton;
 
-     @BindView(R.id.signInButton)
-     Button signInButton;
+    @BindView(R.id.signInButton)
+    Button signInButton;
 
-     public View onCreateView(@NonNull LayoutInflater inflater,
-                              ViewGroup container, Bundle savedInstanceState) {
-          View root;
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container, Bundle savedInstanceState) {
+        View root;
 
-          root = inflater.inflate(R.layout.fragment_home, container, false);
-          ButterKnife.bind(this, root);
-          trackButton.setOnClickListener(new View.OnClickListener() {
+        root = inflater.inflate(R.layout.fragment_home, container, false);
+        ButterKnife.bind(this, root);
+        trackButton.setOnClickListener(new View.OnClickListener() {
 
-               @Override
-               public void onClick(View arg0) {
-                    Intent intent = new Intent(getActivity(), parcelStatusActivity.class);
-                    requireActivity().startActivity(intent);
-               }
-          });
-          recentNumberButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                Intent intent = new Intent(getActivity(), parcelStatusActivity.class);
+                requireActivity().startActivity(intent);
+            }
+        });
+        recentNumberButton.setOnClickListener(new View.OnClickListener() {
 
-               @Override
-               public void onClick(View arg0) {
-                    Intent intent = new Intent(getActivity(), recentNumbersActivity.class);
-                    requireActivity().startActivity(intent);
-               }
-
-
-          });
-          signInButton.setOnClickListener(new View.OnClickListener() {
-
-               @Override
-               public void onClick(View arg0) {
-                    Intent intent = new Intent(getActivity(), LoginActivity.class);
-                    requireActivity().startActivity(intent);
-               }
+            @Override
+            public void onClick(View arg0) {
+                Intent intent = new Intent(getActivity(), recentNumbersActivity.class);
+                requireActivity().startActivity(intent);
+            }
 
 
-          });
+        });
+        signInButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                requireActivity().startActivity(intent);
+            }
 
 
-          return root;
-     }
+        });
 
+
+        return root;
+    }
 
 
 //     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {

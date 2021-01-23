@@ -33,110 +33,108 @@ import timber.log.Timber;
 import static java.lang.Integer.parseInt;
 
 public class EditParcelActivity extends AppCompatActivity {
-     private static final String KEY_CURRENT_LOCATION = "current_location";
-     private static final String KEY_DESCRIPTION = "description";
-     private static final String KEY_DESTINATION = "destination";
-     private static final String KEY_HANDLED_BY = "handled_by";
-     private static final String KEY_ORDERED_BY = "ordered_by";
-     private static final String KEY_ORIGIN = "origin";
-     private static final String KEY_PRIORITY = "priority";
-     private static final String KEY_STATUS = "status";
-     private static final String KEY_WEIGHT = "weight";
-     private static final String KEY_DATE = "date";
-     //Firestore reference to the database
+    private static final String KEY_CURRENT_LOCATION = "current_location";
+    private static final String KEY_DESCRIPTION = "description";
+    private static final String KEY_DESTINATION = "destination";
+    private static final String KEY_HANDLED_BY = "handled_by";
+    private static final String KEY_ORDERED_BY = "ordered_by";
+    private static final String KEY_ORIGIN = "origin";
+    private static final String KEY_PRIORITY = "priority";
+    private static final String KEY_STATUS = "status";
+    private static final String KEY_WEIGHT = "weight";
+    private static final String KEY_DATE = "date";
+    //Firestore reference to the database
 //     private final
 //     private final
-     @BindView(R.id.et_description)
-     EditText etDesc;
-     @BindView(R.id.et_location)
-     EditText etLocation;
-     @BindView(R.id.et_ordered_by)
-     EditText etOrderedBy;
-     @BindView(R.id.et_priority)
-     EditText etPriority;
-     @BindView(R.id.sp_status)
-     Spinner spStatus;
-     @BindView(R.id.et_destination)
-     EditText etDest;
-     @BindView(R.id.et_origin)
-     EditText etOrigin;
-     @BindView(R.id.et_weight)
-     EditText etWeight;
+    @BindView(R.id.et_description)
+    EditText etDesc;
+    @BindView(R.id.et_location)
+    EditText etLocation;
+    @BindView(R.id.et_ordered_by)
+    EditText etOrderedBy;
+    @BindView(R.id.et_priority)
+    EditText etPriority;
+    @BindView(R.id.sp_status)
+    Spinner spStatus;
+    @BindView(R.id.et_destination)
+    EditText etDest;
+    @BindView(R.id.et_origin)
+    EditText etOrigin;
+    @BindView(R.id.et_weight)
+    EditText etWeight;
 
-     //     ParcelDetailActivityArgs args = ParcelDetailActivityArgs.fromBundle(getIntent().getExtras());
-     String selectedDocumentID;
-     ArrayAdapter<CharSequence> adapter;
-     CollectionReference collectionReference = FirebaseFirestore.getInstance().collection("parcels");
+    //     ParcelDetailActivityArgs args = ParcelDetailActivityArgs.fromBundle(getIntent().getExtras());
+    String selectedDocumentID;
+    ArrayAdapter<CharSequence> adapter;
+    CollectionReference collectionReference = FirebaseFirestore.getInstance().collection("parcels");
 
-     @Override
-     protected void onCreate(Bundle savedInstanceState) {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
 
-          super.onCreate(savedInstanceState);
-          setContentView(R.layout.activity_add_parcel);
-          ButterKnife.bind(this);
-          setTitle("Edit Parcel");
-          adapter = ArrayAdapter.createFromResource(this, R.array.status_array, android.R.layout.simple_spinner_item);
-          adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
-          spStatus.setAdapter(adapter);
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_add_parcel);
+        ButterKnife.bind(this);
+        setTitle("Edit Parcel");
+        adapter = ArrayAdapter.createFromResource(this, R.array.status_array, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+        spStatus.setAdapter(adapter);
 
-          Intent args = getIntent();
-          selectedDocumentID = args.getStringExtra("snapshot_ref");
-          Timber.e("Received ID: " + selectedDocumentID);
-          DocumentReference documentReference = collectionReference.document(selectedDocumentID);
-          GetParcelRefAndAutoFillFields(documentReference);
-     }
-
-
-     private void GetParcelRefAndAutoFillFields(DocumentReference documentReference) {
-          documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-               @Override
-               public void onSuccess(DocumentSnapshot documentSnapshot) {
-                    etLocation.setText(documentSnapshot.get("currentLocation").toString());
-                    etDesc.setText(documentSnapshot.get("description").toString());
-                    etWeight.setText(String.valueOf(documentSnapshot.get("weight")));
-                    etPriority.setText(String.valueOf(documentSnapshot.get("priority")));
-                    etOrderedBy.setText(documentSnapshot.get("orderedBy").toString());
-                    etOrigin.setText(documentSnapshot.get("origin").toString());
-                    spStatus.setSelection(adapter.getPosition(documentSnapshot.get("status").toString()));
-                    etWeight.setText(documentSnapshot.get("weight").toString());
-                    etDest.setText(documentSnapshot.get("destination").toString());
-               }
-          }).addOnFailureListener(new OnFailureListener() {
-               @Override
-               public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(getApplicationContext(), "Problem loading in Values!", Toast.LENGTH_SHORT).show();
-               }
-          });
-     }
-
-     public void saveChanges() {
-          //Timestamp.now(),
-          //TODO THIS NEEDS TO BE HANDLED AND AUTO FILLED USING THE ID FROM FIREBASE AUTHENTICATION SOMEHOW
+        Intent args = getIntent();
+        selectedDocumentID = args.getStringExtra("snapshot_ref");
+        Timber.e("Received ID: " + selectedDocumentID);
+        DocumentReference documentReference = collectionReference.document(selectedDocumentID);
+        GetParcelRefAndAutoFillFields(documentReference);
+    }
 
 
-          Map<String, Object> parcelMap = new HashMap<>();
-          parcelMap.put(KEY_CURRENT_LOCATION, etLocation.getText().toString().trim());
-          parcelMap.put(KEY_DESCRIPTION, etDesc.getText().toString().trim());
-          parcelMap.put(KEY_DESTINATION, etDest.getText().toString().trim());
-          parcelMap.put("documentId", null);
-          parcelMap.put(KEY_HANDLED_BY, FirebaseAuth.getInstance().getCurrentUser());
-          parcelMap.put(KEY_ORDERED_BY, etOrderedBy.getText().toString().trim());
-          parcelMap.put(KEY_ORIGIN, etOrigin.getText().toString().trim());
-          parcelMap.put(KEY_PRIORITY, parseInt(etPriority.getText().toString()));
-          parcelMap.put(KEY_STATUS, spStatus.getSelectedItem().toString().trim());
-          parcelMap.put(KEY_WEIGHT, Double.parseDouble(String.valueOf(etWeight.getText())));
-          parcelMap.put(KEY_DATE, Timestamp.now().toString());
-          collectionReference.document(selectedDocumentID).set(new Parcel(
-                          "123",
-                          etLocation.getText().toString().trim(),
-                          etOrigin.getText().toString().trim(),
-                          etDest.getText().toString().trim(),
-                          etOrderedBy.getText().toString().trim(),
-                          etDesc.getText().toString().trim(),
-                          Double.parseDouble(String.valueOf(etWeight.getText())),
-                          Timestamp.now(),
-                          parseInt(etPriority.getText().toString()),
-                          spStatus.getSelectedItem().toString().trim())
+    private void GetParcelRefAndAutoFillFields(DocumentReference documentReference) {
+        documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                etLocation.setText(documentSnapshot.get("currentLocation").toString());
+                etDesc.setText(documentSnapshot.get("description").toString());
+                etWeight.setText(String.valueOf(documentSnapshot.get("weight")));
+                etPriority.setText(String.valueOf(documentSnapshot.get("priority")));
+                etOrderedBy.setText(documentSnapshot.get("orderedBy").toString());
+                etOrigin.setText(documentSnapshot.get("origin").toString());
+                spStatus.setSelection(adapter.getPosition(documentSnapshot.get("status").toString()));
+                etWeight.setText(documentSnapshot.get("weight").toString());
+                etDest.setText(documentSnapshot.get("destination").toString());
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getApplicationContext(), "Problem loading in Values!", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public void saveChanges() {
+        //Timestamp.now(),
+        //TODO THIS NEEDS TO BE HANDLED AND AUTO FILLED USING THE ID FROM FIREBASE AUTHENTICATION SOMEHOW
+
+        Map<String, Object> parcelMap = new HashMap<>();
+        parcelMap.put(KEY_CURRENT_LOCATION, etLocation.getText().toString().trim());
+        parcelMap.put(KEY_DESCRIPTION, etDesc.getText().toString().trim());
+        parcelMap.put(KEY_DESTINATION, etDest.getText().toString().trim());
+        parcelMap.put("documentId", null);
+        parcelMap.put(KEY_HANDLED_BY, FirebaseAuth.getInstance().getCurrentUser());
+        parcelMap.put(KEY_ORDERED_BY, etOrderedBy.getText().toString().trim());
+        parcelMap.put(KEY_ORIGIN, etOrigin.getText().toString().trim());
+        parcelMap.put(KEY_PRIORITY, parseInt(etPriority.getText().toString()));
+        parcelMap.put(KEY_STATUS, spStatus.getSelectedItem().toString().trim());
+        parcelMap.put(KEY_WEIGHT, Double.parseDouble(String.valueOf(etWeight.getText())));
+        parcelMap.put(KEY_DATE, Timestamp.now().toString());
+        collectionReference.document(selectedDocumentID).set(new Parcel(
+                        etLocation.getText().toString().trim(),
+                        etOrigin.getText().toString().trim(),
+                        etDest.getText().toString().trim(),
+                        etOrderedBy.getText().toString().trim(),
+                        etDesc.getText().toString().trim(),
+                        Double.parseDouble(String.valueOf(etWeight.getText())),
+                        Timestamp.now(),
+                        parseInt(etPriority.getText().toString()),
+                        spStatus.getSelectedItem().toString().trim())
 //                  etLocation.getText().toString().trim(),
 //                  Timestamp.now().toString(),
 //                  etDesc.getText().toString().trim(),
@@ -150,34 +148,34 @@ public class EditParcelActivity extends AppCompatActivity {
 //                  spStatus.getSelectedItem().toString().trim(),
 //                  Double.parseDouble(String.valueOf(etWeight.getText()))
 
-          ).addOnSuccessListener(aVoid -> {
-               Toast.makeText(EditParcelActivity.this, "Parcel changes saved to Firebase", Toast.LENGTH_SHORT).show();
-               Intent intent = new Intent(this, MainActivity.class);
-               startActivity(intent);
-          })
-                  .addOnFailureListener(e -> {
-                       Toast.makeText(EditParcelActivity.this, "Error in saving changes. Please try again!", Toast.LENGTH_SHORT).show();
-                       Timber.e("EditParcelActivity");
-                  });
-     }
+        ).addOnSuccessListener(aVoid -> {
+            Toast.makeText(EditParcelActivity.this, "Parcel changes saved to Firebase", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(EditParcelActivity.this, "Error in saving changes. Please try again!", Toast.LENGTH_SHORT).show();
+                    Timber.e("EditParcelActivity");
+                });
+    }
 
-     @Override
-     public boolean onCreateOptionsMenu(Menu menu) {
-          MenuInflater menuInflater = getMenuInflater();
-          menuInflater.inflate(R.menu.menu_edit_parcel, menu);
-          return super.onCreateOptionsMenu(menu);
-     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu_edit_parcel, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
 
-     @Override
-     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-          switch (item.getItemId()) {
-               case R.id.save_changes:
-                    // TODO this has a problem saving the object for some reason... coming back to it
-                    saveChanges();
-                    Toast.makeText(this, "Saving Parcel", Toast.LENGTH_SHORT).show();
-                    return true;
-               default:
-                    return super.onOptionsItemSelected(item);
-          }
-     }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.save_changes:
+                // TODO this has a problem saving the object for some reason... coming back to it
+                saveChanges();
+                Toast.makeText(this, "Saving Parcel", Toast.LENGTH_SHORT).show();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 }
