@@ -51,7 +51,6 @@
 
     <!-- Strings for Firebase fields -->
     <string name="firebase_navigation_administrators">administrators</string>
-    <string name="firebase_navigation_document_id">documentId</string>
     <string name="firebase_navigation_current_location">currentLocation</string>
     <string name="firebase_navigation_origin">origin</string>
     <string name="firebase_navigation_destination">destination</string>
@@ -61,7 +60,9 @@
     <string name="firebase_navigation_priority">priority</string>
     <string name="firebase_navigation_handled_by">handledBy</string>
     <string name="firebase_navigation_weight">weight</string>
-    <string name="firebase_navigation_date">date</string>
+    <string name="firebase_navigation_date_created">dateCreated</string>
+    <string name="firebase_navigation_date_sent">dateSent</string>
+    <string name="firebase_navigation_date_delivered">dateDelivered</string>
     <string name="firebase_navigation_parcels">parcels</string>
     <string name="firebase_navigation_employees">employees</string>
     <string name="firebase_navigation_uid">uid</string>

@@ -67,51 +67,48 @@ public class EditParcelActivity extends AppCompatActivity {
      ArrayAdapter<CharSequence> adapter;
      CollectionReference collectionReference = FirebaseFirestore.getInstance().collection("parcels");
 
-     @Override
-     protected void onCreate(Bundle savedInstanceState) {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
 
-          super.onCreate(savedInstanceState);
-          setContentView(R.layout.activity_add_parcel);
-          ButterKnife.bind(this);
-          setTitle("Edit Parcel");
-          adapter = ArrayAdapter.createFromResource(this, R.array.status_array, android.R.layout.simple_spinner_item);
-          adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
-          spStatus.setAdapter(adapter);
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_add_parcel);
+        ButterKnife.bind(this);
+        setTitle("Edit Parcel");
+        adapter = ArrayAdapter.createFromResource(this, R.array.status_array, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+        spStatus.setAdapter(adapter);
 
-          Intent args = getIntent();
-          selectedDocumentID = args.getStringExtra("snapshot_ref");
-          Timber.e("Received ID: " + selectedDocumentID);
-          DocumentReference documentReference = collectionReference.document(selectedDocumentID);
-          GetParcelRefAndAutoFillFields(documentReference);
-     }
+        Intent args = getIntent();
+        selectedDocumentID = args.getStringExtra("snapshot_ref");
+        Timber.e("Received ID: " + selectedDocumentID);
+        DocumentReference documentReference = collectionReference.document(selectedDocumentID);
+        GetParcelRefAndAutoFillFields(documentReference);
+    }
 
 
-     private void GetParcelRefAndAutoFillFields(DocumentReference documentReference) {
-          documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-               @Override
-               public void onSuccess(DocumentSnapshot documentSnapshot) {
-                    etLocation.setText(documentSnapshot.get("currentLocation").toString());
-                    etDesc.setText(documentSnapshot.get("description").toString());
-                    etWeight.setText(String.valueOf(documentSnapshot.get("weight")));
-                    etPriority.setText(String.valueOf(documentSnapshot.get("priority")));
-                    etOrderedBy.setText(documentSnapshot.get("orderedBy").toString());
-                    etOrigin.setText(documentSnapshot.get("origin").toString());
-                    spStatus.setSelection(adapter.getPosition(documentSnapshot.get("status").toString()));
-                    etWeight.setText(documentSnapshot.get("weight").toString());
-                    etDest.setText(documentSnapshot.get("destination").toString());
-               }
-          }).addOnFailureListener(new OnFailureListener() {
-               @Override
-               public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(getApplicationContext(), "Problem loading in Values!", Toast.LENGTH_SHORT).show();
-               }
-          });
-     }
+    private void GetParcelRefAndAutoFillFields(DocumentReference documentReference) {
+        documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                etLocation.setText(documentSnapshot.get("currentLocation").toString());
+                etDesc.setText(documentSnapshot.get("description").toString());
+                etWeight.setText(String.valueOf(documentSnapshot.get("weight")));
+                etPriority.setText(String.valueOf(documentSnapshot.get("priority")));
+                etOrderedBy.setText(documentSnapshot.get("orderedBy").toString());
+                etOrigin.setText(documentSnapshot.get("origin").toString());
+                spStatus.setSelection(adapter.getPosition(documentSnapshot.get("status").toString()));
+                etWeight.setText(documentSnapshot.get("weight").toString());
+                etDest.setText(documentSnapshot.get("destination").toString());
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getApplicationContext(), "Problem loading in Values!", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
      public void saveChanges() {
-          //Timestamp.now(),
-          //TODO THIS NEEDS TO BE HANDLED AND AUTO FILLED USING THE ID FROM FIREBASE AUTHENTICATION SOMEHOW
-
 
           Map<String, Object> parcelMap = new HashMap<>();
           parcelMap.put(KEY_CURRENT_LOCATION, etLocation.getText().toString().trim());

@@ -176,8 +176,8 @@ public class ParcelOverviewFragment extends Fragment {
 //               action.setParcelDocumentIdArgs(documentSnapshot.getId());
 //               Navigation.findNavController(getView()).navigate(action);
 
-          });
-     }
+        });
+    }
 
      @NotNull
      private FirestoreRecyclerOptions<Parcel> buildPriorityDescendingQuery() {
@@ -216,9 +216,9 @@ public class ParcelOverviewFragment extends Fragment {
           adapter.startListening();
      }
 
-     @Override
-     public void onStop() {
-          super.onStop();
-          adapter.stopListening();
-     }
+    @Override
+    public void onStop() {
+        super.onStop();
+        adapter.stopListening();
+    }
 }

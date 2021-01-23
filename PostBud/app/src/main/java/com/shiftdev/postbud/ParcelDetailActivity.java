@@ -57,11 +57,11 @@ public class ParcelDetailActivity extends AppCompatActivity {
      private FirebaseFirestore db = FirebaseFirestore.getInstance();
      private CollectionReference parcelDB = db.collection("parcels");
 
-     @Override
-     protected void onCreate(Bundle savedInstanceState) {
-          super.onCreate(savedInstanceState);
-          setContentView(R.layout.activity_parcel_detail);
-          ButterKnife.bind(this);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_parcel_detail);
+        ButterKnife.bind(this);
 
           toolbar = (Toolbar) findViewById(R.id.toolbar);
           setSupportActionBar(toolbar);
@@ -82,26 +82,26 @@ public class ParcelDetailActivity extends AppCompatActivity {
                }
           });
 
-          args = getIntent();
-          selectedDocumentID = args.getStringExtra("snapshot_ref");
-          Timber.e("snapshot ID " + selectedDocumentID);
-          DocumentReference documentReference = parcelDB.document(selectedDocumentID);
-          documentReference.get().addOnCompleteListener((OnCompleteListener<DocumentSnapshot>) task -> {
-               if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                         Map<String, Object> parcelMap = document.getData();
-                         Timber.e(parcelMap.toString());
-                         setTextOfAllViewsFromParcelMap(parcelMap);
-                    } else {
-                         Timber.e("No such document");
-                    }
-               } else {
-                    Timber.e("get failed with %s", task.getException());
-               }
-          });
+        args = getIntent();
+        selectedDocumentID = args.getStringExtra("snapshot_ref");
+        Timber.e("snapshot ID " + selectedDocumentID);
+        DocumentReference documentReference = parcelDB.document(selectedDocumentID);
+        documentReference.get().addOnCompleteListener((OnCompleteListener<DocumentSnapshot>) task -> {
+            if (task.isSuccessful()) {
+                DocumentSnapshot document = task.getResult();
+                if (document.exists()) {
+                    Map<String, Object> parcelMap = document.getData();
+                    Timber.e(parcelMap.toString());
+                    setTextOfAllViewsFromParcelMap(parcelMap);
+                } else {
+                    Timber.e("No such document");
+                }
+            } else {
+                Timber.e("get failed with %s", task.getException());
+            }
+        });
 
-     }
+    }
 
      private void setTextOfAllViewsFromParcelMap(Map<String, Object> parcelMapFromSnapshotResult) {
           toolBarLayout.setTitle("Currently in: " + parcelMapFromSnapshotResult.get("currentLocation").toString());

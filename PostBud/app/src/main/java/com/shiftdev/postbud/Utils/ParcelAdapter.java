@@ -19,11 +19,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ParcelAdapter extends FirestoreRecyclerAdapter<Parcel, ParcelAdapter.ParcelHolder> {
-     private OnItemClickListener listener;
+    private OnItemClickListener listener;
 
-     public ParcelAdapter(@NonNull FirestoreRecyclerOptions<Parcel> options) {
-          super(options);
-     }
+    public ParcelAdapter(@NonNull FirestoreRecyclerOptions<Parcel> options) {
+        super(options);
+    }
 
      @Override
      protected void onBindViewHolder(@NonNull ParcelHolder holder, int position, @NonNull Parcel model) {

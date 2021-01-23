@@ -15,7 +15,6 @@ import com.shiftdev.postbud.AddParcelActivity;
 import com.shiftdev.postbud.MainActivity;
 import com.shiftdev.postbud.R;
 import com.shiftdev.postbud.Utils.Administrator;
-import com.shiftdev.postbud.Utils.FirebaseNav;
 import com.shiftdev.postbud.Utils.PostBudFirestoreUtils;
 
 import java.util.Map;
@@ -29,6 +28,7 @@ public class administratorMenuActivity extends AppCompatActivity {
     private Button parcelManagement;
     private Button newParcel;
     private Button logOut;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +38,7 @@ public class administratorMenuActivity extends AppCompatActivity {
         employeeManagement = findViewById(R.id.addEmployee);
         parcelManagement = findViewById(R.id.parcelManagementButton);
         newParcel = findViewById(R.id.newParcelButton);
-        logOut= findViewById(R.id.logOutButton);
+        logOut = findViewById(R.id.logOutButton);
         // Fetching admin from database
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -52,21 +52,21 @@ public class administratorMenuActivity extends AppCompatActivity {
                 });
 
         //The button actions
-        employeeManagement.setOnClickListener(new View.OnClickListener(){
+        employeeManagement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
                 Intent intent = new Intent(administratorMenuActivity.this, addEmployeeActivity.class);
                 startActivity(intent);
             }
         });
-        parcelManagement.setOnClickListener(new View.OnClickListener(){
+        parcelManagement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
                 Intent intent = new Intent(administratorMenuActivity.this, parcelManagementActivity.class);
                 startActivity(intent);
             }
         });
-        newParcel.setOnClickListener(new View.OnClickListener(){
+        newParcel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
                 Intent intent = new Intent(administratorMenuActivity.this, AddParcelActivity.class);
@@ -75,7 +75,7 @@ public class administratorMenuActivity extends AppCompatActivity {
         });
         //The log out button
         logOut = findViewById(R.id.logOutButton);
-        logOut.setOnClickListener(new View.OnClickListener(){
+        logOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
                 //Here, the login status should be switched to "logged out" or something like that

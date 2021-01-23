@@ -6,10 +6,10 @@ public class ParcelOverviewViewModel extends ViewModel {
 
 //     private MutableLiveData<String> mText;
 
-     public ParcelOverviewViewModel() {
+    public ParcelOverviewViewModel() {
 //          mText = new MutableLiveData<>();
 //          mText.setValue("This is dashboard fragment");
-     }
+    }
 
 //     public LiveData<String> getText() {
 //          return mText;

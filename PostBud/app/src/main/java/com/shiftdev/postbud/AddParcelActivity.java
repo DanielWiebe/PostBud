@@ -41,16 +41,16 @@ public class AddParcelActivity extends AppCompatActivity {
      EditText etWeight;
 
 
-     @Override
-     protected void onCreate(Bundle savedInstanceState) {
-          super.onCreate(savedInstanceState);
-          setContentView(R.layout.activity_add_parcel);
-          ButterKnife.bind(this);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_add_parcel);
+        ButterKnife.bind(this);
 
-          ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.status_array, android.R.layout.simple_spinner_item);
-          adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
-          spStatus.setAdapter(adapter);
-     }
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.status_array, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+        spStatus.setAdapter(adapter);
+    }
 
 
      public void saveParcel() {
@@ -79,23 +79,23 @@ public class AddParcelActivity extends AppCompatActivity {
                   });
      }
 
-     @Override
-     public boolean onCreateOptionsMenu(Menu menu) {
-          MenuInflater menuInflater = getMenuInflater();
-          menuInflater.inflate(R.menu.save_parcel_menu_item, menu);
-          return super.onCreateOptionsMenu(menu);
-     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.save_parcel_menu_item, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
 
-     @Override
-     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-          switch (item.getItemId()) {
-               case R.id.saveParcel:
-                    // TODO this has a problem saving the object for some reason... coming back to it
-                    saveParcel();
-                    Toast.makeText(this, "Saving Parcel", Toast.LENGTH_SHORT).show();
-                    return true;
-               default:
-                    return super.onOptionsItemSelected(item);
-          }
-     }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.saveParcel:
+                // TODO this has a problem saving the object for some reason... coming back to it
+                saveParcel();
+                Toast.makeText(this, "Saving Parcel", Toast.LENGTH_SHORT).show();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 }

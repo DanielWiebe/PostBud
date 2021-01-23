@@ -1,5 +1,6 @@
 package com.shiftdev.postbud;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -18,8 +19,13 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.shiftdev.postbud.Utils.Parcel;
+import com.shiftdev.postbud.Utils.PostBudFirestoreUtils;
+
+import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -63,8 +69,8 @@ public class MainActivity extends AppCompatActivity {
           FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
           // Testing accounts
-          String email = "art4321@gmail.com";
-          String password = "123456";
+          String email = "artadmin@gmail.com";
+          String password = "password1";
 
           mAuth.signInWithEmailAndPassword(email, password);
 

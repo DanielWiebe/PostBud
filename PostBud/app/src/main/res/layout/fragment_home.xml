@@ -37,6 +37,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="@string/enter_your_tracking_number_here"
+        android:inputType=""
         android:textAlignment="center"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -44,8 +45,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.314"
-        android:inputType="" />
+        app:layout_constraintVertical_bias="0.314" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -84,14 +84,14 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.101" />
 
-<!--    &lt;!&ndash;The autocomplete view below is for the numbers that the user has entered before&ndash;&gt;-->
-<!--    <AutoCompleteTextView-->
-<!--        android:id="@+id/autocomplete_tracking_Numbers"-->
-<!--        android:layout_width="fill_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        app:layout_constraintBottom_toTopOf="@+id/trackButton"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/trackEditText" />-->
+    <!--    &lt;!&ndash;The autocomplete view below is for the numbers that the user has entered before&ndash;&gt;-->
+    <!--    <AutoCompleteTextView-->
+    <!--        android:id="@+id/autocomplete_tracking_Numbers"-->
+    <!--        android:layout_width="fill_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        app:layout_constraintBottom_toTopOf="@+id/trackButton"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/trackEditText" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
