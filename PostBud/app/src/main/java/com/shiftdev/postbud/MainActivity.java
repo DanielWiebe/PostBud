@@ -7,10 +7,8 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,138 +27,135 @@ import com.shiftdev.postbud.Utils.PostBudFirestoreUtils;
 
 import java.util.Date;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import timber.log.Timber;
 
 import static timber.log.Timber.e;
 
 
 public class MainActivity extends AppCompatActivity {
-    RelativeLayout relativeLayout;
 
-    public static void testUploadParcel(Context context) {
-        PostBudFirestoreUtils.uploadParcel(context, new Parcel("Baghdad", "Minsk", "Winnipeg",
-                "Daniel Wiebe", "BTS Merch", 5.58, Timestamp.now(), 2, "IN TRANSIT"));
-        PostBudFirestoreUtils.uploadParcel(context, new Parcel("Ireland", "Germany", "Egypt",
-                "Lil'Machty", "BMW 750li", 4000, Timestamp.now(), 1, "AWAITING PAYMENT"));
-        PostBudFirestoreUtils.uploadParcel(context, new Parcel("Serbia", "China", "Nebraska",
-                "Andrey Tokarski", "Fidget Spinner", 0.3, Timestamp.now(), 3, "SHIPPED"));
-    }
+     //     public static void testUploadParcel(Activity context) {
+//          PostBudFirestoreUtils.uploadParcel(context, new Parcel("PB0123456789", "Baghdad", "Minsk", "Winnipeg",
+//                  "Daniel Wiebe", "BTS Merch", 5.58, Timestamp.now(), 2, "IN TRANSIT"));
+//          PostBudFirestoreUtils.uploadParcel(context, new Parcel("PB0000000001", "Ireland", "Germany", "Egypt",
+//                  "Lil'Machty", "BMW 750li", 4000, Timestamp.now(), 1, "AWAITING PAYMENT"));
+//          PostBudFirestoreUtils.uploadParcel(context, new Parcel("PB0000000002", "Serbia", "China", "Nebraska",
+//                  "Andrey Tokarski", "Fidget Spinner", 0.3, Timestamp.now(), 3, "SHIPPED"));
+//     }
+     @BindView(R.id.nav_host_fragment)
+     View fragment;
 
-    public static void testAddCheckpointToParcel(Context context, String parcelID, Timestamp date, String location) {
-        PostBudFirestoreUtils.addParcelCheckpoint(context, parcelID, new Parcel.Checkpoint(date, location));
-    }
+     @Override
+     protected void onCreate(Bundle savedInstanceState) {
+          super.onCreate(savedInstanceState);
+          setContentView(R.layout.activity_main);
+          BottomNavigationView navView = findViewById(R.id.nav_view);
+          // Passing each menu ID as a set of Ids because each
+          // menu should be considered as top level destinations.
+          AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
+                  R.id.navigation_home, R.id.navigation_list, R.id.navigation_account)
+                  .build();
+          NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+          NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+          NavigationUI.setupWithNavController(navView, navController);
+          Timber.plant(new Timber.DebugTree());
+          ButterKnife.bind(this);
+          e("Test Message");
+          // Testing Firestore
+          networkDisplayCheck(fragment);
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        BottomNavigationView navView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_home, R.id.navigation_list, R.id.navigation_account)
-                .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-        NavigationUI.setupWithNavController(navView, navController);
-        Timber.plant(new Timber.DebugTree());
-        e("Test Message");
-        // Testing Firestore
+          FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
-        relativeLayout = findViewById(R.id.container);
-        networkDisplayCheck(relativeLayout);
+          // Testing accounts
+          String email = "artadmin@gmail.com";
+          String password = "password1";
 
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        // Testing
-//          TestingAccounts(mAuth);
-//        testUploadParcel(this);
-        testAddCheckpointToParcel(this, "DqB5jb9FFHwZCve7DHww", new Timestamp(new Date(2021, 1, 20)), "Singapore");
-//        PostBudFirestoreUtils.sendParcel(this, "xk8CXiHYKCWZGRILqBBG", Timestamp.now());
-    }
+          mAuth.signInWithEmailAndPassword(email, password);
 
-    // TESTING METHODS
-    private void TestingAccounts(FirebaseAuth mAuth) {
-        String email = "art4321@gmail.com";
-        String password = "123456";
-        mAuth.signInWithEmailAndPassword(email, password);
-    }
-    // --------------------- //
+          FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-    private void networkDisplayCheck(RelativeLayout relativeLayout) {
-        if (networkDisconnected()) {
-            e("network disconnected");
-            Snackbar.make(relativeLayout, "connection lost", Snackbar.LENGTH_LONG)
-                    .setAction("Go To Settings", new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
-                        }
-                    }).show();
-        } else if (!networkDisconnected()) {
-            Snackbar.make(relativeLayout, "connected with Wi-Fi", Snackbar.LENGTH_SHORT).show();
-            //.setAction(startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS))){}
-        }
-    }
+          //testUploadParcel(this);
+          // testUploadParcel(this);
+     }
 
-    public boolean networkDisconnected() {
-        e("started network check");
-        boolean hasConnection = true;
-        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
-        NetworkInfo[] networkInfo = connectivityManager.getAllNetworkInfo();
-        for (NetworkInfo info : networkInfo) {
-            e("checking each info");
-            if (info.getTypeName().equalsIgnoreCase("WIFI")) {
-                if (info.isConnected()) {
-                    e("WIFI CONNECTED");
-                    hasConnection = false;
-                }
-            }
-            if (info.getTypeName().equalsIgnoreCase("MOBILE")) {
-                if (info.isConnected()) {
-                    Timber.e("DATA CONNECTED");
-                    hasConnection = false;
-                }
-            }
-        }
-        return hasConnection;
-    }
+     private void networkDisplayCheck(View fragment) {
+          if (networkDisconnected()) {
+               e("network disconnected");
+               Snackbar bar = Snackbar.make(fragment, "connection lost", Snackbar.LENGTH_INDEFINITE)
+                       .setAction("Go To Settings", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                 startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
+                            }
+                       });
+               View snackView = bar.getView();
+               snackView.setTranslationY(-48);
+          } else if (!networkDisconnected()) {
+               Snackbar.make(fragment, "connected with Wi-Fi", 1000).show();
+          }
+     }
 
-    private void goToNewParcel() {
-        Intent intent = new Intent(this, AddParcelActivity.class);
-        startActivity(intent);
-    }
+     public boolean networkDisconnected() {
+          e("started network check");
+          boolean hasConnection = true;
+          ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+          NetworkInfo[] networkInfo = connectivityManager.getAllNetworkInfo();
+          for (NetworkInfo info : networkInfo) {
+               e("checking each info");
+               if (info.getTypeName().equalsIgnoreCase("WIFI")) {
+                    if (info.isConnected()) {
+                         e("WIFI CONNECTED");
+                         hasConnection = false;
+                    }
+               }
+               if (info.getTypeName().equalsIgnoreCase("MOBILE")) {
+                    if (info.isConnected()) {
+                         Timber.e("DATA CONNECTED");
+                         hasConnection = false;
+                    }
+               }
+          }
+          return hasConnection;
+     }
+
+     private void goToNewParcel() {
+          Intent intent = new Intent(this, AddParcelActivity.class);
+          startActivity(intent);
+     }
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.menu_main_activity, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
+     @Override
+     public boolean onCreateOptionsMenu(Menu menu) {
+          getMenuInflater().inflate(R.menu.menu_home_fragment_in_activity, menu);
+          return super.onCreateOptionsMenu(menu);
+     }
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.addParcel:
-                goToNewParcel();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
+     @Override
+     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+          switch (item.getItemId()) {
+               case R.id.action_add_parcel:
+                    goToNewParcel();
+                    return true;
+               case R.id.action_search:
+                    return true;
+               default:
+                    return super.onOptionsItemSelected(item);
+          }
+     }
 
-    @Override
-    protected void onResume() {
-        e("onresume");
-        networkDisplayCheck(relativeLayout);
-        super.onResume();
-    }
+     @Override
+     protected void onResume() {
+          e("onresume");
+          networkDisplayCheck(fragment);
+          super.onResume();
+     }
 
-    @Override
-    protected void onStart() {
-        e("onstart");
-        networkDisplayCheck(relativeLayout);
-        super.onStart();
-    }
+     @Override
+     protected void onStart() {
+          e("onstart");
+          networkDisplayCheck(fragment);
+          super.onStart();
+     }
 }

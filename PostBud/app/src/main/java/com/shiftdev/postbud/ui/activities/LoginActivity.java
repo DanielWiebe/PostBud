@@ -81,39 +81,37 @@ public class LoginActivity extends AppCompatActivity {
             userPassword = loginPassword.getText().toString();
             context = this;
 //            TestLoginEmployee();
-            TestLoginAdmin();
-            if (!userName.isEmpty() && !userPassword.isEmpty()) {
-                firebaseAuth.signInWithEmailAndPassword(userName, userPassword)
-                        .addOnCompleteListener(task -> {
-                            if (task.isSuccessful()) {
-                                Toast.makeText(getBaseContext(), "Successfully logged into " + userName, Toast.LENGTH_LONG).show();
-                                uid = task.getResult().getUser().getUid();
-                                FirebaseFirestore db = FirebaseFirestore.getInstance();
-                                checkIsUserEmployee(db).addOnCompleteListener(employeeQuery -> {
-                                    if (employeeQuery.getResult().exists()) {
-                                        Timber.e("Successfully loggedin as Employee");
-                                        intent = new Intent(LoginActivity.this, employeeMenuActivity.class);
-                                        startActivity(intent);
-                                    } else {
-                                        checkIsUserAdministrator(db).addOnCompleteListener(administratorQuery -> {
-                                            if (administratorQuery.getResult().exists()) {
-                                                Timber.e("Successfully loggedin as Administrator");
-                                                intent = new Intent(LoginActivity.this, administratorMenuActivity.class);
-                                                startActivity(intent);
-                                            } else {
-                                                Timber.e("User NOT FOUND");
-                                                Toast.makeText(context, "Your problem is NOT our problem, get some real credentials, mate. (NO USER IN DB)", Toast.LENGTH_LONG);
-                                            }
-                                        });
-                                    }
-                                });
-                            } else {
-                                Toast.makeText(getBaseContext(), "Failed to login: wrong password/email", Toast.LENGTH_LONG).show();
-                            }
-                        });
-            } else {
-                Toast.makeText(getBaseContext(), "Failed to login: email or password field is empty", Toast.LENGTH_LONG).show();
-            }
+            // TestLoginAdmin();
+            firebaseAuth.signInWithEmailAndPassword(userName, userPassword)
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(getBaseContext(), "Successfully logged into " + userName, Toast.LENGTH_LONG).show();
+                            uid = task.getResult().getUser().getUid();
+                            FirebaseFirestore db = FirebaseFirestore.getInstance();
+                            checkIsUserEmployee(db).addOnCompleteListener(employeeQuery -> {
+                                if (employeeQuery.getResult().exists()) {
+                                    Timber.e("Successfully loggedin as Employee");
+                                    intent = new Intent(LoginActivity.this, employeeMenuActivity.class);
+                                    startActivity(intent);
+                                } else {
+                                    checkIsUserAdministrator(db).addOnCompleteListener(administratorQuery -> {
+                                        if (administratorQuery.getResult().exists()) {
+                                            Timber.e("Successfully loggedin as Administrator");
+                                            isAdministrator = true;
+                                            intent = new Intent(LoginActivity.this, administratorMenuActivity.class);
+                                            startActivity(intent);
+                                        } else {
+                                            isUserNotInDatabase = true;
+                                            Timber.e("User NOT FOUND");
+                                            Toast.makeText(context, "Your problem is NOT our problem, get some real credentials, mate. (NO USER IN DB)", Toast.LENGTH_LONG);
+                                        }
+                                    });
+                                }
+                            });
+                        } else {
+                            Toast.makeText(getBaseContext(), "Failed to login: wrong password/email", Toast.LENGTH_LONG).show();
+                        }
+                    });
 
             /*layoutPages must be loaded depending on whether login and password is correct and whether the user is an admin or just a regular employee*/
             //The if/else statements conditions below are just a sketch of the implementation of the login process

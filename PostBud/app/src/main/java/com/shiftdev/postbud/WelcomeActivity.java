@@ -15,14 +15,14 @@ public class WelcomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
 
-        setTitle("");
-        Thread welcomeThread = new Thread() {
-            @Override
-            public void run() {
-                try {
-                    super.run();
-                    sleep(2000);
-                } catch (Exception e) {
+          setTitle("");
+          Thread welcomeThread = new Thread() {
+               @Override
+               public void run() {
+                    try {
+                         super.run();
+                         sleep(500);
+                    } catch (Exception e) {
 
                 } finally {
                     Intent i = new Intent(WelcomeActivity.this,
