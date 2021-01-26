@@ -1,6 +1,7 @@
 package com.shiftdev.postbud.Utils;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.Toast;
 
 import timber.log.Timber;
@@ -31,14 +32,12 @@ public class Administrator extends Account {
      */
     public void newEmployee(Context context, String email, String password, String employeeId, String firstName, String lastName) {
         Employee newEmployee = new Employee(email, password, employeeId, firstName, lastName);
-        Timber.plant(new Timber.DebugTree());             // TODO: Check if this line is needed.
         PostBudFirestoreUtils.createAccountAndUploadToFirestore(context, newEmployee)
                 .addOnSuccessListener(result -> Toast.makeText(context, "Successfully created new employee account with email: " + email, Toast.LENGTH_SHORT).show())
                 .addOnFailureListener(e -> {
                     Toast.makeText(context, "Failed to create new employee account with the email: " + email, Toast.LENGTH_SHORT).show();
-                    Timber.e(e.getLocalizedMessage());      // TODO: Ask Daniel to implement Timber properly.
+                    Log.e("Administrator", e.getLocalizedMessage());
                 });
-
     }
 
     // Public methods

@@ -46,8 +46,6 @@ public class administratorMenuActivity extends AppCompatActivity {
                 .addOnCompleteListener(administratorQuery -> {
                     if (administratorQuery.isSuccessful()) {
                         admin = administratorQuery.getResult().toObject(Administrator.class);
-                        Map<String, Object> parcelMap = administratorQuery.getResult().getData();    // TODO: Delete credentials after testing.
-                        Timber.e(parcelMap.toString());
                     }
                 });
 

@@ -12,6 +12,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.shiftdev.postbud.R;
 
 /**
  * Utility to upload data from PostBud to the connected Firestore database.
@@ -52,7 +53,7 @@ public class PostBudFirestoreUtils {
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         Toast.makeText(context, "Successfully updated parcel's shipped date to " + date, Toast.LENGTH_LONG).show();
-                        parcelDocument.update(FirebaseNav.STATUS.getValue(context), "SENT")     // TODO: Check with Daniel about statuses.
+                        parcelDocument.update(FirebaseNav.STATUS.getValue(context), context.getResources().getString(R.array.status_array))     // TODO: Check with Daniel about statuses.
                                 .addOnCompleteListener(statusUpdateRequest -> {
                                     if (statusUpdateRequest.isSuccessful())
                                         Toast.makeText(context, "Successfully updated parcel's status to SENT", Toast.LENGTH_LONG).show();

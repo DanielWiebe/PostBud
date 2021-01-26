@@ -207,7 +207,7 @@ public class Parcel {
     }
 
     // Firebase database methods
-
+    // TODO
     /**
      * Add a checkpoint to the checkpoints history of the parcel.
      *
@@ -220,6 +220,7 @@ public class Parcel {
         PostBudFirestoreUtils.addParcelCheckpoint(context, getParcelId(), checkpoint);
     }
 
+    // TODO
     /* Nest class of a parcel checkpoint */
     public static class Checkpoint {
         Timestamp dateArrived;
