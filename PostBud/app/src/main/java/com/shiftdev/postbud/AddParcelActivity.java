@@ -23,35 +23,22 @@ import butterknife.ButterKnife;
 import timber.log.Timber;
 
 public class AddParcelActivity extends AppCompatActivity {
-    private static final String KEY_CURRENT_LOCATION = "current_location";
-    private static final String KEY_DESCRIPTION = "description";
-    private static final String KEY_DESTINATION = "destination";
-    private static final String KEY_HANDLED_BY = "handled_by";
-    private static final String KEY_ORDERED_BY = "ordered_by";
-    private static final String KEY_ORIGIN = "origin";
-    private static final String KEY_PRIORITY = "priority";
-    private static final String KEY_STATUS = "status";
-    private static final String KEY_WEIGHT = "weight";
-    private static final String KEY_DATE = "date";
-    //Firestore reference to the database
-//     private final
-//     private final
-    @BindView(R.id.et_description)
-    EditText etDesc;
-    @BindView(R.id.et_location)
-    EditText etLocation;
-    @BindView(R.id.et_ordered_by)
-    EditText etOrderedBy;
-    @BindView(R.id.et_priority)
-    EditText etPriority;
-    @BindView(R.id.sp_status)
-    Spinner spStatus;
-    @BindView(R.id.et_destination)
-    EditText etDest;
-    @BindView(R.id.et_origin)
-    EditText etOrigin;
-    @BindView(R.id.et_weight)
-    EditText etWeight;
+     @BindView(R.id.et_description)
+     EditText etDesc;
+     @BindView(R.id.et_location)
+     EditText etLocation;
+     @BindView(R.id.et_ordered_by)
+     EditText etOrderedBy;
+     @BindView(R.id.et_priority)
+     EditText etPriority;
+     @BindView(R.id.sp_status)
+     Spinner spStatus;
+     @BindView(R.id.et_destination)
+     EditText etDest;
+     @BindView(R.id.et_origin)
+     EditText etOrigin;
+     @BindView(R.id.et_weight)
+     EditText etWeight;
 
 
     @Override
@@ -66,42 +53,31 @@ public class AddParcelActivity extends AppCompatActivity {
     }
 
 
-    public void saveParcel() {
-        //Timestamp.now(),
-        //TODO THIS NEEDS TO BE HANDLED AND AUTO FILLED USING THE ID FROM FIREBASE AUTHENTICATION SOMEHOW
-        CollectionReference parcelReference = FirebaseFirestore.getInstance().collection("parcels");
-//          Map<String, Object> parcelMap = new HashMap<>();
-//          parcelMap.put(KEY_CURRENT_LOCATION, etLocation.getText().toString().trim());
-//          parcelMap.put(KEY_DESCRIPTION, etDesc.getText().toString().trim());
-//          parcelMap.put(KEY_DESTINATION, etDest.getText().toString().trim());
-//          parcelMap.put(KEY_HANDLED_BY, FirebaseAuth.getInstance().getCurrentUser());
-//          parcelMap.put(KEY_ORDERED_BY, etOrderedBy.getText().toString().trim());
-//          parcelMap.put(KEY_ORIGIN, etOrigin.getText().toString().trim());
-//          parcelMap.put(KEY_PRIORITY, Integer.parseInt(etPriority.getText().toString()));
-//          parcelMap.put(KEY_STATUS, spStatus.getSelectedItem().toString().trim());
-//          parcelMap.put(KEY_WEIGHT, Double.parseDouble(String.valueOf(etWeight.getText())));
-//          parcelMap.put(KEY_DATE, Timestamp.now().toString());
-        parcelReference.add(new Parcel(
-                        etLocation.getText().toString().trim(),
-                        etOrigin.getText().toString().trim(),
-                        etDest.getText().toString().trim(),
-                        etOrderedBy.getText().toString().trim(),
-                        etDesc.getText().toString().trim(),
-                        Double.parseDouble(String.valueOf(etWeight.getText())),
-                        Timestamp.now(),
-                        Integer.parseInt(etPriority.getText().toString()),
-                        spStatus.getSelectedItem().toString().trim()
-                )
-        ).addOnSuccessListener(aVoid -> {
-            Toast.makeText(AddParcelActivity.this, "Parcel saved to Firebase", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(this, ParcelListActivity.class);
-            startActivity(intent);
-        })
-                .addOnFailureListener(e -> {
-                    Toast.makeText(AddParcelActivity.this, "Error!", Toast.LENGTH_SHORT).show();
-                    Timber.e("AddParcelActivity");
-                });
-    }
+     public void saveParcel() {
+          CollectionReference parcelReference = FirebaseFirestore.getInstance().collection("parcels");
+
+          parcelReference.add(new Parcel(
+                          "123",
+                          etLocation.getText().toString().trim(),
+                          etOrigin.getText().toString().trim(),
+                          etDest.getText().toString().trim(),
+                          etOrderedBy.getText().toString().trim(),
+                          etDesc.getText().toString().trim(),
+                          Double.parseDouble(String.valueOf(etWeight.getText())),
+                          Timestamp.now(),
+                          Integer.parseInt(etPriority.getText().toString()),
+                          spStatus.getSelectedItem().toString().trim()
+                  )
+          ).addOnSuccessListener(aVoid -> {
+               Toast.makeText(AddParcelActivity.this, "Parcel saved to Firebase", Toast.LENGTH_SHORT).show();
+               Intent intent = new Intent(this, MainActivity.class);
+               startActivity(intent);
+          })
+                  .addOnFailureListener(e -> {
+                       Toast.makeText(AddParcelActivity.this, "Error!", Toast.LENGTH_SHORT).show();
+                       Timber.e("AddParcelActivity");
+                  });
+     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

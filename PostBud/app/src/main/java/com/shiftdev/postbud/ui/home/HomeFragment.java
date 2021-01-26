@@ -70,31 +70,6 @@ public class HomeFragment extends Fragment {
     }
 
 
-//     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-//          super.onViewCreated(view, savedInstanceState);
-//
-//          view.findViewById(R.id.bt_go_to_add).setOnClickListener(new View.OnClickListener() {
-//               @Override
-//               public void onClick(View view) {
-//                    NavHostFragment.findNavController(HomeFragment.this)
-//                            .navigate(R.id.action_navigation_home_to_parcelListActivity2);
-//               }
-//          });
-//          view.findViewById(R.id.bt_go_to_add).setOnClickListener(new View.OnClickListener() {
-//               @Override
-//               public void onClick(View view2) {
-//                    NavHostFragment.findNavController(HomeFragment.this)
-//                            .navigate(R.id.action_navigation_home_to_parcelListActivity2);
-//               }
-//          });
-//          view.findViewById(R.id.signInButton).setOnClickListener(new View.OnClickListener() {
-//               @Override
-//               public void onClick(View view3) {
-//                    NavHostFragment.findNavController(HomeFragment.this)
-//                            .navigate(R.id.action_navigation_home_to_loginFragment);
-//               }
-//          });
-//     }
 
 
 }
