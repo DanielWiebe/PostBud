@@ -46,6 +46,9 @@ public class EditParcelActivity extends AppCompatActivity {
      private static final String KEY_STATUS = "status";
      private static final String KEY_WEIGHT = "weight";
      private static final String KEY_DATE = "date";
+     //Firestore reference to the database
+//     private final
+//     private final
      @BindView(R.id.et_description)
      EditText etDesc;
      @BindView(R.id.et_location)
@@ -63,6 +66,7 @@ public class EditParcelActivity extends AppCompatActivity {
      @BindView(R.id.et_weight)
      EditText etWeight;
 
+     //     ParcelDetailActivityArgs args = ParcelDetailActivityArgs.fromBundle(getIntent().getExtras());
      String selectedDocumentID;
      ArrayAdapter<CharSequence> adapter;
      CollectionReference collectionReference = FirebaseFirestore.getInstance().collection("parcels");
@@ -123,16 +127,29 @@ public class EditParcelActivity extends AppCompatActivity {
           parcelMap.put(KEY_WEIGHT, Double.parseDouble(String.valueOf(etWeight.getText())));
           parcelMap.put(KEY_DATE, Timestamp.now().toString());
           collectionReference.document(selectedDocumentID).set(new Parcel(
-                  "123",
-                  etLocation.getText().toString().trim(),
-                  etOrigin.getText().toString().trim(),
-                  etDest.getText().toString().trim(),
-                  etOrderedBy.getText().toString().trim(),
-                  etDesc.getText().toString().trim(),
-                  Double.parseDouble(String.valueOf(etWeight.getText())),
-                  Timestamp.now(),
-                  parseInt(etPriority.getText().toString()),
-                  spStatus.getSelectedItem().toString().trim())
+                          "123",
+                          etLocation.getText().toString().trim(),
+                          etOrigin.getText().toString().trim(),
+                          etDest.getText().toString().trim(),
+                          etOrderedBy.getText().toString().trim(),
+                          etDesc.getText().toString().trim(),
+                          Double.parseDouble(String.valueOf(etWeight.getText())),
+                          Timestamp.now(),
+                          parseInt(etPriority.getText().toString()),
+                          spStatus.getSelectedItem().toString().trim())
+//                  etLocation.getText().toString().trim(),
+//                  Timestamp.now().toString(),
+//                  etDesc.getText().toString().trim(),
+//                  etDest.getText().toString().trim(),
+//                  "12343",
+//                  FirebaseAuth.getInstance().getCurrentUser(),
+//                  etOrderedBy.getText().toString().trim(),
+//                  etOrigin.getText().toString().trim(),
+//                  "1230r9hflashl984h98",
+//                  Integer.parseInt(etPriority.getText().toString()),
+//                  spStatus.getSelectedItem().toString().trim(),
+//                  Double.parseDouble(String.valueOf(etWeight.getText()))
+
           ).addOnSuccessListener(aVoid -> {
                Toast.makeText(EditParcelActivity.this, "Parcel changes saved to Firebase", Toast.LENGTH_SHORT).show();
                Intent intent = new Intent(this, MainActivity.class);

@@ -72,7 +72,6 @@ public class ParcelOverviewFragment extends Fragment {
           searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                @Override
                public boolean onQueryTextSubmit(String query) {
-                    Toast.makeText(getContext(), "Feature Not Quite Done", Toast.LENGTH_SHORT).show();
                     adapter = new ParcelAdapter(buildSearchQuery(query));
                     recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                     recyclerView.setAdapter(adapter);
@@ -181,7 +180,6 @@ public class ParcelOverviewFragment extends Fragment {
 
      @NotNull
      private FirestoreRecyclerOptions<Parcel> buildPriorityDescendingQuery() {
-          Toast.makeText(getContext(), "Feature Not Quite Done", Toast.LENGTH_SHORT).show();
           Query query = collectionReference.orderBy("priority", Query.Direction.DESCENDING);
           //whereEqualTo(FirebaseNav.DESCRIPTION.getValue(getActivity()), "test desc");
           return new FirestoreRecyclerOptions.Builder<Parcel>()
@@ -191,7 +189,6 @@ public class ParcelOverviewFragment extends Fragment {
 
      @NotNull
      private FirestoreRecyclerOptions<Parcel> buildSearchQuery(String searchText) {
-          Toast.makeText(getContext(), "Feature Not Quite Done", Toast.LENGTH_SHORT).show();
           Query query = collectionReference.orderBy("description", Query.Direction.ASCENDING).startAt(searchText).endAt(searchText + "\uf8ff");
           //.where(FirebaseNav.DESCRIPTION.getValue(getActivity()), "test desc");
           return new FirestoreRecyclerOptions.Builder<Parcel>()
@@ -201,7 +198,6 @@ public class ParcelOverviewFragment extends Fragment {
 
      @NotNull
      private FirestoreRecyclerOptions<Parcel> buildPriorityAscendingQuery() {
-          Toast.makeText(getContext(), "Feature Not Quite Done", Toast.LENGTH_SHORT).show();
           Query query = collectionReference.orderBy("priority", Query.Direction.ASCENDING);
           //whereEqualTo(FirebaseNav.DESCRIPTION.getValue(getActivity()), "test desc");
           return new FirestoreRecyclerOptions.Builder<Parcel>()

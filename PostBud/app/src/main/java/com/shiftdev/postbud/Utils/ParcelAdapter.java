@@ -27,6 +27,14 @@ public class ParcelAdapter extends FirestoreRecyclerAdapter<Parcel, ParcelAdapte
 
      @Override
      protected void onBindViewHolder(@NonNull ParcelHolder holder, int position, @NonNull Parcel model) {
+//          holder.priorityTV.setText(String.valueOf(model.  getPriority()));
+//          holder.orderedbyTV.setText(String.valueOf(model  getOrderedBy()));
+//          holder.handledbyTV.setText(String.valueOf(model. getHandledBy()));
+//          holder.descTV.setText(String.valueOf(model.      getDescription()));
+//          holder.origTV.setText(String.valueOf(model.      getOrigin()));
+//          holder.statusTV.setText(String.valueOf(model.    getStatus()));
+//          holder.destTV.setText(String.valueOf(model.      getDestination()));
+//          holder.weightTV.setText(String.valueOf(model.    getWeight()));
           holder.descTV.setText(String.valueOf(model.getDescription()));
           int priority = (int) model.getPriority();
           if (priority == 0) {
@@ -45,7 +53,7 @@ public class ParcelAdapter extends FirestoreRecyclerAdapter<Parcel, ParcelAdapte
                holder.priorityTV.setTextColor(Color.GREEN);
                holder.priorityTV.setBackgroundColor(Color.GRAY);
           }
-
+          holder.orderedbyTV.setText(String.valueOf(model.getOrderedBy()));
           holder.handledbyTV.setText(String.valueOf(model.getHandledBy()));
           holder.origTV.setText(String.valueOf(model.getOrigin()));
           holder.statusTV.setText(String.valueOf(model.getStatus()));

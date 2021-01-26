@@ -12,7 +12,7 @@
         android:id="@+id/rl_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="16dp"
+        android:layout_margin="8dp"
         android:paddingTop="16dp">
 
         <TableLayout
@@ -33,7 +33,8 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="@string/high"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:textColor="@color/black" />
 
                 <TextView
                     android:id="@+id/tv_ordered_title"
@@ -41,7 +42,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Ordered by:"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:textColor="@color/black" />
 
                 <TextView
                     android:id="@+id/tv_handled_title"
@@ -49,7 +51,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Handled by:"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:textColor="@color/black" />
             </TableRow>
 
             <TableRow
@@ -139,7 +142,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/from"
-                    android:textAlignment="textStart" />
+                    android:textAlignment="textStart"
+                    android:textColor="@color/black" />
 
                 <TextView
                     android:id="@+id/tv_origin"
@@ -171,7 +175,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/status"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:textColor="@color/black" />
 
                 <TextView
                     android:id="@+id/tv_status"
@@ -203,7 +208,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/destination"
-                    android:textAlignment="textEnd" />
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/black" />
 
                 <TextView
                     android:id="@+id/tv_dest"

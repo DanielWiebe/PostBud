@@ -10,7 +10,9 @@
         style="@style/styleAdd_Parcel_Margin_Format"
         android:hint="@string/how_cool_is_the_package_describe_it"
         android:importantForAutofill="no"
-        android:inputType="text" />
+
+        android:inputType="text"
+        android:text="test desc" />
 
     <EditText
         android:id="@+id/et_ordered_by"
@@ -19,7 +21,9 @@
         android:layout_height="wrap_content"
         android:hint="@string/ordered_by_jane_doe"
         android:importantForAutofill="no"
-        android:inputType="text" />
+
+        android:inputType="text"
+        android:text="test ordered" />
 
     <EditText
         android:id="@+id/et_priority"
@@ -28,7 +32,9 @@
         android:layout_height="wrap_content"
         android:hint="@string/priority_1_2_or_3"
         android:importantForAutofill="no"
-        android:inputType="number" />
+
+        android:inputType="number"
+        android:text="2" />
 
 
     <EditText
@@ -36,28 +42,35 @@
         style="@style/styleAdd_Parcel_Margin_Format"
         android:hint="@string/where_is_it_going"
         android:importantForAutofill="no"
-        android:inputType="text" />
+
+        android:inputType="text"
+        android:text="test dest" />
 
     <EditText
         android:id="@+id/et_location"
         style="@style/styleAdd_Parcel_Margin_Format"
         android:hint="@string/where_is_it_now"
         android:importantForAutofill="no"
-        android:inputType="text" />
+
+        android:inputType="text"
+        android:text="test loc" />
 
     <EditText
         android:id="@+id/et_origin"
         style="@style/styleAdd_Parcel_Margin_Format"
         android:hint="@string/where_is_from"
         android:importantForAutofill="no"
-        android:inputType="text" />
+        android:inputType="text"
+        android:text="test origin" />
 
     <EditText
         android:id="@+id/et_weight"
         style="@style/styleAdd_Parcel_Margin_Format"
         android:hint="@string/weight_lbs"
         android:importantForAutofill="no"
-        android:inputType="numberDecimal" />
+
+        android:inputType="numberDecimal"
+        android:text="200" />
 
     <TextView
         android:id="@+id/tv_status_title"
@@ -72,5 +85,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="16dp" />
+
 
 </LinearLayout>
