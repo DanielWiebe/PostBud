@@ -3,6 +3,7 @@ package com.shiftdev.postbud.ui.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -33,6 +34,7 @@ public class LoginActivity extends AppCompatActivity {
     private String userName;
     private String userPassword;
     private Button logInButton;
+    private Button logOutButton;
     private CheckBox staySignedInCheckBox;
     private boolean staySignedInBoolean;
     private TextView loginErrorTextView;
@@ -74,15 +76,17 @@ public class LoginActivity extends AppCompatActivity {
         loginPassword = findViewById(R.id.loginPassword);
         staySignedInCheckBox = findViewById(R.id.staySignedInCheckBox);
         logInButton = findViewById(R.id.logInButton);
+        logOutButton = findViewById(R.id.logOutButton);
         loginErrorTextView = findViewById(R.id.loginErrorText);
         Timber.plant(new Timber.DebugTree());
-        logInButton.setOnClickListener(arg0 -> {
+
+        // Button implementations
+        logInButton.setOnClickListener(view -> {
             userName = loginUserName.getText().toString().trim().toLowerCase();
             userPassword = loginPassword.getText().toString();
             context = this;
 //            TestLoginEmployee();
-            // TestLoginAdmin();
-            TestLoginAdmin();
+//            TestLoginAdmin();
             if (!userName.isEmpty() && !userPassword.isEmpty()) {
                 firebaseAuth.signInWithEmailAndPassword(userName, userPassword)
                         .addOnCompleteListener(task -> {
@@ -132,6 +136,10 @@ public class LoginActivity extends AppCompatActivity {
             //This message should if the user's credentials
             //else loginErrorTextView.setText("Incorrect username or/and password");
         });
+
+//        logOutButton.setOnClickListener(view -> {
+//
+//        });
     }
 //    public void onStart(){
 //        super.onStart();
